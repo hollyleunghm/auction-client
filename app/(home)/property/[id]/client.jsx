@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import UseCountdownTimer from '@/hooks/UseCountdownTimer';
 import { ToastContainer, toast } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
 export default function Client({ data }) {
     const deadline = new Date('2024-04-29 00:00:00').getTime();
     const timeRemaining = UseCountdownTimer(deadline);
@@ -33,9 +32,9 @@ export default function Client({ data }) {
 
     return (
         <div>
-            <ToastContainer autoClose={2000} />
-            <div className="flex gap-12">
-                <div className="w-[500px]">
+            <ToastContainer autoClose={2000} position='top-center' />
+            <div className="flex gap-12 justify-between">
+                <div className="w-[700px]">
                     <Carousel showThumbs={true} showIndicators={false} showArrows={false} autoPlay={false}>
                         <div>
                             <img src="https://static.wixstatic.com/media/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg/v1/fill/w_500,h_333,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg" alt="" />
@@ -117,8 +116,8 @@ export default function Client({ data }) {
                             <Button className="bg-[#5E5E5E]" onClick={notify}>出价</Button>
                         </div>
                         <div className="py-2">
-                            <p>最小竞价阶梯</p>
-                            <p>HKD 10,000.00</p>
+                            <p>每口价</p>
+                            <p>HKD 10,000</p>
                         </div>
                     </div>
                 </div>

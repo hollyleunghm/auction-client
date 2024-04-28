@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import { MultiCascader, SelectPicker, DatePicker, RangeSlider } from "rsuite";
 import * as Slider from "@radix-ui/react-slider";
 import { throttle } from "lodash";
-
+import Link from "next/link";
 export default function Property() {
     const filter = [
         {
@@ -909,8 +909,8 @@ export default function Property() {
         <div>
             <div className="bg-[#253d59] py-6">
                 <div className="w-[1000px] mx-auto">
-                    <h2 className="text-xl text-white">Filter</h2>
-                    <div className="bg-white rounded-sm px-4 py-2">
+                    <h2 className="text-xl text-white mb-2">筛选</h2>
+                    <div className="bg-white rounded-sm px-4 py-2 grid grid-cols-2">
                         {filter.map((item) => {
                             return (
                                 <div className="flex items-center mb-4">
@@ -967,44 +967,60 @@ export default function Property() {
                 <div className="w-[1000px] mx-auto py-8">
                     <div className="grid grid-cols-4">
                         <div className="px-2">
-                            <div className="w-full text-black">
-                                <img src="https://static.wixstatic.com/media/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg/v1/fill/w_225,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg" alt="" />
-                                <div>
-                                    <p>Tai Hing Gardens Phrase 2 tower 2 Middle floor Flat B</p>
-                                    <div className="w-12 my-2 border-b border-black"></div>
-                                    <p>HK$ 5,000,000.00</p>
+                            <Link href="/property/1">
+                                <div className="w-full text-black">
+                                    <img src="https://static.wixstatic.com/media/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg/v1/fill/w_225,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg" alt="" />
+                                    <div>
+                                        <p>Tai Hing Gardens Phrase 2 tower 2 Middle floor Flat B</p>
+                                        <div className="w-12 my-2 border-b border-black"></div>
+                                        <p>HK$ 5,000,000.00</p>
+                                        <p>523呎</p>
+                                        <p>＄15031/呎</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                         <div className="px-2">
-                            <div className="w-full text-black">
-                                <img src="https://static.wixstatic.com/media/18190a_c639142ee4f14209ab09483b01af967f~mv2.jpeg/v1/fill/w_225,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_c639142ee4f14209ab09483b01af967f~mv2.jpeg" alt="" />
-                                <div>
-                                    <p>Tai Hing Gardens Phrase 2 tower 2 Middle floor Flat B</p>
-                                    <div className="w-12 my-2 border-b border-black"></div>
-                                    <p>HK$ 5,000,000.00</p>
+                            <Link href="/property/1">
+                                <div className="w-full text-black">
+                                    <img src="https://static.wixstatic.com/media/18190a_c639142ee4f14209ab09483b01af967f~mv2.jpeg/v1/fill/w_225,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_c639142ee4f14209ab09483b01af967f~mv2.jpeg" alt="" />
+                                    <div>
+                                        <p>Tai Hing Gardens Phrase 2 tower 2 Middle floor Flat B</p>
+                                        <div className="w-12 my-2 border-b border-black"></div>
+                                        <p>HK$ 5,000,000.00</p>
+                                        <p>523呎</p>
+                                        <p>＄15031/呎</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                         <div className="px-2">
-                            <div className="w-full text-black">
-                                <img src="https://static.wixstatic.com/media/18190a_9010c7e5146d4ab395255314bf9e5379~mv2.jpeg/v1/fill/w_225,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_9010c7e5146d4ab395255314bf9e5379~mv2.jpeg" alt="" />
-                                <div>
-                                    <p>Tai Hing Gardens Phrase 2 tower 2 Middle floor Flat B</p>
-                                    <div className="w-12 my-2 border-b border-black"></div>
-                                    <p>HK$ 5,000,000.00</p>
+                            <Link href="/property/1">
+                                <div className="w-full text-black">
+                                    <img src="https://static.wixstatic.com/media/18190a_9010c7e5146d4ab395255314bf9e5379~mv2.jpeg/v1/fill/w_225,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_9010c7e5146d4ab395255314bf9e5379~mv2.jpeg" alt="" />
+                                    <div>
+                                        <p>Tai Hing Gardens Phrase 2 tower 2 Middle floor Flat B</p>
+                                        <div className="w-12 my-2 border-b border-black"></div>
+                                        <p>HK$ 5,000,000.00</p>
+                                        <p>523呎</p>
+                                        <p>＄15031/呎</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                         <div className="px-2">
-                            <div className="w-full text-black">
-                                <img src="https://static.wixstatic.com/media/18190a_c639142ee4f14209ab09483b01af967f~mv2.jpeg/v1/fill/w_225,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_c639142ee4f14209ab09483b01af967f~mv2.jpeg" alt="" />
-                                <div>
-                                    <p>Tai Hing Gardens Phrase 2 tower 2 Middle floor Flat B</p>
-                                    <div className="w-12 my-2 border-b border-black"></div>
-                                    <p>HK$ 5,000,000.00</p>
+                            <Link href="/property/1">
+                                <div className="w-full text-black">
+                                    <img src="https://static.wixstatic.com/media/18190a_c639142ee4f14209ab09483b01af967f~mv2.jpeg/v1/fill/w_225,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_c639142ee4f14209ab09483b01af967f~mv2.jpeg" alt="" />
+                                    <div>
+                                        <p>Tai Hing Gardens Phrase 2 tower 2 Middle floor Flat B</p>
+                                        <div className="w-12 my-2 border-b border-black"></div>
+                                        <p>HK$ 5,000,000.00</p>
+                                        <p>523呎</p>
+                                        <p>＄15031/呎</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 </div>
