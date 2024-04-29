@@ -1,6 +1,5 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/lib/actions';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -18,7 +17,6 @@ export default function LoginForm() {
         const formData = new FormData(event.target);
         setLoginStatus({ success: false, error: null, loading: true })
         const result = await authenticate(null, formData);
-        debugger
         if (!result) {
             setLoginStatus({ success: true, error: null, loading: false });
         } else {
@@ -29,7 +27,7 @@ export default function LoginForm() {
         if (loginStatus.success) {
             router.push('/home');
         }
-    }, [loginStatus]);
+    }, [loginStatus, router]);
 
     return (
         <form onSubmit={handleSubmit} className="space-y-3">
@@ -78,11 +76,12 @@ export default function LoginForm() {
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className="flex justify-between">
                     <Link href="/register" className="text-sm text-gray-500 mt-2">前往注冊</Link>
+                    <Link href="/forget" className="text-sm text-gray-500 mt-2">忘記密碼</Link>
                 </div>
 
-                <Button  appearance="primary" className="mt-4 w-full" type="submit" loading={loginStatus.loading}>
+                <Button appearance="primary" className="mt-4 w-full" type="submit" loading={loginStatus.loading}>
                     登錄
                     {/* <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" /> */}
                 </Button>

@@ -1,38 +1,45 @@
 import connectMongo from "@/lib/connect-mongo";
 import User from "@/models/user";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 export async function POST(request) {
     const formData = await request.formData();
+    const firstName = formData.get("firstName");
+    const lastName = formData.get("lastName");
+    const firstChineseName = formData.get("firstChineseName");
+    const lastChineseName = formData.get("lastChineseName");
     const password = formData.get("password");
     const email = formData.get("email");
     const phone = formData.get("phone");
-    const name = formData.get("name");
-    const chineseName = formData.get("chineseName");
-    const address = formData.get("address");
-    console.log(email, password);
+    const countryAndRegion = formData.get("countryAndRegion");
+    const code = formData.get("code");
+    console.log({ firstName, lastName, firstChineseName, lastChineseName, password, email, phone, countryAndRegion, code });
     try {
         await connectMongo();
         let user = await User.findOne({ email });
         if (user) {
-            return NextResponse.json({ error: "該郵箱已被使用" });
+            return NextResponse.json({ error: "電郵已被註冊" });
         }
         user = await User.findOne({ phone });
         if (user) {
-            return NextResponse.json({ error: "改電話已被使用" });
+            return NextResponse.json({ error: "電話已被註冊" });
         }
         const userSaved = await User.insertMany([
             {
                 email,
+                countryAndRegion,
+                firstName,
+                lastName,
+                firstChineseName,
+                lastChineseName,
+                code,
                 phone,
-                password,
-                name,
-                chineseName,
-                address
+                password
+
             },
         ]);
-        console.log(userSaved[0]);
-        return NextResponse.json({ message: "success",user:userSaved[0] });
+        return NextResponse.json({ message: "success", user: userSaved[0] });
     } catch (error) {
+        console.log(error);
         return NextResponse.json({ error });
     }
 }

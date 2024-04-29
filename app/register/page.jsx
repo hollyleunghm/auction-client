@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import { Button } from 'rsuite';
-
+import codeList from "./code";
 export default function RegisterPage() {
     const router = useRouter();
     const [registerStatus, setRegisterStatus] = useState({ success: false, error: null, loading: false });
@@ -48,9 +48,9 @@ export default function RegisterPage() {
         }
     }, [registerStatus]);
     return (
-        <main className="flex items-center justify-center md:h-screen">
+        <main className="flex  md:h-screen">
             <ToastContainer autoClose={2000} position="top-center" />
-            <div className=" mx-auto flex w-full max-w-[600px] flex-col space-y-2.5 p-4 md:-mt-32">
+            <div className=" mx-auto flex w-full max-w-[600px] flex-col space-y-2.5 p-4">
                 <form onSubmit={handleSubmit} className="space-y-3">
                     <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
                         <h1 className={`mb-3 text-2xl`}>
@@ -78,11 +78,55 @@ export default function RegisterPage() {
                             <div>
                                 <label
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+                                    htmlFor="countryAndRegion"
+                                >
+                                    國家或地區
+                                </label>
+                                <div className="flex items-start">
+                                    <select name="countryAndRegion" id="countryAndRegion" className="w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2">
+                                        <option value="Hongkong">
+                                            中國香港
+                                        </option>
+                                        <option value="China">
+                                            中國大陸
+                                        </option>
+                                        <option value="Macao">
+                                            中國澳門
+                                        </option>
+                                        <option value="Taiwan">
+                                            中國台灣
+                                        </option>
+                                        <option value="Singapore">
+                                            新加坡
+                                        </option>
+                                        <option value="Malaysia">
+                                            馬來西亞
+                                        </option>
+                                        <option value="other">
+                                            其他
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label
+                                    className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="phone"
                                 >
                                     電話
                                 </label>
-                                <div className="">
+                                <div className="flex items-start gap-4">
+                                    <select name="code" id="code" className="indent-2 rounded-md border py-[9px] w-36  text-sm" required>
+                                        {
+                                            codeList.map((item, index) => {
+                                                return (
+                                                    <option key={index} value={item.code}>
+                                                        {item.cn}{item.code}
+                                                    </option>
+                                                )
+                                            })
+                                        }
+                                    </select>
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
                                         id="phone"
@@ -96,16 +140,23 @@ export default function RegisterPage() {
                             <div>
                                 <label
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-                                    htmlFor="name"
+                                    htmlFor="firstName"
                                 >
                                     英文名
                                 </label>
-                                <div className="">
+                                <div className="flex gap-4">
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        id="name"
-                                        name="name"
-                                        placeholder="請輸入英文名"
+                                        id="firstName"
+                                        name="firstName"
+                                        placeholder="請輸入first name"
+                                        required
+                                    />
+                                    <input
+                                        className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
+                                        id="lastName"
+                                        name="lastName"
+                                        placeholder="請輸入last name"
                                         required
                                     />
                                 </div>
@@ -113,15 +164,21 @@ export default function RegisterPage() {
                             <div>
                                 <label
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-                                    htmlFor="chineseName"
+                                    htmlFor="firstChineseName"
                                 >
                                     中文名
                                 </label>
-                                <div className="">
+                                <div className="flex gap-4">
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        id="chineseName"
-                                        name="chineseName"
+                                        id="firsTChineseName"
+                                        name="firstChineseName"
+                                        placeholder="請輸入中文姓"
+                                    />
+                                    <input
+                                        className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
+                                        id="lastChineseName"
+                                        name="lastChineseName"
                                         placeholder="請輸入中文名"
                                     />
                                 </div>
@@ -166,22 +223,6 @@ export default function RegisterPage() {
                                     />
                                 </div>
                             </div>
-                            <div className="mt-4">
-                                <label
-                                    className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-                                    htmlFor="address"
-                                >
-                                    地址
-                                </label>
-                                <div className="">
-                                    <textarea
-                                        className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        id="address"
-                                        name="address"
-                                        placeholder="請輸入地址"
-                                    />
-                                </div>
-                            </div>
                             <div className="mt-1 flex items-center gap-1">
                                 <input
                                     className="peer rounded-md border border-gray-200 text-sm "
@@ -219,12 +260,7 @@ export default function RegisterPage() {
                             aria-live="polite"
                             aria-atomic="true"
                         >
-                            {registerStatus.error && (
-                                <>
-                                    {/* <ExclamationCircleIcon className="h-5 w-5 text-red-500" /> */}
-                                    <p className="text-sm text-red-500">{registerStatus.error}</p>
-                                </>
-                            )}
+                            {registerStatus.error && <p className="text-sm text-red-500">{registerStatus.error}</p>}
                         </div>
                     </div>
                 </form>

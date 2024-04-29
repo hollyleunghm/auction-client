@@ -8,8 +8,13 @@ import { model, models, Schema } from 'mongoose';
 const UserSchema = new Schema(
     {
         email: String,
+        countryAndRegion:String,
+        code:String,
         phone: String,
-        name: String,
+        firstName: String,
+        lastName: String,
+        firsChineseName: String,
+        lastChineseName: String,
         password: String,
         address: String,
         promotion: {

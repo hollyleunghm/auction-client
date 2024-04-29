@@ -1,4 +1,5 @@
 
+import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import 'rsuite/dist/rsuite-no-reset.min.css';
@@ -16,7 +17,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <CustomProvider>{children}</CustomProvider>
+        <SessionProvider>
+          <CustomProvider>{children}</CustomProvider>
+        </SessionProvider>
       </body>
     </html>
   );
