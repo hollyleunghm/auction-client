@@ -21,14 +21,21 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
                     email: credentials.email,
                     password: credentials.password,
                 });
-                console.log("-----------------------------------------", user);
-                user = {
-                    email: "22222222222222222222",
-                    name: user._id,
-                    test: "testsssssssssssss"
-                }
+                // console.log("-----------------------------------------", user);
                 return user;
             },
         }),
     ],
+    callbacks: {
+        async session({ session, token }) {
+            session.user = token.user
+            return session;
+        },
+        async jwt({ token, user }) {
+            if (user) {
+                token.user = user;
+            }
+            return token;
+        },
+    },
 });

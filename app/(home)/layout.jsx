@@ -1,5 +1,5 @@
-import Header from "@/components/header";
-export default function RootLayout({ children }) {
+import Header from "@/app/ui/header";
+export default async function RootLayout({ children }) {
     return (
         <div className='bg-[#fdfcf9]'>
             <Header />
