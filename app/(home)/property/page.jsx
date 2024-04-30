@@ -913,7 +913,7 @@ export default function Property() {
                     <div className="bg-white rounded-sm px-4 py-2 grid grid-cols-2">
                         {filter.map((item) => {
                             return (
-                                <div className="flex items-center mb-4">
+                                <div className="flex items-center mb-4" key={item.value}>
                                     <div className="w-28">{item.label}</div>
                                     <div className="fex-1 flex gap-6">
                                         <MultiCascader

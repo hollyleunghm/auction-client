@@ -51,7 +51,7 @@ export default function Header() {
             <Link href="/home">
                 <Image src="/PropBid.png" alt="" width={115} height={115} />
             </Link>
-            <div className="flex items-center">
+            <div className="flex items-center gap-4">
                 {routes.map((route) => {
                     return (
                         <Link href={route.path} key={route.path}>
