@@ -67,6 +67,7 @@ export default function Header() {
                     );
                 })}
                 <div>
+                    
                     {/* {JSON.stringify(session)}-------- */}
                     {status === "authenticated" ? (
                         <Whisper className="cursor-pointer" placement="bottomEnd" trigger="click" speaker={<Popover>
