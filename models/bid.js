@@ -7,9 +7,9 @@ import { model, models, Schema } from 'mongoose';
 // > 檢查密碼與確認密碼是否一致
 const BidSchema = new Schema(
     {
-        UserId: String,// 出價人
-        TargetId:String,// 競價目標
-        BidPrice:Number,// 出價
+        userId: String,// 出價人
+        targetId:String,// 競價目標
+        bidPrice:Number,// 出價
         createdAt: {
             type: Date,
             default: Date.now,

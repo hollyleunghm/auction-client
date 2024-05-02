@@ -93,7 +93,7 @@ export default function Property({ properties }) {
             });
         });
         console.log("result", result);
-        setFilteredProperties(result.filter((item) => item.StartingPrice <= maxPrice));
+        setFilteredProperties(result.filter((item) => item.startingPrice <= maxPrice));
     }, [filter, maxPrice,properties]);
     useEffect(() => {
         if (!sortValue) {
@@ -102,19 +102,19 @@ export default function Property({ properties }) {
         const res = filteredProperties.sort((a, b) => {
             switch (sortValue) {
                 case "price1":
-                    return a.StartingPrice > b.StartingPrice ? 1 : -1;
+                    return a.startingPrice > b.startingPrice ? 1 : -1;
                 case "price2":
-                    return a.StartingPrice < b.StartingPrice ? 1 : -1;
+                    return a.startingPrice < b.startingPrice ? 1 : -1;
                 case "date":
                     return new Date(a.CreatedAt) > new Date(b.CreatedAt) ? 1 : -1;
                 case "area1":
-                    return a.ConstructionArea > b.ConstructionArea ? 1 : -1;
+                    return a.constructionArea > b.constructionArea ? 1 : -1;
                 case "area2":
-                    return a.ConstructionArea < b.ConstructionArea ? 1 : -1;
+                    return a.constructionArea < b.constructionArea ? 1 : -1;
                 case "unit1":
-                    return a.PricePerFoot1 > b.PricePerFoot1 ? 1 : -1;
+                    return a.pricePerFoot1 > b.pricePerFoot1 ? 1 : -1;
                 case "unit2":
-                    return a.PricePerFoot1 < b.PricePerFoot1 ? 1 : -1;
+                    return a.pricePerFoot1 < b.pricePerFoot1 ? 1 : -1;
             }
         });
         console.log(res);
@@ -191,11 +191,11 @@ export default function Property({ properties }) {
                                         <div className="w-full text-black">
                                             <img src="https://static.wixstatic.com/media/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg/v1/fill/w_225,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg" alt="" />
                                             <div>
-                                                <p>{item.Title}</p>
+                                                <p>{item.title}</p>
                                                 <div className="w-12 my-2 border-b border-black"></div>
-                                                <p>HK${item.StartingPrice.toLocaleString()}</p>
-                                                <p>{item.ConstructionArea.toLocaleString()}呎</p>
-                                                <p>＄{item.PricePerFoot1.toLocaleString()}/呎</p>
+                                                <p>HK${item.startingPrice.toLocaleString()}</p>
+                                                <p>{item.constructionArea.toLocaleString()}呎</p>
+                                                <p>＄{item.pricePerFoot1.toLocaleString()}/呎</p>
                                             </div>
                                         </div>
                                     </Link>

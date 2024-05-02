@@ -11,7 +11,7 @@ import { InputNumber } from 'rsuite';
 export default function Client({ property, defaultCount, defaultMaxPrice }) {
     const [count, setCount] = useState(defaultCount);
     const [maxPrice, setMaxPrice] = useState(defaultMaxPrice);
-    const deadline = new Date(property.EndDateTime).getTime();
+    const deadline = new Date(property.endDateTime).getTime();
     const timeRemaining = UseCountdownTimer(deadline);
     const [request, setRequest] = useState({
         loading: false,
@@ -21,7 +21,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
     });
     const id = useRef(null);
     const refreshBid = async () => {
-        fetch("/api/bid?TargetId=" + property._id).then(async (res) => {
+        fetch("/api/bid?targetId=" + property._id).then(async (res) => {
             const data = await res.json();
             if (!data.error) {
                 console.log(data);
@@ -40,8 +40,8 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
         fetch("/api/bid", {
             method: "POST",
             body: JSON.stringify({
-                TargetId: property._id,
-                BidPrice: property.BidIncrement + maxPrice,
+                targetId: property._id,
+                bidPrice: property.bidIncrement + maxPrice,
             }),
         })
             .then(async (res) => {
@@ -112,11 +112,11 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                     <div>
                         <h1 className="text-xl font-semibold">介绍信息</h1>
                         <div>
-                            <div>地址：{property.Address}</div>
-                            <div>起拍价：{property.StartingPrice.toLocaleString()} </div>
-                            <div>每口价：{property.BidIncrement.toLocaleString()}</div>
+                            <div>地址：{property.address}</div>
+                            <div>起拍价：{property.startingPrice.toLocaleString()} </div>
+                            <div>每口价：{property.bidIncrement.toLocaleString()}</div>
                             <div>
-                                {property.Content.split("\n").map((item, index) => {
+                                {property.content.split("\n").map((item, index) => {
                                     return <div key={index}>{item}</div>;
                                 })}
                             </div>
@@ -124,27 +124,27 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                             <div>首期 $288 万元, 按揭成数 70%</div>
                             <div>按揭利率 3%, 供款年期 25年</div>
                             *以上价钱只供参考
-                            <div>建筑面积：{property.ConstructionArea} 平方呎</div>
-                            <div>呎价: @{property.PricePerFoot1.toLocaleString()} 元</div>
-                            <div>实用面积：{property.PracticalArea} 平方呎</div>
-                            <div>呎价: @{property.PricePerFoot2.toLocaleString()} 元</div>
-                            <div>座数及单位: {property.SeatsAndUnits}</div>
-                            <div>屋苑楼龄: {property.Age} 年</div>
-                            <div>座向(客厅)：{property.Towards}</div>
-                            <div>单位楼层：{property.Floor}</div>
-                            <div>房间及浴室：{property.Rooms}</div>
-                            <div>小学校网：{property.PrimarySchoolNetwork}</div>
-                            <div>中学校网：{property.MiddleSchoolNetwork}</div>
-                            <div>物业地址：{property.PropertyAddress}</div>
+                            <div>建筑面积：{property.constructionArea} 平方呎</div>
+                            <div>呎价: @{property.pricePerFoot1.toLocaleString()} 元</div>
+                            <div>实用面积：{property.practicalArea} 平方呎</div>
+                            <div>呎价: @{property.pricePerFoot2.toLocaleString()} 元</div>
+                            <div>座数及单位: {property.seatsAndUnits}</div>
+                            <div>屋苑楼龄: {property.age} 年</div>
+                            <div>座向(客厅)：{property.towards}</div>
+                            <div>单位楼层：{property.floor}</div>
+                            <div>房间及浴室：{property.rooms}</div>
+                            <div>小学校网：{property.primarySchoolNetwork}</div>
+                            <div>中学校网：{property.middleSchoolNetwork}</div>
+                            <div>物业地址：{property.propertyAddress}</div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <h1 className="text-xl text-[#253D59]">{property.Title}</h1>
+                    <h1 className="text-xl text-[#253D59]">{property.title}</h1>
                     <div className="mt-24 text-md  text-[#253D59] ">
                         <div>
                             <p>拍卖截止时间:</p>
-                            <p className="font-semibold"> {property.EndDateTime} </p>
+                            <p className="font-semibold"> {property.endDateTime} </p>
                         </div>
                         <div className="py-2 border-b border-[#253D59]">
                             <div>倒计时</div>
@@ -190,14 +190,14 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                         <div className="flex justify-between py-2 gap-2">
                             {/* <Input type="text" /> */}
                             {/* onChange={(value) => setBidPrice(value)}  */}
-                            <InputNumber step={property.BidIncrement} min={0} />
+                            <InputNumber step={property.bidIncrement} min={0} />
                             <Button className="bg-[#5E5E5E]" onClick={notify}>
                                 出价
                             </Button>
                         </div>
                         <div className="py-2">
                             <p>每口价</p>
-                            <p>HKD {property.BidIncrement.toLocaleString()}</p>
+                            <p>HKD {property.bidIncrement.toLocaleString()}</p>
                         </div>
                     </div>
                 </div>

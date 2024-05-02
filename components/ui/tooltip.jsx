@@ -12,7 +12,7 @@ const Tooltip = TooltipPrimitive.Root
 const TooltipTrigger = TooltipPrimitive.Trigger
 
 const TooltipContent = React.forwardRef(({ className, sideOffset = 4, ...props }, ref) => (
-  <TooltipPrimitive.Content
+  <TooltipPrimitive.content
     ref={ref}
     sideOffset={sideOffset}
     className={cn(
@@ -21,6 +21,6 @@ const TooltipContent = React.forwardRef(({ className, sideOffset = 4, ...props }
     )}
     {...props} />
 ))
-TooltipContent.displayName = TooltipPrimitive.Content.displayName
+TooltipContent.displayName = TooltipPrimitive.content.displayName
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
