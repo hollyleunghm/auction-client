@@ -4,6 +4,7 @@ import { MultiCascader, SelectPicker, DatePicker, RangeSlider } from "rsuite";
 import * as Slider from "@radix-ui/react-slider";
 import { throttle } from "lodash";
 import Link from "next/link";
+import Image from "next/image";
 import json from "./dic";
 export default function Property({ properties }) {
     const [filteredProperties, setFilteredProperties] = useState(properties);
@@ -94,7 +95,7 @@ export default function Property({ properties }) {
         });
         console.log("result", result);
         setFilteredProperties(result.filter((item) => item.startingPrice <= maxPrice));
-    }, [filter, maxPrice,properties]);
+    }, [filter, maxPrice, properties]);
     useEffect(() => {
         if (!sortValue) {
             return;
@@ -183,13 +184,13 @@ export default function Property({ properties }) {
             </div>
             <div>
                 <div className="w-[1000px] mx-auto py-8">
-                    <div className="grid grid-cols-4">
+                    <div className="grid grid-cols-4 gap-4">
                         {filteredProperties.map((item) => {
                             return (
-                                <div className="px-2" key={item._id}>
+                                <div key={item._id}>
                                     <Link href={"/property/" + item._id}>
                                         <div className="w-full text-black">
-                                            <img src="https://static.wixstatic.com/media/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg/v1/fill/w_225,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg" alt="" />
+                                            <Image height={400} width={500} style={{objectFit: "cover",height: "300px"}} src={item.mainImage} alt="" />
                                             <div>
                                                 <p>{item.title}</p>
                                                 <div className="w-12 my-2 border-b border-black"></div>

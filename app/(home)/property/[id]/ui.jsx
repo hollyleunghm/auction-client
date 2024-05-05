@@ -6,7 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import UseCountdownTimer from "@/hooks/UseCountdownTimer";
 import { ToastContainer, toast } from "react-toastify";
-import { InputNumber } from 'rsuite';
+import { InputNumber, Divider, Avatar } from 'rsuite';
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Client({ property, defaultCount, defaultMaxPrice }) {
     const [count, setCount] = useState(defaultCount);
@@ -90,24 +92,9 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                         showArrows={false}
                         autoPlay={false}
                     >
-                        <div>
-                            <img
-                                src="https://static.wixstatic.com/media/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg/v1/fill/w_500,h_333,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg"
-                                alt=""
-                            />
-                        </div>
-                        <div>
-                            <img
-                                src="https://static.wixstatic.com/media/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg/v1/fill/w_500,h_333,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg"
-                                alt=""
-                            />
-                        </div>
-                        <div>
-                            <img
-                                src="https://static.wixstatic.com/media/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg/v1/fill/w_500,h_333,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/18190a_f5467424699c4734ad45071e73dc6961~mv2.jpeg"
-                                alt=""
-                            />
-                        </div>
+                        <img src={property.mainImage} alt={property.title} />
+                        <img src={property.mainImage} alt={property.title} />
+                        <img src={property.mainImage} alt={property.title} />
                     </Carousel>
                     <div>
                         <h1 className="text-xl font-semibold">介绍信息</h1>
@@ -198,6 +185,27 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                         <div className="py-2">
                             <p>每口价</p>
                             <p>HKD {property.bidIncrement.toLocaleString()}</p>
+                        </div>
+                    </div>
+                    <div className="border p-2 mt-4">
+                        <Divider>
+                            <span className="font-semibold  text-[#253D59]">联络方式</span>
+                        </Divider>
+                        <div className="flex gap-4 p-2">
+                            <div><Avatar circle className=" text-xl" /></div>
+                            <div>
+                                <p className="font-semibold text-lg mb-1">hiu man leung</p>
+                                <p className="mb-1">Propbid</p>
+                                <p className="mb-1">{"(089)647-8944"}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="border p-2 mt-8">
+                        <Divider>
+                            <span className="font-semibold  text-[#253D59]">文件下载</span>
+                        </Divider>
+                        <div className="p-2">
+                            <Link href="/file.pdf">地契</Link>
                         </div>
                     </div>
                 </div>

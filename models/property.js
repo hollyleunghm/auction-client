@@ -34,6 +34,8 @@ const PropertySchema = new Schema(
         propertyAddress: String,
         startDateTime:Date,
         endDateTime:Date,
+        mainImage:String,
+        images:Array,
         createdAt: {
             type: Date,
             default: Date.now,
