@@ -41,16 +41,16 @@ export default function Page() {
                                         <input id="firstName" type="text" className="w-full mt-2 bg-transparent border p-1" />
                                     </div>
                                     <div className="">
-                                        <label htmlFor="lastName" className="font-thin">姓</label>
+                                        <label htmlFor="lastName" className="font-thin">名</label>
                                         <input id="lastName" type="text" className="w-full mt-2 bg-transparent border p-1" />
                                     </div>
                                 </div>
                                 <div className="mb-4">
-                                    <label htmlFor="email" className="font-thin">电邮*</label>
+                                    <label htmlFor="email" className="font-thin">電郵*</label>
                                     <input id="email" type="email" className="w-full mt-2 bg-transparent border p-1" required />
                                 </div>
                                 <div className="mb-4">
-                                    <label htmlFor="content" className="font-thin">内容</label>
+                                    <label htmlFor="content" className="font-thin">內容</label>
                                     <textarea id="content" className=" w-full mt-2 bg-transparent border p-1" rows={5} />
                                 </div>
                                 <div className="text-right">
