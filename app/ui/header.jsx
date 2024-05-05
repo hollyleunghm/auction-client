@@ -25,7 +25,7 @@ export default function Header() {
             name: "車位拍賣",
         },
         {
-            path: "/concatUs",
+            path: "/concat",
             name: "聯絡我們",
         },
         {

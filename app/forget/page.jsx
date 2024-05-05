@@ -69,7 +69,7 @@ export default function RegisterPage() {
                                     />
                                 </div>
                                 <div className="flex justify-between">
-                                    <Link href="/concatUs" className="text-sm text-gray-500 mt-2">忘記電郵</Link>
+                                    <Link href="/concat" className="text-sm text-gray-500 mt-2">忘記電郵</Link>
                                 </div>
                             </div>
                             <div className="mt-4">
