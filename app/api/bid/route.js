@@ -1,5 +1,6 @@
 import connectMongo from "@/lib/connect-mongo";
 import Bid from "@/models/bid";
+import Property from "@/models/property";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 export async function GET(request) {
@@ -25,25 +26,40 @@ export async function GET(request) {
 }
 export async function POST(request) {
     const session = await auth();
+    // 判斷是否登錄
+    if (!session) {
+        return NextResponse.json({ error: "請先登錄以出價" });
+    }
     const userId = session._id;
     const { targetId, bidPrice } = await request.json();
+    await connectMongo();
+    // 判斷下拍時間
+    const property = await Property.findById(targetId);
+    if (property.endDateTime < Date.now()) {
+        return NextResponse.json({ error: "拍賣已經完結" });
+    }
     const lastBid = await getMaxPrice(targetId);
 
-    if (!lastBid || (lastBid.bidPrice < bidPrice)) {
-        await connectMongo();
-        const bid = new Bid({
-            userId: userId,
-            targetId: targetId,
-            bidPrice: bidPrice,
-        });
-        await bid.save();
-        return NextResponse.json(bid);
-    } else {
-        return NextResponse.json({ error: "出價必須高於現價", data: lastBid });
+    if (lastBid && lastBid.bidPrice >= bidPrice) {
+        return NextResponse.json({ error: "你的出價需要高於當前出價", data: lastBid });
     }
+    console.log("-----------------------------------------");
+    console.log(bidPrice);
+    console.log(lastBid.bidPrice);
+
+    if ((bidPrice - lastBid.bidPrice) % property.bidIncrement !== 0) {
+        return NextResponse.json({ error: "你的出價和當前出價的差距，需要為每口價的倍數" });
+    }
+    const bid = new Bid({
+        userId: userId,
+        targetId: targetId,
+        bidPrice: bidPrice,
+    });
+    await bid.save();
+    return NextResponse.json({ msg: "出價成功，現時你爲出價最高的買家", data: bid });
 }
 async function getMaxPrice(targetId) {
-    await connectMongo();
+    // await connectMongo();
     const lastBid = await Bid.find(
         { targetId: targetId },
     ).sort({ bidPrice: -1 }).limit(1);

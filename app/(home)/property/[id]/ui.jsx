@@ -21,6 +21,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
         success: false,
         data: {},
     });
+    const [bidPrice, setBidPrice] = useState(defaultMaxPrice);
     const id = useRef(null);
     const refreshBid = async () => {
         fetch("/api/bid?targetId=" + property._id).then(async (res) => {
@@ -43,7 +44,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
             method: "POST",
             body: JSON.stringify({
                 targetId: property._id,
-                bidPrice: property.bidIncrement + maxPrice,
+                bidPrice: bidPrice,
             }),
         })
             .then(async (res) => {
@@ -51,7 +52,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                 if (!data.error) {
                     setRequest({ ...request, error: true, data: data });
                     toast.update(id.current, {
-                        render: "下拍成功",
+                        render: data.msg,
                         type: "success",
                         isLoading: false,
                         autoClose: true,
@@ -100,8 +101,8 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                         <h1 className="text-xl font-semibold">介绍信息</h1>
                         <div>
                             <div>地址：{property.address}</div>
-                            <div>起拍价：{property.startingPrice.toLocaleString()} </div>
-                            <div>每口价：{property.bidIncrement.toLocaleString()}</div>
+                            <div>起拍價：{property.startingPrice.toLocaleString()} </div>
+                            <div>每口價：{property.bidIncrement.toLocaleString()}</div>
                             <div>
                                 {property.content.split("\n").map((item, index) => {
                                     return <div key={index}>{item}</div>;
@@ -110,11 +111,11 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                             <div>按揭每月供款：$31,867 元</div>
                             <div>首期 $288 万元, 按揭成数 70%</div>
                             <div>按揭利率 3%, 供款年期 25年</div>
-                            *以上价钱只供参考
+                            *以上價钱只供参考
                             <div>建筑面积：{property.constructionArea} 平方呎</div>
-                            <div>呎价: @{property.pricePerFoot1.toLocaleString()} 元</div>
+                            <div>呎價: @{property.pricePerFoot1.toLocaleString()} 元</div>
                             <div>实用面积：{property.practicalArea} 平方呎</div>
-                            <div>呎价: @{property.pricePerFoot2.toLocaleString()} 元</div>
+                            <div>呎價: @{property.pricePerFoot2.toLocaleString()} 元</div>
                             <div>座数及单位: {property.seatsAndUnits}</div>
                             <div>屋苑楼龄: {property.age} 年</div>
                             <div>座向(客厅)：{property.towards}</div>
@@ -169,27 +170,26 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                         </div>
                         <div className="flex justify-between py-2 border-b border-[#253D59]">
                             <div>
-                                <p>当前出价</p>
+                                <p>當前出價</p>
                                 <p>HKD {maxPrice.toLocaleString()}</p>
                             </div>
-                            <div>{count}次出价</div>
+                            <div>{count}次出價</div>
                         </div>
                         <div className="flex justify-between py-2 gap-2">
-                            {/* <Input type="text" /> */}
-                            {/* onChange={(value) => setBidPrice(value)}  */}
-                            <InputNumber step={property.bidIncrement} min={0} />
-                            <Button className="bg-[#5E5E5E]" onClick={notify}>
-                                出价
+                            <Input type="text" onChange={(e) => setBidPrice(e.target.value)} />
+
+                            <Button Button className="bg-[#5E5E5E]" onClick={notify}>
+                                出價
                             </Button>
                         </div>
                         <div className="py-2">
-                            <p>每口价</p>
+                            <p>每口價</p>
                             <p>HKD {property.bidIncrement.toLocaleString()}</p>
                         </div>
                     </div>
                     <div className="border p-2 mt-4">
                         <Divider>
-                            <span className="font-semibold  text-[#253D59]">联络方式</span>
+                            <span className="font-semibold  text-[#253D59]">聯絡方式</span>
                         </Divider>
                         <div className="flex gap-4 p-2">
                             <div><Avatar circle className=" text-xl" /></div>

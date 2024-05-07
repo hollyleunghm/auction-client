@@ -42,5 +42,5 @@ const PropertySchema = new Schema(
         },
     }
 );
-const User = models.Property || model('Property', PropertySchema, 'properties');
-export default User;
+const Property = models.Property || model('Property', PropertySchema, 'properties');
+export default Property;
