@@ -21,7 +21,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
         success: false,
         data: {},
     });
-    const [bidPrice, setBidPrice] = useState(defaultMaxPrice);
+    const [bidPrice, setBidPrice] = useState();
     const id = useRef(null);
     const refreshBid = async () => {
         fetch("/api/bid?targetId=" + property._id).then(async (res) => {
@@ -31,7 +31,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                 setCount(data.count);
                 setMaxPrice(data.maxPrice);
             } else {
-                toast.error("更新數據失敗，請稍後重試");
+                // toast.error("更新數據失敗，請稍後重試");
             }
         });
     }

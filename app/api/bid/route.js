@@ -26,38 +26,38 @@ export async function GET(request) {
 }
 export async function POST(request) {
     const { targetId, bidPrice } = await request.json();
+    const session = await auth();
+    const userId = session._id;
+    let property;
+    let lastBidPrice;
+    let lastBid;
     await connectMongo();
     // 判斷下拍時間
-    const property = await Property.findById(targetId);
+    property = await Property.findById(targetId);
+    lastBidPrice = property.startingPrice;
+    if (property.startDateTime > Date.now()) {
+        return NextResponse.json({ error: "拍賣尚未開始" });
+    }
     if (property.endDateTime < Date.now()) {
         return NextResponse.json({ error: "拍賣已經完結" });
     }
 
-    const session = await auth();
     // 判斷是否登錄
     if (!session) {
         return NextResponse.json({ error: "請先登入以出價" });
     }
-    const userId = session._id;
-
-
-    //1. if 檢查 出價 != 數字：
-    //then  -> 彈窗信息：下拍失敗：請輸入數字
-    if(!(bidPrice * 1) || !bidPrice){
+    if (!(bidPrice * 1) || !bidPrice) {
         return NextResponse.json({ error: "請輸入數字" });
     }
-
-
-    const lastBid = await getMaxPrice(targetId);
-
-    if (lastBid && lastBid.bidPrice >= bidPrice) {
-        return NextResponse.json({ error: "你的出價需要高於當前出價", data: lastBid });
+    lastBid = await getMaxPrice(targetId);
+    if (lastBid) {
+        lastBidPrice = lastBid.bidPrice;
     }
-    console.log("-----------------------------------------");
-    console.log(bidPrice);
-    console.log(lastBid.bidPrice);
+    if (lastBidPrice >= bidPrice) {
+        return NextResponse.json({ error: "你的出價需要高於當前出價" });
+    }
 
-    if ((bidPrice - lastBid.bidPrice) % property.bidIncrement !== 0) {
+    if ((bidPrice - lastBidPrice) % property.bidIncrement !== 0) {
         return NextResponse.json({ error: "你的出價和當前出價的差距，需要為每口價的倍數" });
     }
     const bid = new Bid({
