@@ -15,17 +15,15 @@ export default async function Home() {
             {/* Welcome to the home page!<p>Welcome {JSON.stringify(session)}</p> */}
             <div className="bg-[url('/bg.webp')] bg-cover h-[688px] py-24 flex justify-center items-stretch">
                 <div className="bg-[#253d59] py-12 px-36 max-w-[900px] text-white text-center">
-                    <h1 className="text-4xl font-bold leading-normal" >普比德</h1>
-                    <h1 className="text-4xl font-bold leading-normal">物業拍賣平台</h1>
-                    <h2 className="text-xl leading-normal mt-4">普比德將透過其創新的線上拍賣平台徹底改變香港的房地產市場</h2>
-                    <h2 className="text-xl leading-normal mt-8">這種 C2C + B2B 混合模式專注於止贖和停車位，為賣家、買家和拍賣師提供數位網關</h2>
+                    <h1 className="text-4xl font-bold leading-normal" >普比德物業拍賣平台</h1>
+                    <h2 className="text-2xl leading-normal mt-4">普比德為香港首創網上樓盤拍賣平台，提供住宅、車位、銀主盤、上車盤、二手樓盤等筍盤拍賣。物業遍佈香港島、九龍及新界。</h2>
                     <Link href="/register">
-                        <Button className="mt-8 rounded-none bg-[#f0d300] text-black font-light px-20 py-4 transition-all hover:bg-[#f0d300] hover:opacity-80">注册</Button>
+                        <Button className="text-xl mt-44 rounded-none bg-[#f0d300] text-black  px-20 py-4 transition-all hover:bg-[#f0d300] hover:opacity-80">注册</Button>
                     </Link>
                 </div>
             </div>
             <div className="mb-12">
-                <h1 className="text-3xl text-[#253D59] font-semibold mt-12 mb-8 text-center">选择楼盘</h1>
+                <h1 className="text-3xl text-[#253D59] font-semibold mt-12 mb-8 text-center">樓盤拍賣</h1>
                 <div className="mx-12 p-10 bg-[#253D59]">
                     <div className="px-20">
                         <PropertyCarousel properties={JSON.parse(JSON.stringify(properties))}></PropertyCarousel>
