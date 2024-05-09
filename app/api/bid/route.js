@@ -25,12 +25,6 @@ export async function GET(request) {
     }
 }
 export async function POST(request) {
-    const session = await auth();
-    // 判斷是否登錄
-    if (!session) {
-        return NextResponse.json({ error: "請先登錄以出價" });
-    }
-    const userId = session._id;
     const { targetId, bidPrice } = await request.json();
     await connectMongo();
     // 判斷下拍時間
@@ -38,6 +32,22 @@ export async function POST(request) {
     if (property.endDateTime < Date.now()) {
         return NextResponse.json({ error: "拍賣已經完結" });
     }
+
+    const session = await auth();
+    // 判斷是否登錄
+    if (!session) {
+        return NextResponse.json({ error: "請先登入以出價" });
+    }
+    const userId = session._id;
+
+
+    //1. if 檢查 出價 != 數字：
+    //then  -> 彈窗信息：下拍失敗：請輸入數字
+    if(!(bidPrice * 1) || !bidPrice){
+        return NextResponse.json({ error: "請輸入數字" });
+    }
+
+
     const lastBid = await getMaxPrice(targetId);
 
     if (lastBid && lastBid.bidPrice >= bidPrice) {
