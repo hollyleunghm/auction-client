@@ -10,10 +10,10 @@ import { InputNumber, Divider, Avatar } from 'rsuite';
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Client({ property, defaultCount, defaultMaxPrice }) {
+export default function Client({ carPark, defaultCount, defaultMaxPrice }) {
     const [count, setCount] = useState(defaultCount);
     const [maxPrice, setMaxPrice] = useState(defaultMaxPrice);
-    const deadline = new Date(property.endDateTime).getTime();
+    const deadline = new Date(carPark.endDateTime).getTime();
     const timeRemaining = UseCountdownTimer(deadline);
     const [request, setRequest] = useState({
         loading: false,
@@ -24,7 +24,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
     const [bidPrice, setBidPrice] = useState();
     const id = useRef(null);
     const refreshBid = async () => {
-        fetch("/api/bid?targetId=" + property._id).then(async (res) => {
+        fetch("/api/bid?targetId=" + carPark._id).then(async (res) => {
             const data = await res.json();
             if (!data.error) {
                 console.log(data);
@@ -43,7 +43,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
         fetch("/api/bid", {
             method: "POST",
             body: JSON.stringify({
-                targetId: property._id,
+                targetId: carPark._id,
                 bidPrice: bidPrice,
             }),
         })
@@ -93,18 +93,18 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                         showArrows={false}
                         autoPlay={false}
                     >
-                        <img src={property.mainImage} alt={property.title} />
-                        <img src={property.mainImage} alt={property.title} />
-                        <img src={property.mainImage} alt={property.title} />
+                        <img src={carPark.mainImage} alt={carPark.title} />
+                        <img src={carPark.mainImage} alt={carPark.title} />
+                        <img src={carPark.mainImage} alt={carPark.title} />
                     </Carousel>
                     <div>
                         <h1 className="text-xl font-semibold">介绍信息</h1>
                         <div>
-                            <div>地址：{property.address}</div>
-                            <div>起拍價：{property.startingPrice.toLocaleString()} </div>
-                            <div>每口價：{property.bidIncrement.toLocaleString()}</div>
+                            <div>地址：{carPark.address}</div>
+                            <div>起拍價：{carPark.startingPrice.toLocaleString()} </div>
+                            <div>每口價：{carPark.bidIncrement.toLocaleString()}</div>
                             <div>
-                                {property.content.split("\n").map((item, index) => {
+                                {carPark.content.split("\n").map((item, index) => {
                                     return <div key={index}>{item}</div>;
                                 })}
                             </div>
@@ -112,31 +112,19 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                             <div>首期 $288 万元, 按揭成数 70%</div>
                             <div>按揭利率 3%, 供款年期 25年</div>
                             *以上價钱只供参考
-                            <div>建筑面积：{property.constructionArea} 平方呎</div>
-                            <div>呎價: @{property.pricePerFoot1.toLocaleString()} 元</div>
-                            <div>实用面积：{property.practicalArea} 平方呎</div>
-                            <div>呎價: @{property.pricePerFoot2.toLocaleString()} 元</div>
-                            <div>座数及单位: {property.seatsAndUnits}</div>
-                            <div>屋苑楼龄: {property.age} 年</div>
-                            <div>座向(客厅)：{property.towards}</div>
-                            <div>单位楼层：{property.floor}</div>
-                            <div>房间及浴室：{property.rooms}</div>
-                            <div>小学校网：{property.primarySchoolNetwork}</div>
-                            <div>中学校网：{property.middleSchoolNetwork}</div>
-                            <div>物业地址：{property.propertyAddress}</div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <h1 className="text-2xl font-semibold text-[#253D59]">{property.title}</h1>
-                    <h3 className="text-sm text-[#253D59]">{property.address}</h3>
+                    <h1 className="text-2xl font-semibold text-[#253D59]">{carPark.title}</h1>
+                    <h3 className="text-sm text-[#253D59]">{carPark.address}</h3>
                     <div className="mt-8 text-md  text-[#253D59] ">
                         <div>
                             <p>拍賣截止時間:</p>
-                            <p className="font-semibold"> {property.endDateTime + "(UTC+8)"} </p>
+                            <p className="font-semibold"> {carPark.endDateTime + "(UTC+8)"} </p>
                         </div>
                         {
-                            property.BIddingStatus === "InProgress" ? (
+                            carPark.BIddingStatus === "InProgress" ? (
                                 <div className="py-2 border-b border-[#253D59]">
                                     <div>倒计时</div>
                                     {/* {timeRemaining.days}天 {timeRemaining.hours}时 {timeRemaining.minutes}分 {timeRemaining.seconds}秒 */}
@@ -171,7 +159,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                                         </div>
                                     </div>
                                 </div>
-                            ) : property.BIddingStatus === "AboutToStart" ? "拍賣尚未開始" : property.BIddingStatus === "Completed" ? "拍賣已結束" : null
+                            ) : carPark.BIddingStatus === "AboutToStart" ? "拍賣尚未開始" : carPark.BIddingStatus === "Completed" ? "拍賣已結束" : null
                         }
                         <div className="flex justify-between py-2 border-b border-[#253D59]">
                             <div>
@@ -189,7 +177,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                         </div>
                         <div className="py-2">
                             <p>每口價</p>
-                            <p>HKD {property.bidIncrement.toLocaleString()}</p>
+                            <p>HKD {carPark.bidIncrement.toLocaleString()}</p>
                         </div>
                     </div>
                     <div className="border p-2 mt-4">
@@ -206,14 +194,14 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                             </div>
                         </div>
                     </div>
-                    <div className="border p-2 mt-8">
+                    {/* <div className="border p-2 mt-8">
                         <Divider>
                             <span className="font-semibold  text-[#253D59]">文件下载</span>
                         </Divider>
                         <div className="p-2">
                             <Link href="/file.pdf" className="underline">地契.pdf</Link>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

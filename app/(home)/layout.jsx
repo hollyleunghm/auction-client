@@ -5,7 +5,7 @@ export default async function RootLayout({ children }) {
         <div className='bg-[#fdfcf9]'>
             <Header />
             {children}
-            <div className='h-12'></div>
+            {/* <div className='h-12'></div> */}
             <Footer />
         </div>
     );

@@ -1,6 +1,7 @@
 import connectMongo from "@/lib/connect-mongo";
 import Bid from "@/models/bid";
-import Property from "@/models/property";
+import Property from "@/models/target";
+import CarPark from "@/models/carPark";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 export async function GET(request) {
@@ -25,20 +26,25 @@ export async function GET(request) {
     }
 }
 export async function POST(request) {
-    const { targetId, bidPrice } = await request.json();
+    // targetType 0 樓盤 1 車位
+    const { targetId, targetType, bidPrice } = await request.json();
     const session = await auth();
     // const userId = session._id;
-    let property;
+    let target;
     let lastBidPrice;
     let lastBid;
     await connectMongo();
     // 判斷下拍時間
-    property = await Property.findById(targetId);
-    lastBidPrice = property.startingPrice;
-    if (property.startDateTime > Date.now()) {
+    if (targetType == 1) {
+        target = await CarPark.findById(targetId);
+    } else {
+        target = await Property.findById(targetId);
+    }
+    lastBidPrice = target.startingPrice;
+    if (target.startDateTime > Date.now()) {
         return NextResponse.json({ error: "拍賣尚未開始" });
     }
-    if (property.endDateTime < Date.now()) {
+    if (target.endDateTime < Date.now()) {
         return NextResponse.json({ error: "拍賣已經完結" });
     }
 
@@ -57,7 +63,7 @@ export async function POST(request) {
         return NextResponse.json({ error: "你的出價需要高於當前出價" });
     }
 
-    if ((bidPrice - lastBidPrice) % property.bidIncrement !== 0) {
+    if ((bidPrice - lastBidPrice) % target.bidIncrement !== 0) {
         return NextResponse.json({ error: "你的出價和當前出價的差距，需要為每口價的倍數" });
     }
     const bid = new Bid({

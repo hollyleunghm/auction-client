@@ -21,7 +21,7 @@ export default function Header() {
             name: "楼盘拍賣",
         },
         {
-            path: "/carPark",
+            path: "/carpark",
             name: "車位拍賣",
         },
         {
