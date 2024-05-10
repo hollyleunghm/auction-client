@@ -70,11 +70,11 @@ export default function Property({ properties }) {
         },
         {
             value: "unit1",
-            label: "單價由低到高",
+            label: "尺價由低到高",
         },
         {
             value: "unit2",
-            label: "單價由高到低",
+            label: "尺價由高到低",
         },
     ];
     const [sortValue, setSortValue] = useState();

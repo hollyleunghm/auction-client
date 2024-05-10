@@ -86,7 +86,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
             <ToastContainer autoClose={2000} position="top-center" />
             {/* {JSON.stringify(bid)} */}
             <div className="flex gap-12 justify-between">
-                <div className="w-[700px]">
+                <div className="w-[600px]">
                     <Carousel
                         showThumbs={true}
                         showIndicators={false}
@@ -132,43 +132,47 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                     <h3 className="text-sm text-[#253D59]">{property.address}</h3>
                     <div className="mt-8 text-md  text-[#253D59] ">
                         <div>
-                            <p>拍卖截止时间:</p>
-                            <p className="font-semibold"> {property.endDateTime} </p>
+                            <p>拍賣截止時間:</p>
+                            <p className="font-semibold"> {property.endDateTime + "(UTC+8)"} </p>
                         </div>
-                        <div className="py-2 border-b border-[#253D59]">
-                            <div>倒计时</div>
-                            {/* {timeRemaining.days}天 {timeRemaining.hours}时 {timeRemaining.minutes}分 {timeRemaining.seconds}秒 */}
-                            <div className="flex text-center gap-2">
-                                <div>
-                                    <Button size="sm" className="w-12">
-                                        {timeRemaining.days}
-                                    </Button>
-                                    <p>天</p>
+                        {
+                            property.BIddingStatus === "InProgress" ? (
+                                <div className="py-2 border-b border-[#253D59]">
+                                    <div>倒计时</div>
+                                    {/* {timeRemaining.days}天 {timeRemaining.hours}时 {timeRemaining.minutes}分 {timeRemaining.seconds}秒 */}
+                                    <div className="flex text-center gap-2">
+                                        <div>
+                                            <Button size="sm" className="w-12 cursor-default">
+                                                {timeRemaining.days}
+                                            </Button>
+                                            <p>天</p>
+                                        </div>
+                                        <div>
+                                            <Button size="sm" className="w-12 cursor-default">
+                                                {timeRemaining.hours}
+                                            </Button>
+                                            <p>时</p>
+                                        </div>
+                                        <div>
+                                            <Button size="sm" className="w-12 cursor-default">
+                                                {timeRemaining.minutes}
+                                            </Button>
+                                            <p>分</p>
+                                        </div>
+                                        <div>
+                                            <Button
+                                                size="sm"
+                                                className="w-12 cursor-default"
+                                                suppressHydrationWarning={true}
+                                            >
+                                                {timeRemaining.seconds}
+                                            </Button>
+                                            <p>秒</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <Button size="sm" className="w-12">
-                                        {timeRemaining.hours}
-                                    </Button>
-                                    <p>时</p>
-                                </div>
-                                <div>
-                                    <Button size="sm" className="w-12">
-                                        {timeRemaining.minutes}
-                                    </Button>
-                                    <p>分</p>
-                                </div>
-                                <div>
-                                    <Button
-                                        size="sm"
-                                        className="w-12"
-                                        suppressHydrationWarning={true}
-                                    >
-                                        {timeRemaining.seconds}
-                                    </Button>
-                                    <p>秒</p>
-                                </div>
-                            </div>
-                        </div>
+                            ) : property.BIddingStatus === "AboutToStart" ? "拍賣尚未開始" : property.BIddingStatus === "Completed" ? "拍賣已結束" : null
+                        }
                         <div className="flex justify-between py-2 border-b border-[#253D59]">
                             <div>
                                 <p>當前出價</p>
@@ -195,9 +199,10 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                         <div className="flex gap-4 p-2">
                             <div><Avatar circle className=" text-xl" /></div>
                             <div>
-                                <p className="font-semibold text-lg mb-1">hiu man leung</p>
-                                <p className="mb-1">Propbid</p>
-                                <p className="mb-1">{"(089)647-8944"}</p>
+                                <p className="font-semibold text-lg mb-1">葉比德（Ivy Yeh）</p>
+                                <p className="mb-1">電話：+852 62015450</p>
+                                <p className="mb-1">微信：ineedluck99</p>
+                                <p className="mb-1">電郵：propbid.hk@gmail.com</p>
                             </div>
                         </div>
                     </div>
@@ -206,7 +211,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                             <span className="font-semibold  text-[#253D59]">文件下载</span>
                         </Divider>
                         <div className="p-2">
-                            <Link href="/file.pdf">地契</Link>
+                            <Link href="/file.pdf" className="underline">地契.pdf</Link>
                         </div>
                     </div>
                 </div>
