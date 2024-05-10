@@ -128,8 +128,9 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                     </div>
                 </div>
                 <div>
-                    <h1 className="text-xl text-[#253D59]">{property.title}</h1>
-                    <div className="mt-24 text-md  text-[#253D59] ">
+                    <h1 className="text-2xl font-semibold text-[#253D59]">{property.title}</h1>
+                    <h3 className="text-sm text-[#253D59]">{property.address}</h3>
+                    <div className="mt-8 text-md  text-[#253D59] ">
                         <div>
                             <p>拍卖截止时间:</p>
                             <p className="font-semibold"> {property.endDateTime} </p>

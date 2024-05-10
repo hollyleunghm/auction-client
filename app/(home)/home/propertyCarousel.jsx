@@ -17,17 +17,20 @@ export default function PropertyCarousel({ properties }) {
             <CarouselContent className="gap-4" >
                 {properties.map(item => {
                     return (
-                        <Link href={"/property/" + item._id} key={item._id}>
-                            <CarouselItem key={item.id}>
-                                <Image height={300} width={300} alt="" style={{ width:"350px", height:"350px", objectFit: "cover" }} src={item.mainImage}></Image>
+                        // <Link href={"/property/" + item._id} key={item._id}>
+                        <CarouselItem key={item.id} className="lg:basis-1/4">
+                            <Link href={"/property/" + item._id} key={item._id}>
+                                <img  src={item.mainImage} className="w-[300px] h-[300px] object-cover"/>
                                 <p className="text-white mt-6 text-lg">{item.title}</p>
-                            </CarouselItem>
-                        </Link>)
+                            </Link>
+                        </CarouselItem>
+                        // 
+                    )
                 })}
             </CarouselContent>
             <CarouselPrevious />
             <CarouselNext />
-        </Carousel>
+        </Carousel >
 
     )
 }

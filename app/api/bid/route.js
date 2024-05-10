@@ -27,7 +27,7 @@ export async function GET(request) {
 export async function POST(request) {
     const { targetId, bidPrice } = await request.json();
     const session = await auth();
-    const userId = session._id;
+    // const userId = session._id;
     let property;
     let lastBidPrice;
     let lastBid;
@@ -61,7 +61,7 @@ export async function POST(request) {
         return NextResponse.json({ error: "你的出價和當前出價的差距，需要為每口價的倍數" });
     }
     const bid = new Bid({
-        userId: userId,
+        userId: session._id,
         targetId: targetId,
         bidPrice: bidPrice,
     });
