@@ -1,6 +1,6 @@
 import connectMongo from "@/lib/connect-mongo";
 import Bid from "@/models/bid";
-import Property from "@/models/target";
+import Property from "@/models/property";
 import CarPark from "@/models/carPark";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";

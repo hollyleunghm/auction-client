@@ -24,7 +24,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
     const [bidPrice, setBidPrice] = useState();
     const id = useRef(null);
     const refreshBid = async () => {
-        fetch("/api/bid?targetId=" + property._id).then(async (res) => {
+        fetch("/api/bid?targetType=1&targetId=" + property._id).then(async (res) => {
             const data = await res.json();
             if (!data.error) {
                 console.log(data);
@@ -45,6 +45,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
             body: JSON.stringify({
                 targetId: property._id,
                 bidPrice: bidPrice,
+                targetType: 0,
             }),
         })
             .then(async (res) => {

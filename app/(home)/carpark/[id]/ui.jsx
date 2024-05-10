@@ -24,7 +24,7 @@ export default function Client({ carPark, defaultCount, defaultMaxPrice }) {
     const [bidPrice, setBidPrice] = useState();
     const id = useRef(null);
     const refreshBid = async () => {
-        fetch("/api/bid?targetId=" + carPark._id).then(async (res) => {
+        fetch("/api/bid?targetType=0&targetId=" + carPark._id).then(async (res) => {
             const data = await res.json();
             if (!data.error) {
                 console.log(data);
@@ -45,6 +45,7 @@ export default function Client({ carPark, defaultCount, defaultMaxPrice }) {
             body: JSON.stringify({
                 targetId: carPark._id,
                 bidPrice: bidPrice,
+                targetType: 1,
             }),
         })
             .then(async (res) => {

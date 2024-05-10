@@ -2,7 +2,7 @@
 import { FiMapPin, FiPhone, FiMail } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { ToastContainer, toast } from "react-toastify";
-
+import Link from "next/link";
 export default function Page() {
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -19,14 +19,15 @@ export default function Page() {
                             <div className="mb-12 flex  gap-8">
                                 <FiMapPin className="text-2xl flex-shrink-0"></FiMapPin>
                                 <span>
-                                    1608 Shuntak Centre West Tower
-                                    200 Connaught Road Central
-                                    Sheung Wan, Hong Kong SAR
+                                    香港特別行政區上環信德中心1608室
                                 </span>
                             </div>
+
                             <div className="mb-12 flex gap-8">
                                 <FiPhone className="text-2xl flex-shrink-0"></FiPhone>
-                                <span>+852 6201 5450</span>
+                                <Link href="https://api.whatsapp.com/send/?phone=85262015450 ">
+                                    <span>+852 6201 5450</span>
+                                </Link>
                             </div>
                             <div className="mb-12 flex gap-8">
                                 <FiMail className="text-2xl flex-shrink-0"></FiMail>
@@ -62,6 +63,6 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
