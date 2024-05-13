@@ -47,7 +47,7 @@ export default function Header() {
         fetchSession();
     }, []);
     return (
-        <div className="flex items-center justify-between w-[1600px] mx-auto">
+        <div className="flex items-center justify-between max-w-[1600px] mx-auto">
             <Link href="/home">
                 <Image src="/PropBid.png" alt="" width={115} height={115} />
             </Link>
@@ -82,8 +82,8 @@ export default function Header() {
                         </Popover>}><Avatar circle className="cursor-pointer">{session.user.email.substring(0, 1).toUpperCase()}</Avatar></Whisper>
                     ) : status === "unauthenticated" ? (
                         <Link href="/login">
-                            <button className="transition-all duration-300 ease-in-out px-4 py-1 text-sm text-[#444444] hover:bg-[#f3f1eb]" >
-                                登錄
+                            <button className="transition-all duration-300 ease-in-out px-4 py-1 text-sm text-[#444444] hover:bg-[#f0d300] hover:opacity-80 bg-[#f0d300]" >
+                                登入/注冊
                             </button>
                         </Link>
                     ) : null}

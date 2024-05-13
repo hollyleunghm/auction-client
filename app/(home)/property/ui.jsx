@@ -78,9 +78,13 @@ export default function Property({ properties }) {
         },
     ];
     const [sortValue, setSortValue] = useState();
-    const [maxPrice, setMaxPrice] = useState(5000000);
-    const setMaxPriceThe = useCallback(throttle((maxPrice) => {
+    const [maxPrice, setMaxPrice] = useState(50000000);
+    const [minPrice, setMinPrice] = useState(0);
+    const setMaxPriceHandle = useCallback(throttle((maxPrice) => {
         setMaxPrice(maxPrice);
+    }, 50), [])
+    const setMinPriceHandle = useCallback(throttle((maxPrice) => {
+        setMinPrice(maxPrice);
     }, 50), [])
     useEffect(() => {
         let result = [...properties];
@@ -94,8 +98,8 @@ export default function Property({ properties }) {
             });
         });
         console.log("result", result);
-        setFilteredProperties(result.filter((item) => item.startingPrice <= maxPrice));
-    }, [filter, maxPrice, properties]);
+        setFilteredProperties(result.filter((item) => (item.startingPrice <= maxPrice && item.startingPrice >= minPrice)));
+    }, [filter, minPrice, maxPrice, properties]);
     useEffect(() => {
         if (!sortValue) {
             return;
@@ -158,14 +162,21 @@ export default function Property({ properties }) {
                         />
                         {/* <DatePicker placeholder="拍卖时间" /> */}
                         <div className="flex-1 px-4">
-                            <span className="text-white text-xl">Price</span>
+                            <span className="text-white mb-2">Price</span>
+                            <RangeSlider className="mt-2" renderTooltip={(e) => {
+                                return <div className="text-baseflex p-0 whitespace-nowrap">{"HKD：" + e}</div>
+                            }} defaultValue={[0, 50000000]} max={50000000} handleClassName="bg-yellow-300" onChange={(value) => {
+                                setMaxPriceHandle(value[1]);
+                                setMinPriceHandle(value[0]);
+                            }}></RangeSlider>
+                            {/* <span className="text-white text-xl">Price</span>
                             <Slider.Root
                                 defaultValue={[maxPrice]}
                                 max={10000000}
                                 step={1}
                                 className="relative flex w-full touch-none select-none items-center"
                                 onValueChange={(value) => {
-                                    setMaxPriceThe(value[0]);
+                                    setMaxPriceHandle(value[0]);
                                 }}
                             >
                                 <Slider.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-white">
@@ -177,7 +188,7 @@ export default function Property({ properties }) {
                                     </div>
 
                                 </Slider.Thumb>
-                            </Slider.Root>
+                            </Slider.Root> */}
                         </div>
                     </div>
                 </div>
@@ -190,9 +201,9 @@ export default function Property({ properties }) {
                                 <div key={item._id}>
                                     <Link href={"/property/" + item._id}>
                                         <div className="w-full text-black">
-                                            <Image height={400} width={500} style={{objectFit: "cover",height: "300px"}} src={item.mainImage} alt="" />
+                                            <Image height={400} width={500} style={{ objectFit: "cover", height: "300px" }} src={item.mainImage} alt="" />
                                             <div>
-                                                <p>{item.title}</p>
+                                                <p className="text-lg font-semibold mt-2">{item.title}</p>
                                                 <div className="w-12 my-2 border-b border-black"></div>
                                                 <p>HK${item.startingPrice.toLocaleString()}</p>
                                                 <p>{item.constructionArea.toLocaleString()}呎</p>

@@ -79,3 +79,28 @@
 body {
   background-color: #fdfcf9;
 }
+
+/* range slider css */
+
+.rs-slider-progress-bar {
+  background: rgb(253, 224, 71) !important;
+}
+
+.rs-slider-handle:before {
+  border: none !important;
+}
+
+.rs-slider-handle:hover .rs-tooltip {
+  /* background-color: white !important; */
+  /* border: 1px solid rgb(226, 232, 240); */
+}
+
+.rs-tooltip[class*=placement-top] {
+
+  /* display: block !important; */
+  /* opacity: 1 !important; */
+}
+
+.rs-tooltip[class*=placement-top]:after {
+  /* border-top-color: white !important; */
+}

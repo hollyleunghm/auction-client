@@ -109,10 +109,6 @@ export default function Client({ carPark, defaultCount, defaultMaxPrice }) {
                                     return <div key={index}>{item}</div>;
                                 })}
                             </div>
-                            <div>按揭每月供款：$31,867 元</div>
-                            <div>首期 $288 万元, 按揭成数 70%</div>
-                            <div>按揭利率 3%, 供款年期 25年</div>
-                            *以上價钱只供参考
                         </div>
                     </div>
                 </div>

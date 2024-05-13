@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import UseCountdownTimer from "@/hooks/UseCountdownTimer";
 import { ToastContainer, toast } from "react-toastify";
-import { InputNumber, Divider, Avatar } from 'rsuite';
+import { Avatar } from 'rsuite';
+import Divider from "@/app/ui/divider";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Client({ property, defaultCount, defaultMaxPrice }) {
     const [count, setCount] = useState(defaultCount);
@@ -99,10 +99,10 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                         <img src={property.mainImage} alt={property.title} />
                     </Carousel>
                     <div>
-                        <h1 className="text-xl font-semibold">介绍信息</h1>
+                        <h1 className="text-xl font-semibold">樓盤介紹</h1>
                         <div>
                             <div>地址：{property.address}</div>
-                            <div>起拍價：{property.startingPrice.toLocaleString()} </div>
+                            <div>起標價：{property.startingPrice.toLocaleString()} </div>
                             <div>每口價：{property.bidIncrement.toLocaleString()}</div>
                             <div>
                                 {property.content.split("\n").map((item, index) => {
@@ -111,20 +111,20 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                             </div>
                             <div>按揭每月供款：$31,867 元</div>
                             <div>首期 $288 万元, 按揭成数 70%</div>
-                            <div>按揭利率 3%, 供款年期 25年</div>
+                            <div>按揭利率 3%, 供款年資 25年</div>
                             *以上價钱只供参考
-                            <div>建筑面积：{property.constructionArea} 平方呎</div>
+                            <div>建築面積：{property.constructionArea} 平方呎</div>
                             <div>呎價: @{property.pricePerFoot1.toLocaleString()} 元</div>
-                            <div>实用面积：{property.practicalArea} 平方呎</div>
+                            <div>實用面積：{property.practicalArea} 平方呎</div>
                             <div>呎價: @{property.pricePerFoot2.toLocaleString()} 元</div>
-                            <div>座数及单位: {property.seatsAndUnits}</div>
-                            <div>屋苑楼龄: {property.age} 年</div>
-                            <div>座向(客厅)：{property.towards}</div>
-                            <div>单位楼层：{property.floor}</div>
-                            <div>房间及浴室：{property.rooms}</div>
-                            <div>小学校网：{property.primarySchoolNetwork}</div>
-                            <div>中学校网：{property.middleSchoolNetwork}</div>
-                            <div>物业地址：{property.propertyAddress}</div>
+                            <div>座數及單位: {property.seatsAndUnits}</div>
+                            <div>屋苑樓齡: {property.age} 年</div>
+                            <div>座向(客廳)：{property.towards}</div>
+                            <div>單位樓層{property.floor}</div>
+                            <div>房間及浴室：{property.rooms}</div>
+                            <div>小學校網：{property.primarySchoolNetwork}</div>
+                            <div>中學校網：{property.middleSchoolNetwork}</div>
+                            <div>物業地址：{property.propertyAddress}</div>
                         </div>
                     </div>
                 </div>
@@ -193,11 +193,11 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                             <p>HKD {property.bidIncrement.toLocaleString()}</p>
                         </div>
                     </div>
-                    <div className="border p-2 mt-4">
-                        <Divider>
-                            <span className="font-semibold  text-[#253D59]">聯絡方式</span>
+                    <div className="border border-[#253D59] p-3 mt-4 bg-[#f3f3f3]">
+                        <Divider >
+                            <span className="font-semibold text-lg text-[#253D59]">聯絡方式</span>
                         </Divider>
-                        <div className="flex gap-4 p-2">
+                        <div className="flex gap-4 p-4 border bg-white mt-2">
                             <div><Avatar circle className=" text-xl" /></div>
                             <div>
                                 <p className="font-semibold text-lg mb-1">葉比德（Ivy Yeh）</p>
@@ -207,11 +207,11 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                             </div>
                         </div>
                     </div>
-                    <div className="border p-2 mt-8">
-                        <Divider>
-                            <span className="font-semibold  text-[#253D59]">文件下载</span>
+                    <div className="border border-[#253D59] p-3 mt-8 bg-[#f3f3f3]">
+                        <Divider className="mb-2">
+                            <span className="font-semibold text-lg text-[#253D59]">文件下载</span>
                         </Divider>
-                        <div className="p-2">
+                        <div className="p-4 border bg-white mt-2">
                             <Link href="/file.pdf" className="underline">地契.pdf</Link>
                         </div>
                     </div>

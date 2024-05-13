@@ -71,8 +71,12 @@ export default function Property({ carParks }) {
     ];
     const [sortValue, setSortValue] = useState();
     const [maxPrice, setMaxPrice] = useState(5000000);
-    const setMaxPriceThe = useCallback(throttle((maxPrice) => {
+    const [minPrice, setMinPrice] = useState(0);
+    const setMaxPriceHandle = useCallback(throttle((maxPrice) => {
         setMaxPrice(maxPrice);
+    }, 50), [])
+    const setMinPriceHandle = useCallback(throttle((maxPrice) => {
+        setMinPrice(maxPrice);
     }, 50), [])
     useEffect(() => {
         let result = [...carParks];
@@ -86,8 +90,8 @@ export default function Property({ carParks }) {
             });
         });
         console.log("result", result);
-        setFilteredCarParks(result.filter((item) => item.startingPrice <= maxPrice));
-    }, [filter, maxPrice, carParks]);
+        setFilteredCarParks(result.filter((item) => (item.startingPrice <= maxPrice && item.startingPrice >= minPrice)));
+    }, [filter, minPrice, maxPrice, carParks]);
     useEffect(() => {
         if (!sortValue) {
             return;
@@ -151,26 +155,13 @@ export default function Property({ carParks }) {
                         />
                         {/* <DatePicker placeholder="拍卖时间" /> */}
                         <div className="flex-1 px-4">
-                            <span className="text-white text-xl">Price</span>
-                            <Slider.Root
-                                defaultValue={[maxPrice]}
-                                max={10000000}
-                                step={1}
-                                className="relative flex w-full touch-none select-none items-center"
-                                onValueChange={(value) => {
-                                    setMaxPriceThe(value[0]);
-                                }}
-                            >
-                                <Slider.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-white">
-                                    <Slider.Range className="absolute h-full bg-yellow-300" />
-                                </Slider.Track>
-                                <Slider.Thumb className="block h-4 w-4 rounded-full bg-white">
-                                    <div className=" absolute bottom-10 p-2 border bg-white rounded-sm left-[50%] -translate-x-[50%] whitespace-nowrap">
-                                        {"HKD: " + maxPrice.toLocaleString()}
-                                    </div>
-
-                                </Slider.Thumb>
-                            </Slider.Root>
+                            <span className="text-white mb-2">Price</span>
+                            <RangeSlider className="mt-2" renderTooltip={(e) => {
+                                return <div className="text-baseflex p-0 whitespace-nowrap">{"HKD：" + e}</div>
+                            }} defaultValue={[0, 50000000]} max={50000000} handleClassName="bg-yellow-300" onChange={(value) => {
+                                setMaxPriceHandle(value[1]);
+                                setMinPriceHandle(value[0]);
+                            }}></RangeSlider>
                         </div>
                     </div>
                 </div>
@@ -182,10 +173,10 @@ export default function Property({ carParks }) {
                             return (
                                 <div key={item._id}>
                                     <Link href={"/carpark/" + item._id}>
-                                        <div className="w-full text-black">
-                                            <Image height={400} width={500} style={{objectFit: "cover",height: "300px"}} src={item.mainImage} alt="" />
+                                        <div className="w-full text-black mt2">
+                                            <Image height={400} width={500} style={{ objectFit: "cover", height: "300px" }} src={item.mainImage} alt="" />
                                             <div>
-                                                <p>{item.title}</p>
+                                                <p className="text-lg font-semibold">{item.title}</p>
                                                 <div className="w-12 my-2 border-b border-black"></div>
                                                 <p>HK${item.startingPrice.toLocaleString()}</p>
                                             </div>
