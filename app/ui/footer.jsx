@@ -7,7 +7,7 @@ const Footer = () => {
                 <div className="flex items-end gap-4">
                     <div className="leading-8 w-2/3 text-sm">
                         <p>PropBid 致力於確保網站所提供的資訊是最新及最準確。 若因錯漏而引致任何不便或損失，概不負責。 </p>
-                        <p>© 2023 普比德物業拍賣有限公司</p>
+                        <p>© 2024 普比德物業拍賣有限公司</p>
                         <div>
                             <Link href="https://www.propbid.com/privacy-policy" target="_blank">使用條款</Link>
                             <span className="mx-2">|</span>

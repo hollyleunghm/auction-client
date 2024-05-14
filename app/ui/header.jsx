@@ -38,7 +38,6 @@ export default function Header() {
         // },
     ];
     useEffect(() => {
-        console.log(status);
     }, [status]);
     useEffect(() => {
         async function fetchSession() {

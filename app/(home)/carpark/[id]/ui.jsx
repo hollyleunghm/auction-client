@@ -24,10 +24,9 @@ export default function Client({ carPark, defaultCount, defaultMaxPrice }) {
     const [bidPrice, setBidPrice] = useState();
     const id = useRef(null);
     const refreshBid = async () => {
-        fetch("/api/bid?targetType=0&targetId=" + carPark._id).then(async (res) => {
+        fetch("/api/bid/" + carPark._id + "?targetType=1").then(async (res) => {
             const data = await res.json();
             if (!data.error) {
-                console.log(data);
                 setCount(data.count);
                 setMaxPrice(data.maxPrice);
             } else {
@@ -40,10 +39,9 @@ export default function Client({ carPark, defaultCount, defaultMaxPrice }) {
             return;
         }
         id.current = toast.loading("正在下拍，請稍後");
-        fetch("/api/bid", {
+        fetch("/api/bid/" + carPark._id, {
             method: "POST",
             body: JSON.stringify({
-                targetId: carPark._id,
                 bidPrice: bidPrice,
                 targetType: 1,
             }),

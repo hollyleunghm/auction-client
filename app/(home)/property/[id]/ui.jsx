@@ -4,12 +4,21 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+
 import UseCountdownTimer from "@/hooks/UseCountdownTimer";
 import { ToastContainer, toast } from "react-toastify";
 import { Avatar } from 'rsuite';
 import Divider from "@/app/ui/divider";
 import Link from "next/link";
-
+import BidList from "@/app/ui/bidList";
 export default function Client({ property, defaultCount, defaultMaxPrice }) {
     const [count, setCount] = useState(defaultCount);
     const [maxPrice, setMaxPrice] = useState(defaultMaxPrice);
@@ -24,10 +33,9 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
     const [bidPrice, setBidPrice] = useState();
     const id = useRef(null);
     const refreshBid = async () => {
-        fetch("/api/bid?targetType=1&targetId=" + property._id).then(async (res) => {
+        fetch("/api/bid/" + property._id + "/all?targetType=1").then(async (res) => {
             const data = await res.json();
             if (!data.error) {
-                console.log(data);
                 setCount(data.count);
                 setMaxPrice(data.maxPrice);
             } else {
@@ -40,10 +48,9 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
             return;
         }
         id.current = toast.info("正在下拍，請稍後");
-        fetch("/api/bid", {
+        fetch("/api/bid/" + property._id, {
             method: "POST",
             body: JSON.stringify({
-                targetId: property._id,
                 bidPrice: bidPrice,
                 targetType: 0,
             }),
@@ -81,7 +88,9 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
 
     return (
         <div className="w-[1000px] mx-auto pb-12">
-            <ToastContainer position="top-center" autoClose={false}/>
+            <ToastContainer position="top-center" autoClose={false} />
+
+
             {/* {JSON.stringify(bid)} */}
             <div className="flex gap-12 justify-between">
                 <div className="w-[600px]">
@@ -176,7 +185,19 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                                 <p>當前出價</p>
                                 <p>HKD {maxPrice.toLocaleString()}</p>
                             </div>
-                            <div>{count}次出價</div>
+                            <Dialog >
+                                <DialogTrigger>
+                                    <div className=" underline cursor-pointer" >出價歷史</div>
+                                </DialogTrigger>
+                                <DialogContent className="w-[800px] max-w-[800px]">
+                                    <DialogHeader>
+                                        <DialogTitle>{property.title}出價歷史</DialogTitle>
+                                        <DialogDescription>
+                                            <BidList id={property._id}></BidList>
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                </DialogContent>
+                            </Dialog>
                         </div>
                         <div className="flex justify-between py-2 gap-2">
                             <Input type="text" onChange={(e) => setBidPrice(e.target.value)} />

@@ -4,9 +4,8 @@ import Property from "@/models/property";
 import CarPark from "@/models/carPark";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
-export async function GET(request) {
-    const searchParams = request.nextUrl.searchParams;
-    const targetId = searchParams.get('targetId');
+export async function GET(request, { params }) {
+    const targetId = params.id;
     try {
         await connectMongo();
         const bids = await Bid.find({ targetId: targetId }).sort({ bidPrice: -1 }).limit(1);
@@ -24,9 +23,10 @@ export async function GET(request) {
         return NextResponse.json({ error });
     }
 }
-export async function POST(request) {
+export async function POST(request, { params }) {
     // targetType 0 樓盤 1 車位
-    const { targetId, targetType, bidPrice } = await request.json();
+    const targetId = params.id;
+    const { targetType, bidPrice } = await request.json();
     const session = await auth();
     // const userId = session._id;
     let target;
@@ -66,7 +66,7 @@ export async function POST(request) {
         return NextResponse.json({ error: "你的出價和當前出價的差距，需要為每口價的倍數" });
     }
     const bid = new Bid({
-        userId: session._id,
+        userId: session.user._id,
         targetId: targetId,
         bidPrice: bidPrice,
     });

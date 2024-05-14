@@ -24,7 +24,7 @@ export default function LoginForm() {
         }
     };
     useEffect(() => {
-        if (loginStatus.success) {
+        if (loginStatus.success) {            
             router.push('/property');
         }
     }, [loginStatus, router]);

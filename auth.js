@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import connectMongo from "@/lib/connect-mongo";
 import User from "@/models/user";
+import { AuthError } from "next-auth";
 export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
     providers: [
         Credentials({
@@ -17,11 +18,17 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
             authorize: async (credentials) => {
                 let user = null;
                 await connectMongo();
+                user = await User.findOne({ email: credentials.email });
+                if (!user) {
+                    throw new AuthError("電郵尚未注冊");
+                }
                 user = await User.findOne({
                     email: credentials.email,
                     password: credentials.password,
                 });
-                // console.log("-----------------------------------------", user);
+                if (!user) {
+                    throw new AuthError("電郵尚未注冊");
+                }
                 return user;
             },
         }),

@@ -12,7 +12,6 @@ export async function POST(request) {
     const phone = formData.get("phone");
     const countryAndRegion = formData.get("countryAndRegion");
     const code = formData.get("code");
-    console.log({ firstName, lastName, firstChineseName, lastChineseName, password, email, phone, countryAndRegion, code });
     try {
         await connectMongo();
         let user = await User.findOne({ email });
@@ -39,7 +38,6 @@ export async function POST(request) {
         ]);
         return NextResponse.json({ message: "success", user: userSaved[0] });
     } catch (error) {
-        console.log(error);
         return NextResponse.json({ error });
     }
 }

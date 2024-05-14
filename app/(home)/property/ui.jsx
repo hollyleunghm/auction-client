@@ -97,7 +97,6 @@ export default function Property({ properties }) {
                 }
             });
         });
-        console.log("result", result);
         setFilteredProperties(result.filter((item) => (item.startingPrice <= maxPrice && item.startingPrice >= minPrice)));
     }, [filter, minPrice, maxPrice, properties]);
     useEffect(() => {
@@ -122,7 +121,6 @@ export default function Property({ properties }) {
                     return a.pricePerFoot1 < b.pricePerFoot1 ? 1 : -1;
             }
         });
-        console.log(res);
         setFilteredProperties([...res]);
     }, [sortValue]);
     return (

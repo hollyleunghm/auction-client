@@ -7,7 +7,7 @@ import { model, models, Schema } from 'mongoose';
 // > 檢查密碼與確認密碼是否一致
 const BidSchema = new Schema(
     {
-        userId: String,// 出價人
+        userId: { type: Schema.Types.ObjectId, ref: 'User' },
         targetId:String,// 競價目標
         bidPrice:Number,// 出價
         createdAt: {

@@ -89,7 +89,6 @@ export default function Property({ carParks }) {
                 }
             });
         });
-        console.log("result", result);
         setFilteredCarParks(result.filter((item) => (item.startingPrice <= maxPrice && item.startingPrice >= minPrice)));
     }, [filter, minPrice, maxPrice, carParks]);
     useEffect(() => {
@@ -114,7 +113,6 @@ export default function Property({ carParks }) {
                 //     return a.pricePerFoot1 < b.pricePerFoot1 ? 1 : -1;
             }
         });
-        console.log(res);
         setFilteredCarParks([...res]);
     }, [sortValue]);
     return (
