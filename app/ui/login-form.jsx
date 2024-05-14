@@ -25,7 +25,7 @@ export default function LoginForm() {
     };
     useEffect(() => {
         if (loginStatus.success) {
-            router.push('/home');
+            router.push('/property');
         }
     }, [loginStatus, router]);
 
@@ -49,7 +49,7 @@ export default function LoginForm() {
                                 id="email"
                                 type="email"
                                 name="email"
-                                placeholder="Enter your email address"
+                                placeholder="請輸入電郵/電話"
                                 required
                             />
                             <MdOutlineMailOutline className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -68,7 +68,7 @@ export default function LoginForm() {
                                 id="password"
                                 type="password"
                                 name="password"
-                                placeholder="Enter password"
+                                placeholder="請輸入密碼"
                                 required
                                 minLength={6}
                             />
@@ -82,7 +82,7 @@ export default function LoginForm() {
                 </div>
 
                 <Button appearance="primary" className="mt-4 w-full" type="submit" loading={loginStatus.loading}>
-                    登錄
+                    開始拍賣
                     {/* <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" /> */}
                 </Button>
                 <div

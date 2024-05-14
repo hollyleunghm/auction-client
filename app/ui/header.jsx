@@ -47,7 +47,7 @@ export default function Header() {
         fetchSession();
     }, []);
     return (
-        <div className="flex items-center justify-between max-w-[1600px] mx-auto">
+        <div className="flex items-center justify-between w-full max-w-[1600px] mx-auto">
             <Link href="/home">
                 <Image src="/PropBid.png" alt="" width={115} height={115} />
             </Link>

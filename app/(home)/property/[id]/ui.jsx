@@ -39,7 +39,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
         if (id.current) {
             return;
         }
-        id.current = toast.loading("正在下拍，請稍後");
+        id.current = toast.info("正在下拍，請稍後");
         fetch("/api/bid", {
             method: "POST",
             body: JSON.stringify({
@@ -56,7 +56,6 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                         render: data.msg,
                         type: "success",
                         isLoading: false,
-                        autoClose: true,
                     });
                 } else {
                     setRequest({ ...request, success: false, data: data });
@@ -64,7 +63,6 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                         render: "下拍失敗：" + data.error,
                         type: "error",
                         isLoading: false,
-                        autoClose: true,
                     });
                 }
                 refreshBid();
@@ -74,7 +72,6 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                     render: "發生了錯誤請稍後重試",
                     type: "error",
                     isLoading: false,
-                    autoClose: true,
                 });
             })
             .finally(() => {
@@ -84,7 +81,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
 
     return (
         <div className="w-[1000px] mx-auto pb-12">
-            <ToastContainer autoClose={2000} position="top-center" />
+            <ToastContainer position="top-center" autoClose={false}/>
             {/* {JSON.stringify(bid)} */}
             <div className="flex gap-12 justify-between">
                 <div className="w-[600px]">

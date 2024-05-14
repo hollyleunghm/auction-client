@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import { Button } from 'rsuite';
 import codeList from "./code";
+import Link from "next/link";
 export default function RegisterPage() {
     const router = useRouter();
     const [registerStatus, setRegisterStatus] = useState({ success: false, error: null, loading: false });
@@ -48,8 +49,11 @@ export default function RegisterPage() {
         }
     }, [registerStatus]);
     return (
-        <main className="flex  md:h-screen">
+        <main className=" md:h-screen">
             <ToastContainer autoClose={2000} position="top-center" />
+            <div className="mx-auto flex w-full max-w-[700px] p-4 justify-end mt-4">
+                <span className="cursor-pointer" onClick={() => router.back()}>返回</span>
+            </div>
             <div className=" mx-auto flex w-full max-w-[600px] flex-col space-y-2.5 p-4">
                 <form onSubmit={handleSubmit} className="space-y-3">
                     <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
@@ -75,7 +79,7 @@ export default function RegisterPage() {
                                     />
                                 </div>
                             </div>
-                            <div>
+                            {/* <div>
                                 <label
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="countryAndRegion"
@@ -107,7 +111,7 @@ export default function RegisterPage() {
                                         </option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> */}
                             <div>
                                 <label
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
@@ -149,14 +153,14 @@ export default function RegisterPage() {
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
                                         id="firstName"
                                         name="firstName"
-                                        placeholder="請輸入first name"
+                                        placeholder="請輸入First Name"
                                         required
                                     />
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
                                         id="lastName"
                                         name="lastName"
-                                        placeholder="請輸入last name"
+                                        placeholder="請輸入Last Name"
                                         required
                                     />
                                 </div>
@@ -189,7 +193,7 @@ export default function RegisterPage() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="password"
                                 >
-                                    密碼
+                                    密碼（需要為6-20位數）
                                 </label>
                                 <div className="">
                                     <input
@@ -200,6 +204,7 @@ export default function RegisterPage() {
                                         placeholder="請輸入密碼"
                                         required
                                         minLength={6}
+                                        maxLength={20}
                                     />
                                 </div>
                             </div>
@@ -234,7 +239,7 @@ export default function RegisterPage() {
                                     className="text-sm font-medium text-gray-900"
                                     htmlFor="policy"
                                 >
-                                    同意條款及細則和私隱政策（點擊轉至隱私權條款頁）
+                                    同意條款及細則和私隱政策
                                 </label>
                             </div>
                             <div className="mt-1 flex items-center gap-1">
@@ -253,14 +258,15 @@ export default function RegisterPage() {
                             </div>
                         </div>
                         <Button appearance="primary" className="mt-4 w-full" type="submit" loading={registerStatus.loading}>
-                            注冊
+                            你的物業拍賣之旅由此開始
                         </Button>
                         <div
-                            className="flex h-8 items-end space-x-1"
+                            className="flex h-8 items-end space-x-1 justify-between"
                             aria-live="polite"
                             aria-atomic="true"
                         >
-                            {registerStatus.error && <p className="text-sm text-red-500">{registerStatus.error}</p>}
+                            <p className="text-sm text-red-500">{registerStatus.error}</p>
+                            <Link href="/login" className="text-sm text-gray-500">按此登入</Link>
                         </div>
                     </div>
                 </form>
