@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import connectMongo from '@/lib/connect-mongo';
 import Property from '@/models/property';
 import Bid from '@/models/bid';
@@ -28,6 +29,8 @@ import UI from "./ui";
 //     "label": "撤回"
 // }
 export default async function Page({ params }) {
+    const session = await auth();
+    let isOwner = false;
     await connectMongo();
     const property = await Property.findOne({ _id: params.id });
     if (new Date(property.endDateTime) <= new Date()) {
@@ -37,14 +40,20 @@ export default async function Page({ params }) {
     } else {
         property.BIddingStatus = "InProgress";
     }
+
     let maxPrice = property.startingPrice;
     const bids = await Bid.find({ targetId: params.id }).sort({ bidPrice: -1 }).limit(1);
     if (bids && bids.length > 0) {
         maxPrice = bids[0].bidPrice;
+        if (session && session.user._id === bids[0].userId.toString()) {
+            isOwner = true;
+        }
+        console.log(isOwner);
     }
     const count = await Bid.countDocuments({ targetId: params.id });
+
     return (
-        <UI property={JSON.parse(JSON.stringify(property))} defaultCount={count} defaultMaxPrice={maxPrice}></UI >
+        <UI property={JSON.parse(JSON.stringify(property))} defaultCount={count} defaultMaxPrice={maxPrice} defaultIsOwner={isOwner}></UI >
     );
 
 }

@@ -199,7 +199,7 @@ export default function Property({ properties }) {
                                 <div key={item._id}>
                                     <Link href={"/property/" + item._id}>
                                         <div className="w-full text-black">
-                                            <Image height={400} width={500} style={{ objectFit: "cover", height: "300px" }} src={item.mainImage} alt="" />
+                                            <Image height={400} width={400} style={{ objectFit: "cover", aspectRatio:"1" }} src={item.mainImage} alt="" />
                                             <div>
                                                 <p className="text-lg font-semibold mt-2">{item.title}</p>
                                                 <div className="w-12 my-2 border-b border-black"></div>

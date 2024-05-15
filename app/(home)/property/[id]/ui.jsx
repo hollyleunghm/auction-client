@@ -19,8 +19,9 @@ import { Avatar } from 'rsuite';
 import Divider from "@/app/ui/divider";
 import Link from "next/link";
 import BidList from "@/app/ui/bidList";
-export default function Client({ property, defaultCount, defaultMaxPrice }) {
+export default function Client({ property, defaultCount, defaultMaxPrice,defaultIsOwner }) {
     const [count, setCount] = useState(defaultCount);
+    const [isOwner, setIsOwner] = useState(defaultIsOwner);
     const [maxPrice, setMaxPrice] = useState(defaultMaxPrice);
     const deadline = new Date(property.endDateTime).getTime();
     const timeRemaining = UseCountdownTimer(deadline);
@@ -33,11 +34,12 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
     const [bidPrice, setBidPrice] = useState();
     const id = useRef(null);
     const refreshBid = async () => {
-        fetch("/api/bid/" + property._id + "/all?targetType=1").then(async (res) => {
+        fetch("/api/bid/" + property._id + "?targetType=1").then(async (res) => {
             const data = await res.json();
             if (!data.error) {
                 setCount(data.count);
                 setMaxPrice(data.maxPrice);
+                setIsOwner(data.isOwner);
             } else {
                 // toast.error("更新數據失敗，請稍後重試");
             }
@@ -85,7 +87,6 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                 id.current = null;
             });
     };
-
     return (
         <div className="w-[1000px] mx-auto pb-12">
             <ToastContainer position="top-center" autoClose={false} />
@@ -115,10 +116,6 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                                     return <div key={index}>{item}</div>;
                                 })}
                             </div>
-                            <div>按揭每月供款：$31,867 元</div>
-                            <div>首期 $288 万元, 按揭成数 70%</div>
-                            <div>按揭利率 3%, 供款年資 25年</div>
-                            *以上價钱只供参考
                             <div>建築面積：{property.constructionArea} 平方呎</div>
                             <div>呎價: @{property.pricePerFoot1.toLocaleString()} 元</div>
                             <div>實用面積：{property.practicalArea} 平方呎</div>
@@ -182,7 +179,7 @@ export default function Client({ property, defaultCount, defaultMaxPrice }) {
                         }
                         <div className="flex justify-between py-2 border-b border-[#253D59]">
                             <div>
-                                <p>當前出價</p>
+                                <p>當前出價{isOwner?"（你的出價現在最高）":""}</p>
                                 <p>HKD {maxPrice.toLocaleString()}</p>
                             </div>
                             <Dialog >

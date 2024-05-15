@@ -17,8 +17,8 @@ export default async function Home() {
                 <div className="bg-[#253d59] py-12 px-36 max-w-[900px] text-white text-center">
                     <h1 className="text-4xl font-bold leading-normal" >普比德物業拍賣平台</h1>
                     <h2 className="text-2xl leading-normal mt-4">普比德為香港首創網上樓盤拍賣平台，提供住宅、車位、銀主盤、上車盤、二手樓盤等筍盤拍賣。物業遍佈香港島、九龍及新界。</h2>
-                    <Link href="/register">
-                        <Button className="text-xl mt-16 rounded-none bg-[#f0d300] text-black  px-20 py-4 transition-all hover:bg-[#f0d300] hover:opacity-80">注册</Button>
+                    <Link href="/property">
+                        <Button className="text-xl mt-16 rounded-none bg-[#f0d300] text-black  px-20 py-4 transition-all hover:bg-[#f0d300] hover:opacity-80">開始拍賣</Button>
                     </Link>
                 </div>
             </div>

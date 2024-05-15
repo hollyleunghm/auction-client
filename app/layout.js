@@ -1,4 +1,5 @@
 
+import Header from "@/app/ui/header";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -17,8 +18,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+
         <SessionProvider>
-          <CustomProvider>{children}</CustomProvider>
+          <CustomProvider><Header />{children}</CustomProvider>
         </SessionProvider>
       </body>
     </html>
