@@ -6,10 +6,10 @@ import Bid from "@/app/ui/bid";
 export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
 
     return (
-        <div className="w-[1000px] mx-auto pb-12">
+        <div className="w-full max-w-[1000px] mx-auto pb-12 px-4 md:px-0">
             {/* {JSON.stringify(bid)} */}
-            <div className="flex gap-12 justify-between">
-                <div className="w-[600px]">
+            <div className="md:flex gap-12 justify-between">
+                <div className="w-full md:w-[600px]">
                     <Carousel
                         showThumbs={true}
                         showIndicators={false}

@@ -51,7 +51,7 @@ export default function LoginForm() {
                                 id="email"
                                 type="email"
                                 name="email"
-                                placeholder="請輸入電郵/電話"
+                                placeholder="請輸入電郵/電話（不用區號）"
                                 required
                             />
                             <MdOutlineMailOutline className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />

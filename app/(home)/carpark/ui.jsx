@@ -58,15 +58,6 @@ export default function Property({ carParks }) {
             value: "date",
             label: "添加日期",
         },
-
-        {
-            value: "area1",
-            label: "面積由低到高",
-        },
-        {
-            value: "area2",
-            label: "面積由高到低",
-        },
     ];
     const [sortValue, setSortValue] = useState();
     const [maxPrice, setMaxPrice] = useState(5000000);
@@ -122,9 +113,9 @@ export default function Property({ carParks }) {
     return (
         <div>
             <div className="bg-[#253d59] py-6">
-                <div className="w-[1000px] mx-auto">
+                <div className="w-full max-w-[1000px] mx-auto px-4 md:px-0">
                     <h2 className="text-xl text-white mb-2">請選擇</h2>
-                    <div className="bg-white rounded-sm px-4 py-2 grid grid-cols-2">
+                    <div className="bg-white rounded-sm px-4 py-2 grid grid-cols-1 md:grid-cols-2">
                         {/* {JSON.stringify(json)} */}
                         {json.map((item) => {
                             return (
@@ -145,7 +136,7 @@ export default function Property({ carParks }) {
                             );
                         })}
                     </div>
-                    <div className="py-4 flex gap-8 items-center">
+                    <div className="py-4 md:flex gap-8 items-center">
                         <SelectPicker
                             label="排序"
                             searchable={false}
@@ -154,10 +145,11 @@ export default function Property({ carParks }) {
                             onChange={(value) => {
                                 setSortValue(value);
                             }}
+                            className="mb-4 md:mb-0"
                         />
                         {/* <DatePicker placeholder="拍卖时间" /> */}
-                        <div className="flex-1 px-4 flex gap-4 text-white">
-                            <InputGroup inside>
+                        <div className="md:flex flex-1 md:px-4 gap-4 text-white">
+                            <InputGroup inside className="mb-4 md:mb-0">
                                 <InputGroup.Addon>最低價</InputGroup.Addon>
                                 <InputNumber onChange={(value) => { setMinPrice(value) }}></InputNumber>
                             </InputGroup>
@@ -170,8 +162,8 @@ export default function Property({ carParks }) {
                 </div>
             </div>
             <div>
-                <div className="w-[1000px] mx-auto py-8">
-                    <div className="grid grid-cols-4 gap-4">
+                <div className="w-full max-w-[1000px] mx-auto py-8 px-4 md:px-0">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {filteredCarParks.map((item) => {
                             return (
                                 <div key={item._id}>

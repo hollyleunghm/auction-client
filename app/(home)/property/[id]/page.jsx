@@ -4,38 +4,14 @@ import Property from '@/models/property';
 import Bid from '@/models/bid';
 import UI from "./ui";
 import Link from "next/link";
-// {
-//     "id": "7-1",
-//     "value": "InProgress",
-//     "label": "正在進行"
-// },
-// {
-//     "id": "7-2",
-//     "value": "AboutToStart",
-//     "label": "即將開始"
-// },
-// {
-//     "id": "7-3",
-//     "value": "Completed",
-//     "label": "已結束"
-// },
-// {
-//     "id": "7-4",
-//     "value": "Aborted",
-//     "label": "中止"
-// },
-// {
-//     "id": "7-5",
-//     "value": "Cancelled",
-//     "label": "撤回"
-// }
+import { FaArrowRight,FaArrowLeft } from "react-icons/fa";
 export default async function Page({ params }) {
     const session = await auth();
     let isOwner = false;
     await connectMongo();
     const property = await Property.findOne({ _id: params.id });
-    const next = Property.find({_id: {$gt: params.id}}).sort({_id: 1 }).limit(1)
-    const prev = Property.find({_id: {$lt: params.id}}).sort({_id: -1 }).limit(1)
+    const next = await Property.find({_id: {$gt: params.id}}).sort({_id: 1 }).limit(1);
+    const prev = await Property.find({_id: {$lt: params.id}}).sort({_id: -1 }).limit(1);
     if (new Date(property.endDateTime) <= new Date()) {
         property.BIddingStatus = "Completed";
     } else if (new Date(property.startDateTime) >= new Date()) {
@@ -57,10 +33,16 @@ export default async function Page({ params }) {
     return (
         <>
             <div className="w-full max-w-[1000px] mx-auto flex justify-between mt-4 mb-8">
-                <div>麵包屑</div>
+                <div></div>
                 <div className="flex gap-2">
-                    <Link href={prev?prev._id:''}>上一個</Link>
-                    <Link href={next?next._id:''}>下一個</Link>
+                    {/* {JSON.stringify(prev)}
+                    {JSON.stringify(next)} */}
+                    {
+                        prev[0]?<Link className="flex items-center" href={prev[0]._id}><FaArrowLeft></FaArrowLeft>上一個</Link>:null
+                    }
+                    {
+                        next[0]?<Link className="flex items-center" href={next[0]._id}>下一個<FaArrowRight></FaArrowRight></Link>:null
+                    }
                 </div>
             </div>
             <UI property={JSON.parse(JSON.stringify(property))} defaultCount={count} defaultMaxPrice={maxPrice} defaultIsOwner={isOwner}></UI >

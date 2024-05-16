@@ -24,8 +24,8 @@ export default async function Home() {
             </div>
             <div className="mb-12">
                 <h1 className="text-3xl text-[#253D59] font-semibold mt-12 mb-8 text-center">樓盤拍賣</h1>
-                <div className="mx-12 p-10 bg-[#253D59]">
-                    <div className="px-20">
+                <div className="mx-4 md:mx-12 md:px-10 md:py-10 py-2 px-12 bg-[#253D59]">
+                    <div className="md:px-20">
                         <PropertyCarousel properties={JSON.parse(JSON.stringify(properties))}></PropertyCarousel>
                     </div>
                     <div className="text-center  mt-4">
