@@ -6,6 +6,9 @@ import { useSession, getSession } from "next-auth/react";
 import { Avatar, Whisper, Popover, Dropdown } from "rsuite";
 import { useEffect } from "react";
 export default function Header() {
+    const login = () => {
+        location.href = "/login?redirect=" + location.href;
+    }
     const { data: session, status } = useSession();
     const pathname = usePathname();
     const activeRoute = (routeName) => {
@@ -18,14 +21,14 @@ export default function Header() {
         },
         {
             path: "/property",
-            name: "楼盘拍賣",
+            name: "樓盤拍賣",
         },
         {
             path: "/carpark",
             name: "車位拍賣",
         },
         {
-            path: "/concatus",
+            path: "/contactus",
             name: "聯絡我們",
         },
         {
@@ -66,7 +69,7 @@ export default function Header() {
                     );
                 })}
                 <div>
-                    
+
                     {/* {JSON.stringify(session)}-------- */}
                     {status === "authenticated" ? (
                         <Whisper className="cursor-pointer" placement="bottomEnd" trigger="click" speaker={<Popover>
@@ -80,11 +83,9 @@ export default function Header() {
                             </Dropdown.Menu>
                         </Popover>}><Avatar circle className="cursor-pointer">{session.user.email.substring(0, 1).toUpperCase()}</Avatar></Whisper>
                     ) : status === "unauthenticated" ? (
-                        <Link href="/login">
-                            <button className="transition-all duration-300 ease-in-out px-4 py-1 text-sm text-[#444444] hover:bg-[#f0d300] hover:opacity-80 bg-[#f0d300]" >
-                                登入/注冊
-                            </button>
-                        </Link>
+                        <button className="transition-all duration-300 ease-in-out px-4 py-1 text-sm text-[#444444] hover:bg-[#f0d300] hover:opacity-80 bg-[#f0d300]" onClick={login}>
+                            登入/注冊
+                        </button>
                     ) : null}
                 </div>
             </div>

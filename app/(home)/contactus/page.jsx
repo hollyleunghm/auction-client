@@ -13,7 +13,7 @@ export default function Page() {
             <ToastContainer autoClose={2000} position="top-center" />
             <div className="w-[1000px] mx-auto border-b p-16">
                 <div className="form text-white">
-                    <h1 className="text-4xl">联络我们</h1>
+                    <h1 className="text-4xl">聯絡我們</h1>
                     <div className="flex justify-between mt-12 gap-12">
                         <div className="flex-1">
                             <div className="mb-12 flex  gap-8">

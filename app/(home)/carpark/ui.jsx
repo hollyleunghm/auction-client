@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { MultiCascader, SelectPicker, DatePicker, RangeSlider } from "rsuite";
-import * as Slider from "@radix-ui/react-slider";
+import { MultiCascader, SelectPicker, InputGroup, InputNumber } from "rsuite";
 import { throttle } from "lodash";
 import Link from "next/link";
 import Image from "next/image";
@@ -72,12 +71,7 @@ export default function Property({ carParks }) {
     const [sortValue, setSortValue] = useState();
     const [maxPrice, setMaxPrice] = useState(5000000);
     const [minPrice, setMinPrice] = useState(0);
-    const setMaxPriceHandle = useCallback(throttle((maxPrice) => {
-        setMaxPrice(maxPrice);
-    }, 50), [])
-    const setMinPriceHandle = useCallback(throttle((maxPrice) => {
-        setMinPrice(maxPrice);
-    }, 50), [])
+
     useEffect(() => {
         let result = [...carParks];
         Object.keys(filter).forEach((key) => {
@@ -89,7 +83,17 @@ export default function Property({ carParks }) {
                 }
             });
         });
-        setFilteredCarParks(result.filter((item) => (item.startingPrice <= maxPrice && item.startingPrice >= minPrice)));
+        if (minPrice) {
+            result = result.filter((item) => {
+                return item.startingPrice >= minPrice;
+            });
+        }
+        if (maxPrice) {
+            result = result.filter((item) => {
+                return item.startingPrice <= maxPrice;
+            });
+        }
+        setFilteredCarParks(result);
     }, [filter, minPrice, maxPrice, carParks]);
     useEffect(() => {
         if (!sortValue) {
@@ -119,7 +123,7 @@ export default function Property({ carParks }) {
         <div>
             <div className="bg-[#253d59] py-6">
                 <div className="w-[1000px] mx-auto">
-                    <h2 className="text-xl text-white mb-2">筛选</h2>
+                    <h2 className="text-xl text-white mb-2">請選擇</h2>
                     <div className="bg-white rounded-sm px-4 py-2 grid grid-cols-2">
                         {/* {JSON.stringify(json)} */}
                         {json.map((item) => {
@@ -152,14 +156,15 @@ export default function Property({ carParks }) {
                             }}
                         />
                         {/* <DatePicker placeholder="拍卖时间" /> */}
-                        <div className="flex-1 px-4">
-                            <span className="text-white mb-2">Price</span>
-                            <RangeSlider className="mt-2" renderTooltip={(e) => {
-                                return <div className="text-baseflex p-0 whitespace-nowrap">{"HKD：" + e}</div>
-                            }} defaultValue={[0, 50000000]} max={50000000} handleClassName="bg-yellow-300" onChange={(value) => {
-                                setMaxPriceHandle(value[1]);
-                                setMinPriceHandle(value[0]);
-                            }}></RangeSlider>
+                        <div className="flex-1 px-4 flex gap-4 text-white">
+                            <InputGroup inside>
+                                <InputGroup.Addon>最低價</InputGroup.Addon>
+                                <InputNumber onChange={(value) => { setMinPrice(value) }}></InputNumber>
+                            </InputGroup>
+                            <InputGroup inside>
+                                <InputGroup.Addon>最高價</InputGroup.Addon>
+                                <InputNumber onChange={(value) => { setMaxPrice(value) }}></InputNumber>
+                            </InputGroup>
                         </div>
                     </div>
                 </div>
@@ -172,7 +177,7 @@ export default function Property({ carParks }) {
                                 <div key={item._id}>
                                     <Link href={"/carpark/" + item._id}>
                                         <div className="w-full text-black mt2">
-                                            <Image height={400} width={500} style={{ objectFit: "cover", height: "300px" }} src={item.mainImage} alt="" />
+                                            <Image height={400} width={500} style={{ objectFit: "cover", aspectRatio: "1" }} src={item.mainImage} alt="" />
                                             <div>
                                                 <p className="text-lg font-semibold">{item.title}</p>
                                                 <div className="w-12 my-2 border-b border-black"></div>

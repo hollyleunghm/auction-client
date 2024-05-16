@@ -20,7 +20,14 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
 
         <SessionProvider>
-          <CustomProvider><Header />{children}</CustomProvider>
+          <CustomProvider>
+            <div className="min-h-screen flex flex-col h-screen w-full justify-between" >
+              <Header />
+              <div className="flex-grow">
+                {children}
+              </div>
+            </div>
+          </CustomProvider>
         </SessionProvider>
       </body>
     </html>

@@ -49,7 +49,7 @@ export default function RegisterPage() {
         }
     }, [registerStatus]);
     return (
-        <main className=" md:h-screen">
+        <main className="">
             <ToastContainer autoClose={2000} position="top-center" />
             <div className="mx-auto flex w-full max-w-[700px] p-4 justify-end mt-4">
                 <span className="cursor-pointer" onClick={() => router.back()}>返回</span>

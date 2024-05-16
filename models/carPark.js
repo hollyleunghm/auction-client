@@ -18,8 +18,8 @@ const CarParkSchema = new Schema(
         startingPrice: Number,
         bidIncrement: Number,
         content: String,
-        startDateTime:String,
-        endDateTime:String,
+        startDateTime:Date,
+        endDateTime:Date,
         mainImage:String,
         images:Array,
         createdAt: {

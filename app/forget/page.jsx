@@ -69,7 +69,7 @@ export default function RegisterPage() {
                                     />
                                 </div>
                                 <div className="flex justify-between">
-                                    <Link href="/concatus" className="text-sm text-gray-500 mt-2">忘記電郵</Link>
+                                    <Link href="/contactus" className="text-sm text-gray-500 mt-2">忘記電郵</Link>
                                 </div>
                             </div>
                             <div className="mt-4">

@@ -1,5 +1,4 @@
 'use client';
-
 import { authenticate } from '@/lib/actions';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -24,8 +23,11 @@ export default function LoginForm() {
         }
     };
     useEffect(() => {
-        if (loginStatus.success) {            
-            router.push('/property');
+        localStorage.url = new URLSearchParams(location.search).get('redirect') || "/home";
+    }, []);
+    useEffect(() => {
+        if (loginStatus.success) {
+            location.href = localStorage.url;
         }
     }, [loginStatus, router]);
 

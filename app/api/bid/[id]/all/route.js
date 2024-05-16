@@ -14,7 +14,7 @@ export async function GET(request, { params }) {
             });
             return NextResponse.json(bids);
         } else {
-            return NextResponse.json({ error: "沒有任何出價" });
+            return NextResponse.json([]);
         }
 
     } catch (error) {

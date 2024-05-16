@@ -45,10 +45,15 @@ export async function POST(request, { params }) {
         target = await Property.findById(targetId);
     }
     lastBidPrice = target.startingPrice;
-    if (target.startDateTime > Date.now()) {
+    console.log("------------------");
+    console.log(target.startDateTime);
+    console.log(new Date(target.startDateTime) > Date.now());
+    console.log("------------------");
+
+    if (new Date(target.startDateTime) > Date.now()) {
         return NextResponse.json({ error: "拍賣尚未開始" });
     }
-    if (target.endDateTime < Date.now()) {
+    if (new Date(target.endDateTime) < Date.now()) {
         return NextResponse.json({ error: "拍賣已經完結" });
     }
 

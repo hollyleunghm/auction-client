@@ -13,7 +13,7 @@ const json = [{
         {
             "id": "1-2",
             "value": "Commerical",
-            "label": "工商业"
+            "label": "工商業"
         },
         {
             "id": "1-3",

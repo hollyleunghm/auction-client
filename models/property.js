@@ -32,8 +32,8 @@ const PropertySchema = new Schema(
         primarySchoolNetwork: String,
         middleSchoolNetwork: String,
         propertyAddress: String,
-        startDateTime:String,
-        endDateTime:String,
+        startDateTime:Date,
+        endDateTime:Date,
         mainImage:String,
         images:Array,
         createdAt: {
