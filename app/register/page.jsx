@@ -138,6 +138,8 @@ export default function RegisterPage() {
                                         name="phone"
                                         placeholder="請輸入電話"
                                         required
+                                        pattern="[0-9]*"
+                                        title="只能輸入數字"
                                     />
                                 </div>
                             </div>
@@ -155,6 +157,8 @@ export default function RegisterPage() {
                                         name="firstName"
                                         placeholder="請輸入First Name"
                                         required
+                                        pattern="[a-zA-Z]*"
+                                        title="只能輸入英文"
                                     />
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
@@ -162,6 +166,8 @@ export default function RegisterPage() {
                                         name="lastName"
                                         placeholder="請輸入Last Name"
                                         required
+                                        pattern="[a-zA-Z]*"
+                                        title="只能輸入英文"
                                     />
                                 </div>
                             </div>

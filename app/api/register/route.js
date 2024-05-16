@@ -18,7 +18,7 @@ export async function POST(request) {
         if (user) {
             return NextResponse.json({ error: "電郵已被註冊" });
         }
-        user = await User.findOne({ phone });
+        user = await User.findOne({ phone, code });
         if (user) {
             return NextResponse.json({ error: "電話已被註冊" });
         }
