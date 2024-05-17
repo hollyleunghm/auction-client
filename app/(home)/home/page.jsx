@@ -3,11 +3,12 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import PropertyCarousel from "./propertyCarousel";
-import connectMongo from '@/lib/connect-mongo';
-import Property from '@/models/property';
+import connectMongo from "@/lib/connect-mongo";
+import Property from "@/models/property";
+import Change from "./change";
 export default async function Home() {
     // const session = await auth();
-    
+
     await connectMongo();
     const properties = await Property.find();
     return (
@@ -34,6 +35,10 @@ export default async function Home() {
                         </Link>
                     </div>
                 </div>
+            </div>
+            <div className="mb-12">
+                <h1 className="text-3xl text-[#253D59] font-semibold mt-12 mb-8 text-center">普比德爲你帶來的改變</h1>
+                <Change />
             </div>
         </main>
     );

@@ -191,7 +191,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                         <p className="font-semibold text-lg mb-1">葉比德（Ivy Yeh）</p>
                         <p className="mb-1">電話：+852 62015450</p>
                         <p className="mb-1">微信：ineedluck99</p>
-                        <p className="mb-1">電郵：propbid.hk@gmail.com</p>
+                        <p className="mb-1">電郵：普比德.hk@gmail.com</p>
                     </div>
                 </div>
             </div>

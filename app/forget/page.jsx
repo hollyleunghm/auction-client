@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
-import { Button } from 'rsuite';
-import { RiLockPasswordLine } from "react-icons/ri";
+import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 
 export default function RegisterPage() {
@@ -89,7 +88,7 @@ export default function RegisterPage() {
                                         required
                                         minLength={6}
                                     />
-                                    <Button appearance="primary">{"獲取驗證碼"}</Button>
+                                    <Button className="bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80">獲取驗證碼</Button>
                                 </div>
                             </div>
                             <div className="mt-4">
@@ -132,7 +131,7 @@ export default function RegisterPage() {
                                 </div>
                             </div>
                         </div>
-                        <Button appearance="primary" className="mt-4 w-full" type="submit" loading={registerStatus.loading}>
+                        <Button className="mt-4 w-full bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" disabled={registerStatus.loading}>
                             重置密碼
                         </Button>
                         <div

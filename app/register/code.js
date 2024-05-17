@@ -1,22 +1,22 @@
 let countryList = [
     {
         "en": "Hongkong",
-        "cn": "中國香港",
+        "cn": "香港",
         "code": "+852"
     },
     {
         "en": "China",
-        "cn": "中國大陸",
+        "cn": "中國内地",
         "code": "+86"
     },
     {
         "en": "Macao",
-        "cn": "中國澳門",
+        "cn": "澳門",
         "code": "+853"
     },
     {
         "en": "Taiwan",
-        "cn": "中國台灣",
+        "cn": "台灣",
         "code": "+886"
     },
     {

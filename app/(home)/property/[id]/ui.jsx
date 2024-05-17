@@ -2,6 +2,7 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import Bid from "@/app/ui/bid";
+import dayjs from "dayjs";
 export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
     return (
         <div className="w-full max-w-[1000px] mx-auto pb-12 px-4 md:px-0">
@@ -41,6 +42,10 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
                             <div>小學校網：{property.primarySchoolNetwork}</div>
                             <div>中學校網：{property.middleSchoolNetwork}</div>
                             {/* <div>物業地址：{property.propertyAddress}</div> */}
+                        </div>
+                        <div className="flex justify-between border-t mt-4 pt-4">
+                            <div>物業編號：CIA762</div>
+                            <div>刊登日期：{dayjs(property.createdAt).format("YYYY-MM-DD")}</div>
                         </div>
                     </div>
                 </div>

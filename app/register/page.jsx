@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
-import { Button } from 'rsuite';
+import { Button } from "@/components/ui/button";
 import codeList from "./code";
 import Link from "next/link";
 export default function RegisterPage() {
@@ -263,7 +263,7 @@ export default function RegisterPage() {
                                 </label>
                             </div>
                         </div>
-                        <Button appearance="primary" className="mt-4 w-full" type="submit" loading={registerStatus.loading}>
+                        <Button className="mt-4 w-full  bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" disabled={registerStatus.loading}>
                             你的物業拍賣之旅由此開始
                         </Button>
                         <div

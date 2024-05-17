@@ -2,6 +2,7 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import Bid from "@/app/ui/bid";
+import dayjs from "dayjs";
 
 export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
 
@@ -31,6 +32,10 @@ export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
                                     return <div key={index}>{item}</div>;
                                 })}
                             </div>
+                        </div>
+                        <div className="flex justify-between border-t mt-4 pt-4">
+                            <div>物業編號：CIA762</div>
+                            <div>刊登日期：{dayjs(carPark.createdAt).format("YYYY-MM-DD")}</div>
                         </div>
                     </div>
                 </div>

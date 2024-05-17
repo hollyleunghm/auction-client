@@ -31,7 +31,7 @@ export default function Page() {
                             </div>
                             <div className="mb-12 flex gap-8">
                                 <FiMail className="text-2xl flex-shrink-0"></FiMail>
-                                <a href="mailto:propbid.hk@gmail.com">propbid.hk@gmail.com</a>
+                                <a href="mailto:普比德.hk@gmail.com">普比德.hk@gmail.com</a>
                             </div>
                         </div>
                         <div className="flex-1">

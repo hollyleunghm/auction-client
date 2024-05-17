@@ -49,17 +49,17 @@ export default function Header() {
         fetchSession();
     }, []);
     return (
-        <div className="flex items-center justify-between w-full max-w-[1600px] mx-auto">
+        <div className="md:flex items-center justify-between w-full max-w-[1600px] mx-auto">
             <Link href="/home">
-                <Image src="/PropBid.png" alt="" width={115} height={115} />
+                <Image src="/PropBid.png" alt="" width={115} height={115} className="mx-auto block" />
             </Link>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center md:gap-4 gap-1 justify-between px-2 md:justify-start md:px-0 mb-4 md:mb-0">
                 {routes.map((route) => {
-                    return (
+                    return (                         
                         <Link href={route.path} key={route.path}>
                             <button
                                 className={
-                                    "transition-all duration-300 ease-in-out px-4 py-1 text-sm text-[#444444] hover:bg-[#f3f1eb]" +
+                                    "transition-all duration-300 ease-in-out md:px-4 px-2 py-1 text-sm text-[#444444] hover:bg-[#f3f1eb]" +
                                     (activeRoute(route.path) ? " bg-[#ede9e1]" : "")
                                 }
                             >
@@ -81,7 +81,7 @@ export default function Header() {
                                     </Dropdown.Item>
                                 </Link>
                             </Dropdown.Menu>
-                        </Popover>}><Avatar circle className="cursor-pointer">{session.user.email.substring(0, 1).toUpperCase()}</Avatar></Whisper>
+                        </Popover>}><Avatar circle className="cursor-pointer md:text-base text-xs">{session.user.email.substring(0, 1).toUpperCase()}</Avatar></Whisper>
                     ) : status === "unauthenticated" ? (
                         <button className="transition-all duration-300 ease-in-out px-4 py-1 text-sm text-[#444444] hover:bg-[#f0d300] hover:opacity-80 bg-[#f0d300]" onClick={login}>
                             登入/注冊

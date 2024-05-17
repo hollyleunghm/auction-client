@@ -141,7 +141,7 @@ export default function Property({ properties }) {
                                             data={item.options}
                                             searchable={false}
                                             style={{ width: 300 }}
-                                            placeholder={"请选择" + item.label}
+                                            placeholder={"請選擇" + item.label}
                                             onChange={(value) => {
                                                 changeHandle(value, item);
                                             }}

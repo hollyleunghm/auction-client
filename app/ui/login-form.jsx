@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import { MdOutlineMailOutline, MdPhoneIphone } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import Link from 'next/link';
-import { Button } from 'rsuite';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import codeList from "@/app/register/code";
+import { Button } from "@/components/ui/button";
 export default function LoginForm() {
     const router = useRouter();
     const [type, setType] = useState("email");
@@ -119,7 +119,7 @@ export default function LoginForm() {
                         <Link href="/forget" className="text-sm text-gray-500 mt-2">忘記密碼</Link>
                     </div>
 
-                    <Button appearance="primary" className="mt-4 w-full" type="submit" loading={loginStatus.loading}>
+                    <Button className="mt-4 w-full bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" disabled={loginStatus.loading}>
                         開始拍賣
                         {/* <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" /> */}
                     </Button>
