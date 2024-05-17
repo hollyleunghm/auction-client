@@ -145,7 +145,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                         <DialogTrigger>
                             <div className=" underline cursor-pointer" >出價歷史</div>
                         </DialogTrigger>
-                        <DialogContent className="w-[800px] max-w-[800px]">
+                        <DialogContent className="w-[90vw] md:w-[800px]">
                             <DialogHeader>
                                 <DialogTitle>{target.title}出價歷史</DialogTitle>
                                 <DialogDescription>
