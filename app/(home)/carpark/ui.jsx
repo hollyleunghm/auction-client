@@ -77,9 +77,9 @@ export default function Property({ carParks }) {
         if (dateRange) {
             let startDate = new Date(dateRange[0]).setHours(0, 0, 0, 0);
             console.log(startDate);
-            let endDate = new Date(dateRange[1]).setHours(0, 0, 0, 0);
+            let endDate = new Date(dateRange[1]).setHours(23, 59, 59, 999);
             result = result.filter((item) => {
-                let dateTime = new Date(item.startDateTime).getTime();
+                let dateTime = new Date(item.createdAt).getTime();
                 return dateTime >= startDate && dateTime <= endDate;
             });
         }
@@ -157,7 +157,7 @@ export default function Property({ carParks }) {
                             className="mb-4 md:mb-0"
                         />
                         {/* <DatePicker placeholder="拍卖時间" /> */}
-                        <DateRangePicker placeholder="請選擇日期範圍" onChange={(value) => { setDateRange(value) }}></DateRangePicker>
+                        <DateRangePicker placeholder="請選擇刊登日期" onChange={(value) => { setDateRange(value) }}></DateRangePicker>
                         <div className="md:flex flex-1 md:px-4 gap-4 text-white">
                             <InputGroup inside className="mb-4 md:mb-0">
                                 <InputGroup.Addon>最低價</InputGroup.Addon>

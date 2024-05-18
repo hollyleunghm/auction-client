@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Page() {
     const handleSubmit = async (event) => {
         event.preventDefault();
-        toast.success("消息发送成功");
+        toast.success("消息發送成功");
     };
     return (
         <div className="bg-[#253d59] ">
