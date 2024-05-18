@@ -165,7 +165,7 @@ export default function Property({ properties }) {
                             }}
                             className="mb-4 md:mb-0"
                         />
-                        <DateRangePicker placeholder="請選擇刊登日期" onChange={(value) => { setDateRange(value) }}></DateRangePicker>
+                        <DateRangePicker className="mb-4 md:mb-0" placeholder="請選擇刊登日期" onChange={(value) => { setDateRange(value) }}></DateRangePicker>
                         <div className="md:flex flex-1 md:px-4 gap-4 text-white">
                             <InputGroup inside
                                 className="mb-4 md:mb-0">

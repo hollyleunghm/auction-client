@@ -55,7 +55,7 @@ export default function Page() {
                                     <textarea id="content" className=" w-full mt-2 bg-transparent border p-1" rows={5} />
                                 </div>
                                 <div className="text-right">
-                                    <Button type="submit" className="rounded-none bg-[#f0d300] text-black font-light px-20 py-4 transition-all hover:bg-[#f0d300] hover:opacity-80">发送</Button>
+                                    <Button type="submit" className="rounded-none bg-[#f0d300] text-black font-light px-20 py-4 transition-all hover:bg-[#f0d300] hover:opacity-80">發送</Button>
                                 </div>
                             </form>
                         </div>

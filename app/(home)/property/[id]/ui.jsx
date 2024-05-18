@@ -52,7 +52,7 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
                 </div>
                 <div>
                     <Bid target={property} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice}></Bid>
-                    <PriceCard property={property}></PriceCard>
+                    <PriceCard target={property}></PriceCard>
                     <AreaCard property={property}></AreaCard>
                     <ConcatCard></ConcatCard>
                     <FileCard></FileCard>

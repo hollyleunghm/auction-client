@@ -5,6 +5,8 @@ import Bid from "@/app/ui/bid";
 import dayjs from "dayjs";
 import ConcatCard from "@/app/ui/concatCard";
 import FileCard from "@/app/ui/fileCard";
+import PriceCard from "@/app/ui/priceCard";
+
 export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
 
     return (
@@ -30,8 +32,8 @@ export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
                         <h1 className="text-xl font-semibold">介绍信息</h1>
                         <div>
                             <div>地址：{carPark.address}</div>
-                            <div>起拍價：{carPark.startingPrice.toLocaleString()} </div>
-                            <div>每口價：{carPark.bidIncrement.toLocaleString()}</div>
+                            {/* <div>起拍價：{carPark.startingPrice.toLocaleString()} </div>
+                            <div>每口價：{carPark.bidIncrement.toLocaleString()}</div> */}
                             <div>
                                 {carPark.content.split("\n").map((item, index) => {
                                     return <div key={index}>{item}</div>;
@@ -46,6 +48,8 @@ export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
                 </div>
                 <div>
                     <Bid target={carPark} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice} targetType={1}></Bid>
+                    {/* monthlyPayment, downPayment, mortgageAmount, interestRate, years */}
+                    <PriceCard target={carPark} monthlyPayment={"1,795"} downPayment={26} mortgageAmount={70} interestRate={3} years={15}></PriceCard>
                     <ConcatCard></ConcatCard>
                     <FileCard></FileCard>
                 </div>

@@ -7,7 +7,7 @@ const Footer = () => {
                 <div className="md:flex px-4 md:px-0 items-end gap-4">
                     <div className="leading-8 md:w-2/3 text-sm">
                         <p>普比德 致力於確保網站所提供的資訊是最新及最準確。 若因錯漏而引致任何不便或損失，概不負責。 </p>
-                        <p>© 2024 普比德物業拍賣有限公司</p>
+                        <p>© 2024 普比德有限公司</p>
                         <div>
                             <Link href="https://www.普比德.com/privacy-policy" target="_blank">使用條款</Link>
                             <span className="mx-2">|</span>
