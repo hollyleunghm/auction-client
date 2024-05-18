@@ -1,7 +1,6 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { MultiCascader, SelectPicker, InputGroup, InputNumber, DateRangePicker } from "rsuite";
-import { throttle } from "lodash";
 import Link from "next/link";
 import Image from "next/image";
 import json from "./dic";
@@ -56,7 +55,7 @@ export default function Property({ carParks }) {
         },
         {
             value: "date",
-            label: "添加日期",
+            label: "刊登日期",
         },
     ];
     const [sortValue, setSortValue] = useState();
@@ -93,13 +92,7 @@ export default function Property({ carParks }) {
                 return item.startingPrice <= maxPrice;
             });
         }
-        setFilteredCarParks(result);
-    }, [filter, minPrice, maxPrice, carParks]);
-    useEffect(() => {
-        if (!sortValue) {
-            return;
-        }
-        const res = filteredCarParks.sort((a, b) => {
+        result = result.sort((a, b) => {
             switch (sortValue) {
                 case "price1":
                     return a.startingPrice > b.startingPrice ? 1 : -1;
@@ -117,8 +110,8 @@ export default function Property({ carParks }) {
                 //     return a.pricePerFoot1 < b.pricePerFoot1 ? 1 : -1;
             }
         });
-        setFilteredCarParks([...res]);
-    }, [sortValue]);
+        setFilteredCarParks(result);
+    }, [filter, minPrice, maxPrice, dateRange, sortValue, carParks]);
     return (
         <div>
             <div className="bg-[#253d59] py-6">

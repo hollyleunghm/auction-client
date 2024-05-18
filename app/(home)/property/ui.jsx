@@ -55,7 +55,7 @@ export default function Property({ properties }) {
         },
         {
             value: "date",
-            label: "添加日期",
+            label: "刊登日期",
         },
 
         {
@@ -109,20 +109,14 @@ export default function Property({ properties }) {
                 return item.startingPrice <= maxPrice;
             });
         }
-        setFilteredProperties(result);
-    }, [filter, minPrice, maxPrice, dateRange, properties]);
-    useEffect(() => {
-        if (!sortValue) {
-            return;
-        }
-        const res = filteredProperties.sort((a, b) => {
+        result = result.sort((a, b) => {
             switch (sortValue) {
                 case "price1":
                     return a.startingPrice > b.startingPrice ? 1 : -1;
                 case "price2":
                     return a.startingPrice < b.startingPrice ? 1 : -1;
                 case "date":
-                    return new Date(a.CreatedAt) > new Date(b.CreatedAt) ? 1 : -1;
+                    return new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime() ? 1 : -1;
                 case "area1":
                     return a.constructionArea > b.constructionArea ? 1 : -1;
                 case "area2":
@@ -133,8 +127,8 @@ export default function Property({ properties }) {
                     return a.pricePerFoot1 < b.pricePerFoot1 ? 1 : -1;
             }
         });
-        setFilteredProperties([...res]);
-    }, [sortValue, filteredProperties]);
+        setFilteredProperties(result);
+    }, [filter, minPrice, maxPrice, dateRange, sortValue, properties]);
     return (
         <div>
             <div className="bg-[#253d59] py-6">
