@@ -2,6 +2,10 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import Bid from "@/app/ui/bid";
+import ConcatCard from "@/app/ui/concatCard";
+import FileCard from "@/app/ui/fileCard";
+import PriceCard from "@/app/ui/priceCard";
+import AreaCard from "@/app/ui/areaCard";
 import dayjs from "dayjs";
 export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
     return (
@@ -22,18 +26,11 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
                     <div>
                         <h1 className="text-xl font-semibold">樓盤介紹</h1>
                         <div>
-                            {/* <div>地址：{property.address}</div> */}
-                            <div>起標價：{property.startingPrice.toLocaleString()} </div>
-                            {/* <div>每口價：{property.bidIncrement.toLocaleString()}</div> */}
                             <div>
                                 {property.content.split("\n").map((item, index) => {
                                     return <div key={index}>{item}</div>;
                                 })}
                             </div>
-                            <div>建築面積：{property.constructionArea} 平方呎</div>
-                            <div>呎價: @{property.pricePerFoot1.toLocaleString()} 元</div>
-                            <div>實用面積：{property.practicalArea} 平方呎</div>
-                            <div>呎價: @{property.pricePerFoot2.toLocaleString()} 元</div>
                             <div>座數及單位: {property.seatsAndUnits}</div>
                             <div>屋苑樓齡: {property.age} 年</div>
                             <div>座向(客廳)：{property.towards}</div>
@@ -49,7 +46,13 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
                         </div>
                     </div>
                 </div>
-                <Bid target={property} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice}></Bid>
+                <div>
+                    <Bid target={property} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice}></Bid>
+                    <PriceCard property={property}></PriceCard>
+                    <AreaCard property={property}></AreaCard>
+                    <ConcatCard></ConcatCard>
+                    <FileCard></FileCard>
+                </div>
             </div>
         </div>
     );

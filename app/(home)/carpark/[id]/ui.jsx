@@ -3,7 +3,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import Bid from "@/app/ui/bid";
 import dayjs from "dayjs";
-
+import ConcatCard from "@/app/ui/concatCard";
+import FileCard from "@/app/ui/fileCard";
 export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
 
     return (
@@ -39,7 +40,11 @@ export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
                         </div>
                     </div>
                 </div>
-                <Bid target={carPark} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice} targetType={1}></Bid>
+                <div>
+                    <Bid target={carPark} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice} targetType={1}></Bid>
+                    <ConcatCard></ConcatCard>
+                    <FileCard></FileCard>
+                </div>
             </div>
         </div>
     );

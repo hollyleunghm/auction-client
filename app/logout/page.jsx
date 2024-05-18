@@ -2,7 +2,8 @@
 import { logOut } from "@/lib/actions";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "rsuite";
+import { Button } from "@/components/ui/button";
+
 
 export default function Page() {
   const router = useRouter();
@@ -32,7 +33,8 @@ export default function Page() {
       <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
         <p>確認登出嗎？</p>
         <form onSubmit={handleSubmit}>
-          <Button appearance="primary" type="submit" className="mt-4 w-full" loading={logoutStatus.loading}>
+          
+          <Button  type="submit" className="mt-4 w-full  bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" disabled={logoutStatus.loading}>
             登出
           </Button>
           <Button className="mt-4 w-full" onClick={() => router.back()}>取消</Button>

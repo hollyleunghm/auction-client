@@ -102,7 +102,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                     target.BIddingStatus === "InProgress" ? (
                         <div className="py-2 border-b border-[#253D59]">
                             <div>倒計時</div>
-                            {/* {timeRemaining.days}天 {timeRemaining.hours}时 {timeRemaining.minutes}分 {timeRemaining.seconds}秒 */}
+                            {/* {timeRemaining.days}天 {timeRemaining.hours}時 {timeRemaining.minutes}分 {timeRemaining.seconds}秒 */}
                             <div className="flex text-center gap-2">
                                 <div>
                                     <Button size="sm" className="w-12 cursor-default">
@@ -114,7 +114,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                                     <Button size="sm" className="w-12 cursor-default">
                                         {timeRemaining.hours}
                                     </Button>
-                                    <p>时</p>
+                                    <p>時</p>
                                 </div>
                                 <div>
                                     <Button size="sm" className="w-12 cursor-default">
@@ -179,28 +179,6 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                     </TooltipProvider>
 
                     <span className="text-sm">評估價：{target.startingPrice.toLocaleString()}</span>
-                </div>
-            </div>
-            <div className="border border-[#253D59] p-3 mt-4 bg-[#f3f3f3]">
-                <Divider >
-                    <span className="font-semibold text-lg text-[#253D59]">聯絡方式</span>
-                </Divider>
-                <div className="flex gap-4 p-4 border bg-white mt-2">
-                    <div><Avatar circle className=" text-xl" /></div>
-                    <div>
-                        <p className="font-semibold text-lg mb-1">葉比德（Ivy Yeh）</p>
-                        <p className="mb-1">電話：+852 62015450</p>
-                        <p className="mb-1">微信：ineedluck99</p>
-                        <p className="mb-1">電郵：普比德.hk@gmail.com</p>
-                    </div>
-                </div>
-            </div>
-            <div className="border border-[#253D59] p-3 mt-8 bg-[#f3f3f3]">
-                <Divider className="mb-2">
-                    <span className="font-semibold text-lg text-[#253D59]">文件下載</span>
-                </Divider>
-                <div className="p-4 border bg-white mt-2">
-                    <Link href="/file.pdf" className="underline">地契.pdf</Link>
                 </div>
             </div>
         </div>
