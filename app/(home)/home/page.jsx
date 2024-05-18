@@ -14,12 +14,12 @@ export default async function Home() {
     return (
         <main className="">
             {/* Welcome to the home page!<p>Welcome {JSON.stringify(session)}</p> */}
-            <div className="bg-[url('/bg.webp')] bg-cover h-[688px] py-36 flex justify-center items-stretch">
-                <div className="bg-[#253d59] py-12 px-36 max-w-[900px] text-white text-center">
-                    <h1 className="text-4xl font-bold leading-normal" >普比德物業拍賣平台</h1>
-                    <h2 className="text-2xl leading-normal mt-4">普比德為香港首創網上樓盤拍賣平台，提供住宅、車位、銀主盤、上車盤、二手樓盤等筍盤拍賣。物業遍佈香港島、九龍及新界。</h2>
+            <div className="bg-[url('/bg.webp')] bg-cover h-[50vh] md:h-[688px] md:py-36 flex justify-center items-center">
+                <div className="flex flex-col bg-[#253d59] py-8 md:py-12 px-12 md:px-36 w-full md:max-w-[900px] text-white text-center">
+                    <h1 className="md:text-4xl text-xl font-bold leading-normal" >普比德物業拍賣平台</h1>
+                    <h2 className="md:text-2xl text-md leading-normal mt-4">普比德為香港首創網上樓盤拍賣平台，提供住宅、車位、銀主盤、上車盤、二手樓盤等筍盤拍賣。物業遍佈香港島、九龍及新界。</h2>
                     <Link href="/property">
-                        <Button className="text-xl mt-16 rounded-none bg-[#f0d300] text-black  px-20 py-4 transition-all hover:bg-[#f0d300] hover:opacity-80">開始拍賣</Button>
+                        <Button className="md:text-xl text-sm md:mt-16 mt-8 rounded-none bg-[#f0d300] text-black  px-20 py-4 transition-all hover:bg-[#f0d300] hover:opacity-80">開始拍賣</Button>
                     </Link>
                 </div>
             </div>

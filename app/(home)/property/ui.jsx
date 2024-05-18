@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { MultiCascader, SelectPicker, InputGroup, InputNumber } from "rsuite";
+import { MultiCascader, SelectPicker, InputGroup, InputNumber, DateRangePicker } from "rsuite";
 import Link from "next/link";
 import Image from "next/image";
 import json from "./dic";
@@ -78,7 +78,7 @@ export default function Property({ properties }) {
     const [sortValue, setSortValue] = useState();
     const [maxPrice, setMaxPrice] = useState();
     const [minPrice, setMinPrice] = useState();
-
+    const [dateRange, setDateRange] = useState();
     useEffect(() => {
         let result = [...properties];
         Object.keys(filter).forEach((key) => {
@@ -90,6 +90,15 @@ export default function Property({ properties }) {
                 }
             });
         });
+        if (dateRange) {
+            let startDate = new Date(dateRange[0]).setHours(0, 0, 0, 0);
+            console.log(startDate);
+            let endDate = new Date(dateRange[1]).setHours(0, 0, 0, 0);
+            result = result.filter((item) => {
+                let dateTime = new Date(item.startDateTime).getTime();
+                return dateTime >= startDate && dateTime <= endDate;
+            });
+        }
         if (minPrice) {
             result = result.filter((item) => {
                 return item.startingPrice >= minPrice;
@@ -101,7 +110,7 @@ export default function Property({ properties }) {
             });
         }
         setFilteredProperties(result);
-    }, [filter, minPrice, maxPrice, properties]);
+    }, [filter, minPrice, maxPrice, dateRange, properties]);
     useEffect(() => {
         if (!sortValue) {
             return;
@@ -125,7 +134,7 @@ export default function Property({ properties }) {
             }
         });
         setFilteredProperties([...res]);
-    }, [sortValue]);
+    }, [sortValue, filteredProperties]);
     return (
         <div>
             <div className="bg-[#253d59] py-6">
@@ -162,6 +171,7 @@ export default function Property({ properties }) {
                             }}
                             className="mb-4 md:mb-0"
                         />
+                        <DateRangePicker placeholder="請選擇日期範圍" onChange={(value) => { setDateRange(value) }}></DateRangePicker>
                         <div className="md:flex flex-1 md:px-4 gap-4 text-white">
                             <InputGroup inside
                                 className="mb-4 md:mb-0">

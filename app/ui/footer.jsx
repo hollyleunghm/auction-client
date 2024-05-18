@@ -15,7 +15,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="flex gap-4">
-                        <Link href="https://www.youtube.com/@普比德" target="_blank">
+                        <Link href="https://www.youtube.com/@propbid" target="_blank">
                             <Image height={30} width={30} src="/youtube.webp" alt="" />
                         </Link>
                         <Link href="https://wa.me/85262015450" target="_blank">

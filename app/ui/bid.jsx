@@ -91,8 +91,8 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
     return (
         <div>
             <ToastContainer position="top-center" autoClose={false} />
-            <h1 className="text-2xl font-semibold text-[#253D59]">{target.title}</h1>
-            <h3 className="text-sm text-[#253D59]">{target.address}</h3>
+            <h1 className="hidden md:block text-2xl font-semibold text-[#253D59]">{target.title}</h1>
+            <h3 className="hidden md:block text-sm text-[#253D59]">{target.address}</h3>
             <div className="mt-8 text-md  text-[#253D59] ">
                 <div>
                     <p>拍賣截止時間:</p>

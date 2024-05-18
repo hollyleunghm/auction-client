@@ -29,7 +29,7 @@ const Change = () => {
                             <DialogContent className="w-[90vw] md:w-[800px]">
                                 <DialogHeader>
                                     <DialogTitle className="text-xl p-4">更多信息</DialogTitle>
-                                    <DialogDescription className="text-xl md:px-4">
+                                    <DialogDescription className="text-xl md:px-4  max-h-[70vh] overflow-auto">
                                         <p className="mb-4">普比德為賣家提供先進的數據分析和報告工具，讓他們深入了解市場趨勢、投標者偏好以及價格動態的複雜性。這使賣家能夠依據全面的市場情報做出明智的決策。</p>
                                         <p className="mb-4">普比德為投標者提供了透明的財產歷史和細節報告，讓參與者能夠精確追蹤拍賣進度，審視過往的競投歷史，並通過實時通知保持信息的更新，確保他們在整個拍賣過程中保持參與和了解。</p>
                                         <p className="mb-4">此外，普比德通過提供 VR 演示，增強了虛擬體驗，允許潛在買家接近實地遙距參觀物業。</p>
@@ -59,7 +59,7 @@ const Change = () => {
                             <DialogContent className="w-[90vw] max-w-[800px]">
                                 <DialogHeader>
                                     <DialogTitle className="text-xl p-4">更多信息</DialogTitle>
-                                    <DialogDescription className="text-xl px-4">
+                                    <DialogDescription className="text-xl md:px-4 max-h-[70vh] overflow-auto">
                                         <p className="mb-4">普比德提供多種競標選項，旨在提升用戶體驗並提供彈性選擇：</p>
                                         <ul className="list-disc">
                                             <li className="mb-4">
@@ -100,7 +100,7 @@ const Change = () => {
                             <DialogContent className="w-[90vw] max-w-[800px]">
                                 <DialogHeader>
                                     <DialogTitle className="text-xl p-4">更多信息</DialogTitle>
-                                    <DialogDescription className="text-xl px-4">
+                                    <DialogDescription className="text-xl md:px-4  max-h-[70vh] overflow-auto">
                                         <p className="mb-4">普比德的收費結構包含以下幾個部分：</p>
                                         <ul className="list-disc">
                                             <li className="mb-4 text-left "><span>0.8% 佣金費</span> </li>

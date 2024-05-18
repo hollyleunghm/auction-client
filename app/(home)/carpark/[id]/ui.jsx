@@ -22,6 +22,10 @@ export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
                         <img src={carPark.mainImage} alt={carPark.title} />
                         <img src={carPark.mainImage} alt={carPark.title} />
                     </Carousel>
+                    <div className="md:hidden mb-4">
+                        <h1 className="text-2xl font-semibold text-[#253D59]">{carPark.title}</h1>
+                        <h3 className="text-sm text-[#253D59]">{carPark.address}</h3>
+                    </div>
                     <div>
                         <h1 className="text-xl font-semibold">介绍信息</h1>
                         <div>

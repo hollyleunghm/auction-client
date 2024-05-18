@@ -11,15 +11,15 @@ export default function Page() {
     return (
         <div className="bg-[#253d59] ">
             <ToastContainer autoClose={2000} position="top-center" />
-            <div className="w-[1000px] mx-auto border-b p-16">
+            <div className="md:w-[1000px] mx-auto border-b p-16">
                 <div className="form text-white">
                     <h1 className="text-4xl">聯絡我們</h1>
-                    <div className="flex justify-between mt-12 gap-12">
+                    <div className="md:flex justify-between mt-12 gap-12">
                         <div className="flex-1">
                             <div className="mb-12 flex  gap-8">
                                 <FiMapPin className="text-2xl flex-shrink-0"></FiMapPin>
                                 <span>
-                                    香港特別行政區上環信德中心1608室
+                                    香港上環信德中心1608室
                                 </span>
                             </div>
 
@@ -31,10 +31,10 @@ export default function Page() {
                             </div>
                             <div className="mb-12 flex gap-8">
                                 <FiMail className="text-2xl flex-shrink-0"></FiMail>
-                                <a href="mailto:普比德.hk@gmail.com">普比德.hk@gmail.com</a>
+                                <a href="mailto:普比德.hk@gmail.com">propbid.hk@gmail.com</a>
                             </div>
                         </div>
-                        <div className="flex-1">
+                        <div className="flex-1 max-w-full">
                             <form onSubmit={handleSubmit}>
                                 <div className="flex justify-between gap-4 mb-4">
                                     <div className="">
@@ -59,7 +59,6 @@ export default function Page() {
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -23,6 +23,10 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
                         <img src={property.mainImage} alt={property.title} />
                         <img src={property.mainImage} alt={property.title} />
                     </Carousel>
+                    <div className="md:hidden mb-4">
+                        <h1 className="text-2xl font-semibold text-[#253D59]">{property.title}</h1>
+                        <h3 className="text-sm text-[#253D59]">{property.address}</h3>
+                    </div>
                     <div>
                         <h1 className="text-xl font-semibold">樓盤介紹</h1>
                         <div>

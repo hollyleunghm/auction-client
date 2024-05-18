@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { MultiCascader, SelectPicker, InputGroup, InputNumber } from "rsuite";
+import { MultiCascader, SelectPicker, InputGroup, InputNumber, DateRangePicker } from "rsuite";
 import { throttle } from "lodash";
 import Link from "next/link";
 import Image from "next/image";
@@ -62,7 +62,7 @@ export default function Property({ carParks }) {
     const [sortValue, setSortValue] = useState();
     const [maxPrice, setMaxPrice] = useState(5000000);
     const [minPrice, setMinPrice] = useState(0);
-
+    const [dateRange, setDateRange] = useState();
     useEffect(() => {
         let result = [...carParks];
         Object.keys(filter).forEach((key) => {
@@ -74,6 +74,15 @@ export default function Property({ carParks }) {
                 }
             });
         });
+        if (dateRange) {
+            let startDate = new Date(dateRange[0]).setHours(0, 0, 0, 0);
+            console.log(startDate);
+            let endDate = new Date(dateRange[1]).setHours(0, 0, 0, 0);
+            result = result.filter((item) => {
+                let dateTime = new Date(item.startDateTime).getTime();
+                return dateTime >= startDate && dateTime <= endDate;
+            });
+        }
         if (minPrice) {
             result = result.filter((item) => {
                 return item.startingPrice >= minPrice;
@@ -148,6 +157,7 @@ export default function Property({ carParks }) {
                             className="mb-4 md:mb-0"
                         />
                         {/* <DatePicker placeholder="拍卖時间" /> */}
+                        <DateRangePicker placeholder="請選擇日期範圍" onChange={(value) => { setDateRange(value) }}></DateRangePicker>
                         <div className="md:flex flex-1 md:px-4 gap-4 text-white">
                             <InputGroup inside className="mb-4 md:mb-0">
                                 <InputGroup.Addon>最低價</InputGroup.Addon>
