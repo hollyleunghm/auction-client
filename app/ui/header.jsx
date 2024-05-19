@@ -53,13 +53,13 @@ export default function Header() {
             <Link href="/home">
                 <Image src="/PropBid.png" alt="" width={115} height={115} className="mx-auto block" />
             </Link>
-            <div className="flex items-center md:gap-4 gap-1 justify-between px-2 md:justify-start md:px-0 mb-4 md:mb-0">
+            <div className="md:flex items-center md:gap-4 gap-1 justify-between px-2 md:justify-start md:px-0 mb-4 md:mb-0">
                 {routes.map((route) => {
                     return (                         
                         <Link href={route.path} key={route.path}>
                             <button
                                 className={
-                                    "transition-all duration-300 ease-in-out md:px-4 px-3 py-1 md:text-sm text-[#444444] hover:bg-[#f3f1eb]" +
+                                    "w-full md:w-auto text-left md:text-center transition-all duration-300 ease-in-out md:px-4 px-3 py-1 md:text-sm text-[#444444] hover:bg-[#f3f1eb]" +
                                     (activeRoute(route.path) ? " bg-[#ede9e1]" : "")
                                 }
                             >
