@@ -23,19 +23,19 @@ const BidList = ({ id }) => {
             <Table className="w-full my-4">
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="w-12" >下拍賬戶</TableHead>
-                        <TableHead className="w-12">出價次序</TableHead>
-                        <TableHead className="w-12">出價</TableHead>
-                        <TableHead className="w-12">出價時間</TableHead>
+                        <TableHead className="whitespace-nowrap">下拍賬戶</TableHead>
+                        <TableHead className="whitespace-nowrap">出價次序</TableHead>
+                        <TableHead className="whitespace-nowrap">出價</TableHead>
+                        <TableHead className="whitespace-nowrap">出價時間</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody className="max-h-[100px] overflow-auto" >
                     {list.map((item, index) => (
                         <TableRow key={index}>
-                            <TableCell className="w-12">{item.userId && item.userId.email}</TableCell>
-                            <TableCell className="w-12">{index + 1}</TableCell>
-                            <TableCell className="w-12">{item.bidPrice.toLocaleString()}</TableCell>
-                            <TableCell className="w-12">{dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss') }</TableCell>
+                            <TableCell className="text-left">{item.userId && item.userId.email}</TableCell>
+                            <TableCell className="text-left">{index + 1}</TableCell>
+                            <TableCell className="text-left">{item.bidPrice.toLocaleString()}</TableCell>
+                            <TableCell  className="text-left whitespace-nowrap">{dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss') }</TableCell>
                         </TableRow>
                     )
                     )}

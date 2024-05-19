@@ -3,9 +3,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useSession, getSession } from "next-auth/react";
-import { Avatar, Whisper, Popover, Dropdown } from "rsuite";
 import { useEffect } from "react";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+    Avatar,
+    AvatarFallback
+} from "@/components/ui/avatar"
 export default function Header() {
+
     const login = () => {
         location.href = "/login?redirect=" + location.href;
     }
@@ -14,6 +25,7 @@ export default function Header() {
     const activeRoute = (routeName) => {
         return pathname.includes(routeName);
     };
+
     const routes = [
         {
             path: "/home",
@@ -48,6 +60,7 @@ export default function Header() {
         }
         fetchSession();
     }, []);
+
     return (
         <div className="md:flex items-center justify-between w-full max-w-[1600px] mx-auto">
             <Link href="/home">
@@ -55,7 +68,7 @@ export default function Header() {
             </Link>
             <div className="md:flex items-center md:gap-4 gap-1 justify-between px-2 md:justify-start md:px-0 mb-4 md:mb-0">
                 {routes.map((route) => {
-                    return (                         
+                    return (
                         <Link href={route.path} key={route.path}>
                             <button
                                 className={
@@ -69,19 +82,21 @@ export default function Header() {
                     );
                 })}
                 <div>
-
-                    {/* {JSON.stringify(session)}-------- */}
                     {status === "authenticated" ? (
-                        <Whisper className="cursor-pointer" placement="bottomEnd" trigger="click" speaker={<Popover>
-                            <Dropdown.Menu>
-                                <Dropdown.Item>個人資料</Dropdown.Item>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger>
+                                <Avatar>
+                                    <AvatarFallback>{session.user.email.substring(0, 1).toUpperCase()}</AvatarFallback>
+                                </Avatar>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuLabel>個人資料</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
                                 <Link href="/logout">
-                                    <Dropdown.Item>
-                                        登出
-                                    </Dropdown.Item>
+                                    <DropdownMenuLabel>登出</DropdownMenuLabel>
                                 </Link>
-                            </Dropdown.Menu>
-                        </Popover>}><Avatar circle className="cursor-pointer md:text-base text-xs">{session.user.email.substring(0, 1).toUpperCase()}</Avatar></Whisper>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     ) : status === "unauthenticated" ? (
                         <button className="transition-all duration-300 ease-in-out md:px-4 px-3 py-1 md:text-sm text-[#444444] hover:bg-[#f0d300] hover:opacity-80 bg-[#f0d300]" onClick={login}>
                             登入/注冊

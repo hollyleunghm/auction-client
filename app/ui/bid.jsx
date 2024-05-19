@@ -12,9 +12,6 @@ import {
 import dayjs from "dayjs";
 import UseCountdownTimer from "@/hooks/UseCountdownTimer";
 import { ToastContainer, toast } from "react-toastify";
-import { Avatar } from 'rsuite';
-import Divider from "@/app/ui/divider";
-import Link from "next/link";
 import BidList from "@/app/ui/bidList";
 import {
     Tooltip,
@@ -141,14 +138,14 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                         <p>當前出價{isOwner ? "（你的出價現在最高）" : ""}</p>
                         <p>HKD {maxPrice.toLocaleString()}</p>
                     </div>
-                    <Dialog >
+                    <Dialog>
                         <DialogTrigger>
                             <div className=" underline cursor-pointer" >出價歷史</div>
                         </DialogTrigger>
-                        <DialogContent className="w-[90vw] md:w-[800px]">
+                        <DialogContent className="overflow-y-auto md:max-w-[800px]">
                             <DialogHeader>
                                 <DialogTitle>{target.title}出價歷史</DialogTitle>
-                                <DialogDescription>
+                                <DialogDescription className="max-h-[70vh] max-w-[80vw] mx-auto overflow-y-auto" >
                                     <BidList id={target._id}></BidList>
                                 </DialogDescription>
                             </DialogHeader>
