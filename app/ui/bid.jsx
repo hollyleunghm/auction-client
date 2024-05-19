@@ -145,7 +145,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                         <DialogContent className="overflow-y-auto md:max-w-[800px]">
                             <DialogHeader>
                                 <DialogTitle>{target.title}出價歷史</DialogTitle>
-                                <DialogDescription className="max-h-[70vh] max-w-[80vw] mx-auto overflow-y-auto" >
+                                <DialogDescription className="max-h-[70vh] max-w-[80vw] mx-auto md:mx-0 overflow-y-auto" >
                                     <BidList id={target._id}></BidList>
                                 </DialogDescription>
                             </DialogHeader>
