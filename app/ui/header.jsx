@@ -63,8 +63,9 @@ export default function Header() {
 
     return (
         <div className="md:flex items-center justify-between w-full max-w-[1600px] mx-auto">
-            <Link href="/home">
+            <Link href="/home" className="md:flex items-end">
                 <Image src="/PropBid.png" alt="" width={115} height={115} className="mx-auto block" />
+                <p className="text-blue-400 md:-translate-y-9 md:ml-6 text-center md:text-left">demo</p>
             </Link>
             <div className="md:flex items-center md:gap-4 gap-1 justify-between px-2 md:justify-start md:px-0 mb-4 md:mb-0">
                 {routes.map((route) => {
