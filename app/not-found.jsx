@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Footer from "@/app/ui/footer";
 export default function NotFound() {
     return (
         <div className="flex flex-col h-full justify-between ">
@@ -8,7 +7,6 @@ export default function NotFound() {
                 <span>|</span>
                 <Link href="/">返回主頁</Link>
             </div>
-            <Footer />
         </div>
 
     )
