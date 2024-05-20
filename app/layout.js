@@ -1,9 +1,11 @@
 
+import Header from "@/app/ui/header";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import 'rsuite/dist/rsuite-no-reset.min.css';
 import "react-toastify/dist/ReactToastify.css";
-import { NextUIProvider } from "@nextui-org/react";
+import { CustomProvider } from 'rsuite';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -15,11 +17,17 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={inter.className + " m-h-[100vh]"}>
+      <body className={inter.className}>
+
         <SessionProvider>
-          <NextUIProvider>
-            {children}
-          </NextUIProvider>
+          <CustomProvider>
+            <div className="min-h-screen flex flex-col h-screen w-full justify-between" >
+              <Header />
+              <div className="flex-grow">
+                {children}
+              </div>
+            </div>
+          </CustomProvider>
         </SessionProvider>
       </body>
     </html>
