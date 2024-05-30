@@ -2,7 +2,7 @@ const json = [{
     "_id": {
         "$oid": "663108afe44829ae99cc5fef"
     },
-    "value": "LandUse",
+    "value": "landUse",
     "label": "土地用途",
     "options": [
         {
@@ -26,7 +26,7 @@ const json = [{
     "_id": {
         "$oid": "663108d1e44829ae99cc5ff3"
     },
-    "value": "Region",
+    "value": "region",
     "label": "地區",
     "options": [
         {
@@ -721,7 +721,7 @@ const json = [{
     "_id": {
         "$oid": "663108efe44829ae99cc5ff7"
     },
-    "value": "BIddingStatus",
+    "value": "status",
     "label": "拍賣狀態",
     "options": [
         {

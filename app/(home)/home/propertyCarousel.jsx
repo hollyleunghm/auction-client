@@ -24,15 +24,15 @@ export default function PropertyCarousel({ properties }) {
                                 <p className="text-white mt-6 text-lg">{item.title}</p>
                                 <p>HK${item.startingPrice.toLocaleString()}</p>
                                 <p>{item.constructionArea.toLocaleString()}呎</p>
-                                <p>＄{item.pricePerFoot1.toLocaleString()}/呎</p>
+                                <p>＄{item.constructionUnitPrice.toLocaleString()}/呎</p>
                             </Link>
                         </CarouselItem>
                         // 
                     )
                 })}
             </CarouselContent>
-            <CarouselPrevious className="-mt-12"/>
-            <CarouselNext  className="-mt-12"/>
+            <CarouselPrevious className="-mt-12" />
+            <CarouselNext className="-mt-12" />
         </Carousel >
 
     )

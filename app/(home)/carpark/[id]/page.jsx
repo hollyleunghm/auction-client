@@ -14,11 +14,11 @@ export default async function Page({ params }) {
     const next = await CarPark.find({ _id: { $gt: params.id } }).sort({ _id: 1 }).limit(1);
     const prev = await CarPark.find({ _id: { $lt: params.id } }).sort({ _id: -1 }).limit(1);
     if (new Date(carPark.endDateTime) <= new Date()) {
-        carPark.BIddingStatus = "Completed";
+        carPark.status = "Completed";
     } else if (new Date(carPark.startDateTime) >= new Date()) {
-        carPark.BIddingStatus = "AboutToStart";
+        carPark.status = "AboutToStart";
     } else {
-        carPark.BIddingStatus = "InProgress";
+        carPark.status = "InProgress";
     }
     let maxPrice = carPark.startingPrice;
     const bids = await Bid.find({ targetId: params.id }).sort({ bidPrice: -1 }).limit(1);

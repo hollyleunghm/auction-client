@@ -13,20 +13,20 @@ export default async function Page({ params }) {
     const next = await Property.find({_id: {$gt: params.id}}).sort({_id: 1 }).limit(1);
     const prev = await Property.find({_id: {$lt: params.id}}).sort({_id: -1 }).limit(1);
     if (new Date(property.endDateTime) <= new Date()) {
-        property.BIddingStatus = "Completed";
+        property.status = "Completed";
     } else if (new Date(property.startDateTime) >= new Date()) {
-        property.BIddingStatus = "AboutToStart";
+        property.status = "AboutToStart";
     } else {
-        property.BIddingStatus = "InProgress";
+        property.status = "InProgress";
     }
 
     let maxPrice = property.startingPrice;
     const bids = await Bid.find({ targetId: params.id }).sort({ bidPrice: -1 }).limit(1);
     if (bids && bids.length > 0) {
         maxPrice = bids[0].bidPrice;
-        if (session && session.user._id === bids[0].userId.toString()) {
-            isOwner = true;
-        }
+        // if (session && session.user._id === bids[0].userId.toString()) {
+        //     isOwner = true;
+        // }
     }
     const count = await Bid.countDocuments({ targetId: params.id });
 

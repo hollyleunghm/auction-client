@@ -8,13 +8,13 @@ import { model, models, Schema } from 'mongoose';
 // 前7個屬性跟字典表value對應，所以大寫
 const PropertySchema = new Schema(
     {
-        LandUse: String,
-        OwnershipStatus:String,
-        PropertyStatus:String,
-        PropertyType: String,
-        Region: String,
-        AuctionNature: String,
-        BIddingStatus: String,
+        landUse: String,
+        ownershipStatus: String,
+        propertyStatus: String,
+        propertyType: String,
+        region: String,
+        auctionNature: String,
+        status: String,
         title: String,
         address: String,
         startingPrice: Number,
@@ -32,14 +32,24 @@ const PropertySchema = new Schema(
         primarySchoolNetwork: String,
         middleSchoolNetwork: String,
         propertyAddress: String,
-        startDateTime:Date,
-        endDateTime:Date,
-        mainImage:String,
-        images:Array,
+        startDateTime: Date,
+        endDateTime: Date,
+        mainImage: String,
+        images: Array,
+        currentPrice: Number,
+        deleted: {
+            type: Boolean,
+            default: false
+        },
         createdAt: {
             type: Date,
             default: Date.now,
         },
+        latestBid: {
+            type: Schema.Types.ObjectId,
+            ref: 'Bid',
+            // 可选:添加getter和setter方法,用于控制latestBid的读写逻辑
+        }
     }
 );
 const Property = models.Property || model('Property', PropertySchema, 'properties');

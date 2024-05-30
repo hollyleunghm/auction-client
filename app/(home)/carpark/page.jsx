@@ -7,11 +7,11 @@ export default async function Page() {
     const carParks = await CarPark.find().sort({ createdAt: -1, startingPrice: 1 });
     carParks.map(item => {
         if (new Date(item.endDateTime) <= new Date()) {
-            item.BIddingStatus = "Completed";
+            item.status = "Completed";
         } else if (new Date(item.startDateTime) >= new Date()) {
-            item.BIddingStatus = "AboutToStart";
+            item.status = "AboutToStart";
         } else {
-            item.BIddingStatus = "InProgress";
+            item.status = "InProgress";
         }
     });
     return (

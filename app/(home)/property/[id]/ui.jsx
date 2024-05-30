@@ -31,9 +31,9 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
                         <h1 className="text-xl font-semibold">樓盤介紹</h1>
                         <div>
                             <div>
-                                {property.content.split("\n").map((item, index) => {
+                                {/* {property.content.split("\n").map((item, index) => {
                                     return <div key={index}>{item}</div>;
-                                })}
+                                })} */}
                             </div>
                             <div>座數及單位: {property.seatsAndUnits}</div>
                             <div>屋苑樓齡: {property.age} 年</div>

@@ -96,7 +96,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                     <p className="font-semibold"> {dayjs(target.endDateTime).format("YYYY-MM-DD HH:mm:ss") + "(UTC+8)"} </p>
                 </div>
                 {
-                    target.BIddingStatus === "InProgress" ? (
+                    target.status === "InProgress" ? (
                         <div className="py-2 border-b border-[#253D59]">
                             <div>倒計時</div>
                             {/* {timeRemaining.days}天 {timeRemaining.hours}時 {timeRemaining.minutes}分 {timeRemaining.seconds}秒 */}
@@ -131,7 +131,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                                 </div>
                             </div>
                         </div>
-                    ) : target.BIddingStatus === "AboutToStart" ? "拍賣尚未開始（" + dayjs(target.startDateTime).format('YYYY-MM-DD HH:mm:ss') + ")" : target.BIddingStatus === "Completed" ? "拍賣已結束" : null
+                    ) : target.status === "AboutToStart" ? "拍賣尚未開始（" + dayjs(target.startDateTime).format('YYYY-MM-DD HH:mm:ss') + ")" : target.status === "Completed" ? "拍賣已結束" : null
                 }
                 <div className="flex justify-between py-2 border-b border-[#253D59]">
                     <div>

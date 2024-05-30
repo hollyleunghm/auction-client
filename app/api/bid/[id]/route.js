@@ -36,7 +36,6 @@ export async function POST(request, { params }) {
     // const userId = session._id;
     let target;
     let lastBidPrice;
-    let lastBid;
     await connectMongo();
     // 判斷下拍時間
     if (targetType == 1) {
@@ -44,11 +43,7 @@ export async function POST(request, { params }) {
     } else {
         target = await Property.findById(targetId);
     }
-    lastBidPrice = target.startingPrice;
-    console.log("------------------");
-    console.log(target.startDateTime);
-    console.log(new Date(target.startDateTime) > Date.now());
-    console.log("------------------");
+    lastBidPrice = target.currentPrice || target.startingPrice;
 
     if (new Date(target.startDateTime) > Date.now()) {
         return NextResponse.json({ error: "拍賣尚未開始" });
@@ -64,10 +59,6 @@ export async function POST(request, { params }) {
     if (!(bidPrice * 1) || !bidPrice) {
         return NextResponse.json({ error: "請輸入數字" });
     }
-    lastBid = await getMaxPrice(targetId);
-    if (lastBid) {
-        lastBidPrice = lastBid.bidPrice;
-    }
     if (lastBidPrice >= bidPrice) {
         return NextResponse.json({ error: "你的出價需要高於當前出價" });
     }
@@ -81,6 +72,11 @@ export async function POST(request, { params }) {
         bidPrice: bidPrice,
     });
     await bid.save();
+    target.$set({ latestBid: bid._id, currentPrice: bidPrice });
+    await target.save();
+    // await Property.findByIdAndUpdate(bid.targetId, {
+    //     $set: { latestBid: bid._id, currentPrice: bidPrice }
+    // });
     return NextResponse.json({ msg: "出價成功，現時你爲出價最高的買家", data: bid });
 }
 async function getMaxPrice(targetId) {
