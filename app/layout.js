@@ -6,6 +6,7 @@ import "./globals.css";
 import 'rsuite/dist/rsuite-no-reset.min.css';
 import "react-toastify/dist/ReactToastify.css";
 import { CustomProvider } from 'rsuite';
+import QueryClientProvider from "@/app/queryClient";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -18,17 +19,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-
-        <SessionProvider>
-          <CustomProvider>
-            <div className="min-h-screen flex flex-col h-screen w-full justify-between" >
-              <Header />
-              <div className="flex-grow">
-                {children}
+        <QueryClientProvider>
+          <SessionProvider>
+            <CustomProvider>
+              <div className="min-h-screen flex flex-col h-screen w-full justify-between" >
+                <Header />
+                <div className="flex-grow">
+                  {children}
+                </div>
               </div>
-            </div>
-          </CustomProvider>
-        </SessionProvider>
+            </CustomProvider>
+          </SessionProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );

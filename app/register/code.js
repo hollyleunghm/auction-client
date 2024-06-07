@@ -291,7 +291,7 @@ let countryList = [
     },
     {
         "en": "Ethiopia",
-        "cn": "埃塞俄比亞","code": "+251"
+        "cn": "埃塞俄比亞", "code": "+251"
     },
     {
         "en": "Somali",
