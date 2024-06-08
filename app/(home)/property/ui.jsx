@@ -193,8 +193,8 @@ export default function Property({ properties }) {
                                                 <p className="text-lg font-semibold mt-2">{item.title}</p>
                                                 <div className="w-12 my-2 border-b border-black"></div>
                                                 <p>HK${item.startingPrice.toLocaleString()}</p>
-                                                <p>{item.constructionArea.toLocaleString()}呎</p>
-                                                <p>＄{item.constructionUnitPrice.toLocaleString()}/呎</p>
+                                                {/* <p>{item.constructionArea.toLocaleString()}呎</p> */}
+                                                {/* <p>＄{item.constructionUnitPrice.toLocaleString()}/呎</p> */}
                                             </div>
                                         </div>
                                     </Link>

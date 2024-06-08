@@ -10,7 +10,12 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+    DropdownMenuSub,
+    DropdownMenuPortal,
+    DropdownMenuSubContent,
+    DropdownMenuItem,
+    DropdownMenuSubTrigger
+} from "@/components/ui/dropdown-menu";
 import {
     Avatar,
     AvatarFallback
@@ -91,7 +96,29 @@ export default function Header() {
                                 </Avatar>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
-                                <DropdownMenuLabel>個人資料</DropdownMenuLabel>
+                                <DropdownMenuSub>
+                                    <DropdownMenuSubTrigger>
+                                        <DropdownMenuLabel>
+                                            個人資訊
+                                        </DropdownMenuLabel>
+                                    </DropdownMenuSubTrigger>
+                                    <DropdownMenuPortal>
+                                        <DropdownMenuSubContent>
+                                            <Link href="/profile">
+                                                <DropdownMenuLabel>資訊顯示</DropdownMenuLabel>
+                                            </Link>
+                                            <Link href="/profile/edit">
+                                                <DropdownMenuLabel>編輯個資</DropdownMenuLabel>
+                                            </Link>
+                                            <Link href="/profile/password">
+                                                <DropdownMenuLabel>更改密碼</DropdownMenuLabel>
+                                            </Link>
+                                            <Link href="/profile/bid">
+                                                <DropdownMenuLabel>我的出價</DropdownMenuLabel>
+                                            </Link>
+                                        </DropdownMenuSubContent>
+                                    </DropdownMenuPortal>
+                                </DropdownMenuSub>
                                 <DropdownMenuSeparator />
                                 <Link href="/logout">
                                     <DropdownMenuLabel>登出</DropdownMenuLabel>
