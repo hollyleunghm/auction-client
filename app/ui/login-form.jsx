@@ -6,7 +6,7 @@ import { MdOutlineMailOutline, MdPhoneIphone } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import Link from 'next/link';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import codeList from "@/app/register/code";
+import codeList from "@/lib/code";
 import { Button } from "@/components/ui/button";
 export default function LoginForm() {
     const router = useRouter();

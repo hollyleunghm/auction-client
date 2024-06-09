@@ -78,6 +78,7 @@ export default function Page() {
 
     useEffect(() => {
         if (mutation.data) {
+            console.log(mutation.data);
             if (mutation.data.error) {
                 toast.error(mutation.data.error);
             } else {

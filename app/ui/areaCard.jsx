@@ -8,9 +8,9 @@ const concatCard = ({ property }) => {
             <div className="flex gap-4 p-4 border bg-white mt-2">
                 <div>
                     <p className="mb-1">建築面積：{property.constructionArea} 平方呎</p>
-                    <p className="mb-1">呎價：@{property.constructionUnitPrice.toLocaleString()} 元</p>
+                    {/* <p className="mb-1">呎價：@{property.constructionUnitPrice.toLocaleString()} 元</p> */}
                     <p className="mb-1">實用面積：{property.practicalArea} 平方呎</p>
-                    <p className="mb-1">呎價：@{property.practicalUnitPrice.toLocaleString()} 元</p>
+                    {/* <p className="mb-1">呎價：@{property.practicalUnitPrice.toLocaleString()} 元</p> */}
                 </div>
             </div>
         </div>

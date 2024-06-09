@@ -8,11 +8,12 @@ export async function POST(request) {
     try {
         await connectMongo();
         let user = await User.findOne({ email: json.email });
-        if (user) {
+        const _id = user._id.toString();
+        if (user && _id !== session.user._id) {
             return NextResponse.json({ error: "電郵已被註冊" });
         }
         user = await User.findOne({ phone: json.phone, code: json.code });
-        if (user) {
+        if (user && _id !== session.user._id) {
             return NextResponse.json({ error: "電話已被註冊" });
         }
         user = await User.findOne({ _id: session.user._id });

@@ -113,7 +113,7 @@ export default function Header() {
                                             <Link href="/profile/password">
                                                 <DropdownMenuLabel>更改密碼</DropdownMenuLabel>
                                             </Link>
-                                            <Link href="/profile/bid">
+                                            <Link href="/profile/bids">
                                                 <DropdownMenuLabel>我的出價</DropdownMenuLabel>
                                             </Link>
                                         </DropdownMenuSubContent>

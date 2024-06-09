@@ -8,6 +8,7 @@ import { model, models, Schema } from 'mongoose';
 const BidSchema = new Schema(
     {
         userId: { type: Schema.Types.ObjectId, ref: 'User' },
+        targetType:String,// 競價類型 房產/車位
         targetId:String,// 競價目標
         bidPrice:Number,// 出價
         createdAt: {

@@ -69,6 +69,7 @@ export async function POST(request) {
         userId: session._id,
         targetId: targetId,
         bidPrice: bidPrice,
+        targetType: targetType
     });
     await bid.save();
     return NextResponse.json({ msg: "出價成功，現時你爲出價最高的買家", data: bid });
