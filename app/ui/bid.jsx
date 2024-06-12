@@ -22,7 +22,7 @@ import {
 const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
     const [isOwner, setIsOwner] = useState(defaultIsOwner);
     const [maxPrice, setMaxPrice] = useState(defaultMaxPrice);
-    const deadline = new Date(target.endDateTime).getTime();
+    const deadline = new Date(target.completionDateTime).getTime();
     const timeRemaining = UseCountdownTimer(deadline);
     const [request, setRequest] = useState({
         loading: false,
@@ -88,12 +88,12 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
     return (
         <div>
             <ToastContainer position="top-center" autoClose={false} />
-            <h1 className="hidden md:block text-2xl font-semibold text-[#253D59]">{target.title}</h1>
-            <h3 className="hidden md:block text-sm text-[#253D59]">{target.address}</h3>
+            <h1 className="hidden md:block text-2xl font-semibold text-[#253D59]">{target.traditionalChineseTitle}</h1>
+            <h3 className="hidden md:block text-sm text-[#253D59]">{target.traditionalChineseAddress}</h3>
             <div className="mt-8 text-md  text-[#253D59] ">
                 <div>
                     <p>拍賣截止時間:</p>
-                    <p className="font-semibold"> {dayjs(target.endDateTime).format("YYYY-MM-DD HH:mm:ss") + "(UTC+8)"} </p>
+                    <p className="font-semibold"> {dayjs(target.completionDateTime).format("YYYY-MM-DD HH:mm:ss") + "(UTC+8)"} </p>
                 </div>
                 {
                     target.status === "InProgress" ? (
@@ -144,7 +144,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                         </DialogTrigger>
                         <DialogContent className="overflow-y-auto md:max-w-[800px]">
                             <DialogHeader>
-                                <DialogTitle>{target.title}出價歷史</DialogTitle>
+                                <DialogTitle>{target.traditionalChineseTitle}出價歷史</DialogTitle>
                                 <DialogDescription className="max-h-[70vh] max-w-[80vw] mx-auto md:mx-0 overflow-y-auto" >
                                     <BidList id={target._id}></BidList>
                                 </DialogDescription>
@@ -155,7 +155,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                 <div className="flex justify-between py-2 gap-2">
                     <Input type="text" onChange={(e) => setBidPrice(e.target.value)} />
 
-                    <Button Button className="bg-[#5E5E5E]" onClick={notify}>
+                    <Button onClick={notify}>
                         出價
                     </Button>
                 </div>

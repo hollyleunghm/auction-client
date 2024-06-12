@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
     return (
         <div className="w-full max-w-[1000px] mx-auto pb-12 px-4 md:px-0">
-            {/* {JSON.stringify(bid)} */}
+            {/* {JSON.stringify(property)} */}
             <div className="md:flex gap-12 justify-between">
                 <div className="w-full md:w-[600px]">
                     <Carousel
@@ -19,30 +19,24 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
                         showArrows={false}
                         autoPlay={false}
                     >
-                        <img src={property.mainImage} alt={property.title} />
-                        <img src={property.mainImage} alt={property.title} />
-                        <img src={property.mainImage} alt={property.title} />
+                        {
+                            property.otherImages.map((item, index) => {
+                                return <img key={index} src={item.url} alt={item.traditionalChineseTitle} />;
+                            })
+                        }
                     </Carousel>
                     <div className="md:hidden mb-4">
-                        <h1 className="text-2xl font-semibold text-[#253D59]">{property.title}</h1>
-                        <h3 className="text-sm text-[#253D59]">{property.address}</h3>
+                        <h1 className="text-2xl font-semibold text-[#253D59]">{property.traditionalChineseTitle}</h1>
+                        <h3 className="text-sm text-[#253D59]">{property.traditionalChineseAddress}</h3>
                     </div>
                     <div>
                         <h1 className="text-xl font-semibold">樓盤介紹</h1>
                         <div>
                             <div>
-                                {/* {property.content.split("\n").map((item, index) => {
+                                {property.traditionalChineseContent.split("\n").map((item, index) => {
                                     return <div key={index}>{item}</div>;
-                                })} */}
+                                })}
                             </div>
-                            <div>座數及單位: {property.seatsAndUnits}</div>
-                            <div>屋苑樓齡: {property.age} 年</div>
-                            <div>座向(客廳)：{property.towards}</div>
-                            <div>單位樓層{property.floor}</div>
-                            <div>房間及浴室：{property.rooms}</div>
-                            <div>小學校網：{property.primarySchoolNetwork}</div>
-                            <div>中學校網：{property.middleSchoolNetwork}</div>
-                            {/* <div>物業地址：{property.propertyAddress}</div> */}
                         </div>
                         <div className="flex justify-between border-t mt-4 pt-4">
                             <div>物業編號：CIA762</div>
@@ -54,8 +48,8 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
                     <Bid target={property} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice}></Bid>
                     <PriceCard target={property}></PriceCard>
                     <AreaCard property={property}></AreaCard>
-                    <ConcatCard></ConcatCard>
-                    <FileCard></FileCard>
+                    <ConcatCard target={property}></ConcatCard>
+                    <FileCard target={property}></FileCard>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@ import CarPark from '@/models/carPark';
 import UI from "./ui";
 export default async function Page() {
     await connectMongo();
-    const carParks = await CarPark.find().sort({ createdAt: -1, startingPrice: 1 });
+    const carParks = await CarPark.find({ deleted: false }).sort({ createdAt: -1, startingPrice: 1 });
     carParks.map(item => {
         if (new Date(item.endDateTime) <= new Date()) {
             item.status = "Completed";

@@ -11,8 +11,8 @@ export default async function Page({ params }) {
     let isOwner = false;
     await connectMongo();
     const carPark = await CarPark.findOne({ _id: params.id });
-    const next = await CarPark.find({ _id: { $gt: params.id } }).sort({ _id: 1 }).limit(1);
-    const prev = await CarPark.find({ _id: { $lt: params.id } }).sort({ _id: -1 }).limit(1);
+    const next = await CarPark.find({ _id: { $gt: params.id }, deleted: false }).sort({ _id: 1 }).limit(1);
+    const prev = await CarPark.find({ _id: { $lt: params.id }, deleted: false }).sort({ _id: -1 }).limit(1);
     if (new Date(carPark.endDateTime) <= new Date()) {
         carPark.status = "Completed";
     } else if (new Date(carPark.startDateTime) >= new Date()) {

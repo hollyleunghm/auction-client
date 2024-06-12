@@ -188,13 +188,13 @@ export default function Property({ properties }) {
                                 <div key={item._id}>
                                     <Link href={"/property/" + item._id}>
                                         <div className="w-full text-black">
-                                            <Image height={400} width={400} style={{ objectFit: "cover", aspectRatio: "1" }} src={item.mainImage} alt="" />
+                                            <img height={400} width={400} className="object-cover aspect-square" src={item.coverImage.url} alt="" />
                                             <div>
-                                                <p className="text-lg font-semibold mt-2">{item.title}</p>
+                                                <p className="text-lg font-semibold mt-2">{item.traditionalChineseTitle}</p>
                                                 <div className="w-12 my-2 border-b border-black"></div>
                                                 <p>HK${item.startingPrice.toLocaleString()}</p>
-                                                {/* <p>{item.constructionArea.toLocaleString()}呎</p> */}
-                                                {/* <p>＄{item.constructionUnitPrice.toLocaleString()}/呎</p> */}
+                                                <p>{item.constructionArea.toLocaleString()}呎</p>
+                                                <p>＄{(item.startingPrice / item.constructionArea).toFixed(2)}/呎</p>
                                             </div>
                                         </div>
                                     </Link>

@@ -10,7 +10,7 @@ export default async function Home() {
     // const session = await auth();
 
     await connectMongo();
-    const properties = await Property.find();
+    const properties = await Property.find({ deleted: false });
     return (
         <main className="">
             {/* Welcome to the home page!<p>Welcome {JSON.stringify(session)}</p> */}

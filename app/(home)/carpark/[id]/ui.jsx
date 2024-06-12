@@ -20,9 +20,11 @@ export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
                         showArrows={false}
                         autoPlay={false}
                     >
-                        <img src={carPark.mainImage} alt={carPark.title} />
-                        <img src={carPark.mainImage} alt={carPark.title} />
-                        <img src={carPark.mainImage} alt={carPark.title} />
+                        {
+                            carPark.otherImages.map((item, index) => {
+                                return <img key={index} src={item.url} alt={item.traditionalChineseTitle} />;
+                            })
+                        }
                     </Carousel>
                     <div className="md:hidden mb-4">
                         <h1 className="text-2xl font-semibold text-[#253D59]">{carPark.title}</h1>
@@ -31,11 +33,10 @@ export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
                     <div>
                         <h1 className="text-xl font-semibold">介绍信息</h1>
                         <div>
-                            <div>地址：{carPark.address}</div>
                             {/* <div>起拍價：{carPark.startingPrice.toLocaleString()} </div>
                             <div>每口價：{carPark.bidIncrement.toLocaleString()}</div> */}
                             <div>
-                                {carPark.content.split("\n").map((item, index) => {
+                                {carPark.traditionalChineseContent.split("\n").map((item, index) => {
                                     return <div key={index}>{item}</div>;
                                 })}
                             </div>
@@ -50,8 +51,8 @@ export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
                     <Bid target={carPark} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice} targetType={1}></Bid>
                     {/* monthlyPayment, downPayment, mortgageAmount, interestRate, years */}
                     <PriceCard target={carPark} monthlyPayment={"1,795"} downPayment={26} mortgageAmount={70} interestRate={3} years={15}></PriceCard>
-                    <ConcatCard></ConcatCard>
-                    <FileCard></FileCard>
+                    <ConcatCard target={carPark}></ConcatCard>
+                    <FileCard target={carPark}></FileCard>
                 </div>
             </div>
         </div>

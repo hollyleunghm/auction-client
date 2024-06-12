@@ -4,14 +4,14 @@ import Property from '@/models/property';
 import Bid from '@/models/bid';
 import UI from "./ui";
 import Link from "next/link";
-import { FaArrowRight,FaArrowLeft } from "react-icons/fa";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 export default async function Page({ params }) {
     const session = await auth();
     let isOwner = false;
     await connectMongo();
     const property = await Property.findOne({ _id: params.id });
-    const next = await Property.find({_id: {$gt: params.id}}).sort({_id: 1 }).limit(1);
-    const prev = await Property.find({_id: {$lt: params.id}}).sort({_id: -1 }).limit(1);
+    const next = await Property.find({ _id: { $gt: params.id }, deleted: false }).sort({ _id: 1 }).limit(1);
+    const prev = await Property.find({ _id: { $lt: params.id }, deleted: false }).sort({ _id: -1 }).limit(1);
     if (new Date(property.endDateTime) <= new Date()) {
         property.status = "Completed";
     } else if (new Date(property.startDateTime) >= new Date()) {
@@ -38,10 +38,10 @@ export default async function Page({ params }) {
                     {/* {JSON.stringify(prev)}
                     {JSON.stringify(next)} */}
                     {
-                        prev[0]?<Link className="flex items-center" href={prev[0]._id}><FaArrowLeft></FaArrowLeft>上一個</Link>:null
+                        prev[0] ? <Link className="flex items-center" href={prev[0]._id}><FaArrowLeft></FaArrowLeft>上一個</Link> : null
                     }
                     {
-                        next[0]?<Link className="flex items-center" href={next[0]._id}>下一個<FaArrowRight></FaArrowRight></Link>:null
+                        next[0] ? <Link className="flex items-center" href={next[0]._id}>下一個<FaArrowRight></FaArrowRight></Link> : null
                     }
                 </div>
             </div>

@@ -98,7 +98,7 @@ export default function Page() {
                             </TableCell>
                             <TableCell className="text-left">
                                 {
-                                    item.targetType === 0 ? <ImageViewer src={item.property?.coverImage?.imageUrl}></ImageViewer> : <ImageViewer src={item.carPark?.coverImage?.imageUrl} />
+                                    item.targetType === 0 ? <ImageViewer src={item.property?.coverImage?.url}></ImageViewer> : <ImageViewer src={item.carPark?.coverImage?.url} />
                                 }
                             </TableCell>
                             <TableCell className="text-left">

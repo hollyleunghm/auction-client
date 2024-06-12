@@ -4,47 +4,105 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 import Link from 'next/link';
-
 export default function RegisterPage() {
     const router = useRouter();
-    const [registerStatus, setRegisterStatus] = useState({ success: false, error: null, loading: false });
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const password = formData.get("password");
-        const password2 = formData.get("password2");
-        if (password !== password2) {
-            toast.warn("密碼不一致");
-            return;
-        }
 
-        setRegisterStatus({ success: false, error: null, loading: true });
-        const res = await fetch("/api/register", {
-            method: "POST",
-            body: formData
-        });
-        const data = await res.json();
-        if (data.error) {
-            setRegisterStatus({ success: false, error: data.error, loading: false });
+    const { register, handleSubmit, formState, watch, reset } = useForm();
+    const [codeId, setCodeId] = useState(null);
+    const [seconds, setSeconds] = useState(61);
+    const [timer, setTimer] = useState(null);
+    const email = watch("email");
+    // 重置密码
+    const mutation = useMutation({
+        mutationFn: (data) => {
+            return fetch("/api/password/forget", {
+                method: "POST",
+                body: JSON.stringify(data),
+            });
+        },
+    });
+    // 获取验证码
+    const codeMutation = useMutation({
+        mutationFn: (email) => {
+            return fetch("/api/validate?email=" + email);
+        },
+    });
+    const onSubmit = (data) => {
+        const password = data.password;
+        const password2 = data.password2;
+        if (password !== password2) {
+            toast.warn("password not equals");
             return;
-        } else {
-            setRegisterStatus({ success: true, error: null, loading: false });
         }
+        mutation.mutate({
+            password: password,
+            codeId: codeId,
+            code: data.code,
+            email: data.email,
+        });
+
     };
-    useEffect(() => {
-        if (registerStatus.success) {
-            toast.success("注冊成功，前往登錄");
-            setTimeout(() => {
-                router.replace("/login")
-            }, 2000);
+    const count = () => {
+        let timer1 = setInterval(() => {
+            setSeconds((prevSeconds) => prevSeconds - 1);
+        }, 1000);
+        setTimer(timer1);
+    };
+    const getCode = () => {
+        if (!email) {
+            toast.error("請輸入電郵");
+            return;
         }
-    }, [registerStatus]);
+        codeMutation.mutate(email);
+        setSeconds(60);
+        count();
+    }
+    useEffect(() => {
+        if (codeMutation.isSuccess && codeMutation.data.ok) {
+            codeMutation.data.json().then((res) => {
+                if (!res.error) {
+                    setCodeId(res.codeId);
+                } else {
+                    toast.error(res.error);
+                }
+            });
+        }
+        if (codeMutation.isError) {
+            toast.error(codeMutation.data);
+        }
+    }, [codeMutation.isPending, codeMutation.isSuccess, codeMutation.isError, codeMutation.data]);
+
+    useEffect(() => {
+        if (mutation.isSuccess && mutation.data.ok) {
+            mutation.data.json().then((res) => {
+                if (!res.error) {
+                    toast.success(res.msg);
+                    setTimeout(() => {
+                        location.replace("/login");
+                    }, 2000);
+                } else {
+                    toast.error(res.error);
+                }
+            });
+        }
+        if (mutation.isError) {
+            toast.error(mutation.data);
+        }
+    }, [mutation.isPending, mutation.isSuccess, mutation.isError, mutation.data]);
+    useEffect(() => {
+        if (seconds < 0) {
+            clearInterval(timer);
+            setSeconds(61);
+        }
+    }, [seconds]);
     return (
         <main className="flex items-center justify-center md:h-screen">
             <ToastContainer autoClose={2000} position="top-center" />
             <div className=" mx-auto flex w-full max-w-[600px] flex-col space-y-2.5 p-4 md:-mt-32">
-                <form onSubmit={handleSubmit} className="space-y-3">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                     <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
                         <h1 className={`mb-3 text-2xl`}>
                             忘記密碼
@@ -65,6 +123,7 @@ export default function RegisterPage() {
                                         name="email"
                                         placeholder="請輸入電郵"
                                         required
+                                        {...register("email")}
                                     />
                                 </div>
                                 <div className="flex justify-between">
@@ -84,11 +143,21 @@ export default function RegisterPage() {
                                         id="password"
                                         type="password"
                                         name="password"
-                                        placeholder="請輸入密碼"
+                                        placeholder="請輸入驗證碼"
                                         required
                                         minLength={6}
+                                        {...register("code")}
                                     />
-                                    <Button className="bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80">獲取驗證碼</Button>
+                                    <div>
+                                        {
+                                            seconds <= 60 ? (
+                                                <Button color="primary" disabled>{seconds} S</Button>
+
+                                            ) : (
+                                                <Button color="primary" onClick={getCode}>獲取驗證碼</Button>
+                                            )
+                                        }
+                                    </div>
                                 </div>
                             </div>
                             <div className="mt-4">
@@ -107,6 +176,7 @@ export default function RegisterPage() {
                                         placeholder="請輸入密碼"
                                         required
                                         minLength={6}
+                                        {...register("password")}
                                     />
                                 </div>
                             </div>
@@ -127,25 +197,16 @@ export default function RegisterPage() {
                                         placeholder="請確認密碼"
                                         required
                                         minLength={6}
+                                        {...register("password2")}
+
                                     />
                                 </div>
                             </div>
                         </div>
-                        <Button className="mt-4 w-full bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" disabled={registerStatus.loading}>
+                        <Button className="mt-4 w-full bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" disabled={mutation.isPending}>
                             重置密碼
                         </Button>
-                        <div
-                            className="flex h-8 items-end space-x-1"
-                            aria-live="polite"
-                            aria-atomic="true"
-                        >
-                            {registerStatus.error && (
-                                <>
-                                    {/* <ExclamationCircleIcon className="h-5 w-5 text-red-500" /> */}
-                                    <p className="text-sm text-red-500">{registerStatus.error}</p>
-                                </>
-                            )}
-                        </div>
+
                     </div>
                 </form>
             </div>
