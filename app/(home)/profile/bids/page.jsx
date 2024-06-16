@@ -57,7 +57,7 @@ export default function Page() {
         return max;
     }
     useEffect(() => {
-        if (typeof window !== 'undefined') {
+        if (typeof document !== 'undefined') {
             mutation.mutate();
         }
     }, []);
