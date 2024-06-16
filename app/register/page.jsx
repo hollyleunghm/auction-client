@@ -8,14 +8,12 @@ import codeList from "../../lib/code";
 import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-
+import CountDown from "@/components/countDown";
 export default function RegisterPage() {
     const router = useRouter();
-    const { register, formState, watch, reset } = useForm();
+    const { register, formState, watch, reset, handleSubmit } = useForm();
     const [registerStatus, setRegisterStatus] = useState({ success: false, error: null, loading: false });
     const [codeId, setCodeId] = useState(null);
-    const [seconds, setSeconds] = useState(31);
-    const [timer, setTimer] = useState(null);
     const email = watch("email");
 
     // 获取验证码
@@ -24,21 +22,23 @@ export default function RegisterPage() {
             return fetch("/api/validate?email=" + email);
         },
     });
+    const mutation = useMutation({
+        mutationFn: async (data) => {
+            data.codeId = codeId;
+            const res = await fetch("/api/register", {
+                method: "POST",
+                body: JSON.stringify(data),
+            });
+            return await res.json();
+        },
+    });
     const getCode = () => {
         if (!email) {
             toast.error("請輸入電郵");
             return;
         }
         codeMutation.mutate(email);
-        setSeconds(60);
-        count();
     }
-    const count = () => {
-        let timer1 = setInterval(() => {
-            setSeconds((prevSeconds) => prevSeconds - 1);
-        }, 1000);
-        setTimer(timer1);
-    };
     useEffect(() => {
         if (codeMutation.isSuccess && codeMutation.data.ok) {
             codeMutation.data.json().then((res) => {
@@ -53,51 +53,29 @@ export default function RegisterPage() {
             toast.error(codeMutation.data);
         }
     }, [codeMutation.isPending, codeMutation.isSuccess, codeMutation.isError, codeMutation.data]);
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const password = formData.get("password");
-        const password2 = formData.get("password2");
+    const onSubmit = (data) => {
+
+        const password = data.password;
+        const password2 = data.password2;
         if (password !== password2) {
             toast.warn("密碼不一致");
             return;
         }
-        const policy = formData.get("policy");
-        if (!policy) {
-            toast.warn("請勾選同意使用條款");
-            return;
-        }
-        const noPromotion = formData.get("noPromotion");
-        if (!noPromotion) {
-            formData.append("promotion", false);
-        }
-        setRegisterStatus({ success: false, error: null, loading: true });
-        const res = await fetch("/api/register", {
-            method: "POST",
-            body: formData
-        });
-        const data = await res.json();
-        if (data.error) {
-            setRegisterStatus({ success: false, error: data.error, loading: false });
-            return;
-        } else {
-            setRegisterStatus({ success: true, error: null, loading: false });
-        }
+        data.promotion = !data.noPromotion;
+        data.codeId = codeId;
+        mutation.mutate(data);
     };
     useEffect(() => {
-        if (registerStatus.success) {
-            toast.success("注冊成功，前往登錄");
-            setTimeout(() => {
-                router.replace("/login")
-            }, 2000);
+        if (mutation.data) {
+            if (!mutation.data.error) {
+                toast.success("注冊成功，前往登錄");
+                setTimeout(() => {
+                    router.replace("/login")
+                }, 2000);
+            }
+
         }
-    }, [registerStatus]);
-    useEffect(() => {
-        if (seconds < 0) {
-            clearInterval(timer);
-            setSeconds(61);
-        }
-    }, [seconds]);
+    }, [mutation.data]);
     return (
         <main className="">
             <ToastContainer autoClose={2000} position="top-center" />
@@ -105,7 +83,7 @@ export default function RegisterPage() {
                 <span className="cursor-pointer" onClick={() => router.back()}>返回</span>
             </div>
             <div className=" mx-auto flex w-full max-w-[600px] flex-col space-y-2.5 p-4">
-                <form onSubmit={handleSubmit} className="space-y-3">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                     <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
                         <h1 className={`mb-3 text-2xl`}>
                             注冊
@@ -121,33 +99,22 @@ export default function RegisterPage() {
                                 <div className="">
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        id="email"
-                                        type="email"
-                                        name="email"
                                         placeholder="請輸入電郵"
                                         required
+                                        {...register("email")}
                                     />
                                 </div>
                             </div>
-                            <div className="flex gap-4">
+                            <div className="flex gap-4 mt-5">
                                 <input
                                     className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                    id="code"
-                                    type="code"
-                                    name="code"
                                     placeholder="請輸入驗證碼"
                                     required
                                     minLength={6}
+                                    {...register("validateCode")}
                                 />
                                 <div>
-                                    {
-                                        seconds <= 30 ? (
-                                            <Button color="primary" disabled>{seconds} S</Button>
-
-                                        ) : (
-                                            <Button color="primary" onClick={getCode}>獲取驗證碼</Button>
-                                        )
-                                    }
+                                    <CountDown max={30} onClick={getCode} isStart={codeMutation.isPending}></CountDown>
                                 </div>
                             </div>
                             <div>
@@ -158,7 +125,7 @@ export default function RegisterPage() {
                                     電話
                                 </label>
                                 <div className="flex items-start gap-4">
-                                    <select name="code" id="code" className="indent-2 rounded-md border py-[9px] w-36  text-sm" required>
+                                    <select name="code" id="code" {...register("code")} className="indent-2 rounded-md border py-[9px] w-36  text-sm" required>
                                         {
                                             codeList.map((item, index) => {
                                                 return (
@@ -171,9 +138,7 @@ export default function RegisterPage() {
                                     </select>
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        id="phone"
-                                        type="phone"
-                                        name="phone"
+                                        {...register("phone")}
                                         placeholder="請輸入電話"
                                         required
                                         pattern="[0-9]*"
@@ -191,8 +156,7 @@ export default function RegisterPage() {
                                 <div className="flex gap-4">
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        id="firstName"
-                                        name="firstName"
+                                        {...register("firstName")}
                                         placeholder="請輸入First Name"
                                         required
                                         pattern="^[a-zA-Z\s]*$"
@@ -200,8 +164,7 @@ export default function RegisterPage() {
                                     />
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        id="lastName"
-                                        name="lastName"
+                                        {...register("lastName")}
                                         placeholder="請輸入Last Name"
                                         required
                                         pattern="^[a-zA-Z\s]*$"
@@ -219,14 +182,12 @@ export default function RegisterPage() {
                                 <div className="flex gap-4">
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        id="firsTChineseName"
-                                        name="firstChineseName"
+                                        {...register("firstChineseName")}
                                         placeholder="請輸入中文姓"
                                     />
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        id="lastChineseName"
-                                        name="lastChineseName"
+                                        {...register("lastChineseName")}
                                         placeholder="請輸入中文名"
                                     />
                                 </div>
@@ -242,9 +203,7 @@ export default function RegisterPage() {
                                 <div className="">
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        id="password"
-                                        type="password"
-                                        name="password"
+                                        {...register("password")}
                                         placeholder="請輸入密碼"
                                         required
                                         minLength={6}
@@ -263,9 +222,7 @@ export default function RegisterPage() {
                                 <div className="">
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        id="password2"
-                                        type="password"
-                                        name="password2"
+                                        {...register("password2")}
                                         placeholder="請確認密碼"
                                         required
                                         minLength={6}
@@ -273,25 +230,18 @@ export default function RegisterPage() {
                                 </div>
                             </div>
                             <div className="mt-1 flex items-center gap-1">
-                                <input
-                                    className="peer rounded-md border border-gray-200 text-sm "
-                                    id="policy"
-                                    type="checkbox"
-                                    name="policy"
-                                />
                                 <label
                                     className="text-sm font-medium text-gray-900"
                                     htmlFor="policy"
                                 >
-                                    同意條款及細則和私隱政策
+                                    註冊即代表你同意我們的條款及細則和私隱政策及已年滿18歲
                                 </label>
                             </div>
                             <div className="mt-1 flex items-center gap-1">
                                 <input
                                     className="peer rounded-md border border-gray-200 text-sm "
-                                    id="noPromotion"
                                     type="checkbox"
-                                    name="noPromotion"
+                                    {...register("noPromotion")}
                                 />
                                 <label
                                     className="text-sm font-medium text-gray-900"
@@ -301,7 +251,7 @@ export default function RegisterPage() {
                                 </label>
                             </div>
                         </div>
-                        <Button className="mt-4 w-full  bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" disabled={registerStatus.loading}>
+                        <Button className="mt-4 w-full  bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" disabled={mutation.isPending}>
                             你的物業拍賣之旅由此開始
                         </Button>
                         <div
@@ -309,7 +259,7 @@ export default function RegisterPage() {
                             aria-live="polite"
                             aria-atomic="true"
                         >
-                            <p className="text-sm text-red-500">{registerStatus.error}</p>
+                            <p className="text-sm text-red-500">{mutation.data?.error}</p>
                             <Link href="/login" className="text-sm text-gray-500">按此登入</Link>
                         </div>
                     </div>

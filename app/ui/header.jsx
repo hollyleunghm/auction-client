@@ -105,7 +105,7 @@ export default function Header() {
                                     <DropdownMenuPortal>
                                         <DropdownMenuSubContent>
                                             <Link href="/profile">
-                                                <DropdownMenuLabel>資訊顯示</DropdownMenuLabel>
+                                                <DropdownMenuLabel>個資顯示</DropdownMenuLabel>
                                             </Link>
                                             <Link href="/profile/edit">
                                                 <DropdownMenuLabel>編輯個資</DropdownMenuLabel>

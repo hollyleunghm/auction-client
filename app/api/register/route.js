@@ -1,38 +1,35 @@
 import connectMongo from "@/lib/connect-mongo";
 import User from "@/models/user";
+import Code from "@/models/code";
 import { NextResponse } from "next/server";
 export async function POST(request) {
-    const formData = await request.formData();
-    const firstName = formData.get("firstName");
-    const lastName = formData.get("lastName");
-    const firstChineseName = formData.get("firstChineseName");
-    const lastChineseName = formData.get("lastChineseName");
-    const password = formData.get("password");
-    const email = formData.get("email");
-    const phone = formData.get("phone");
-    const countryAndRegion = formData.get("countryAndRegion");
-    const code = formData.get("code");
+    const data = await request.json();
     try {
         await connectMongo();
-        let user = await User.findOne({ email });
+        let user = await User.findOne({ email: data.email });
         if (user) {
             return NextResponse.json({ error: "電郵已被註冊" });
         }
-        user = await User.findOne({ phone, code });
+        const codeNumber = await Code.findOne({ _id: data.codeId, code: data.validateCode });
+        if (!codeNumber) {
+            return NextResponse.json({ error: "驗證碼錯誤" });
+        }
+        user = await User.findOne({ phone: data.phone, code: data.code });
         if (user) {
             return NextResponse.json({ error: "電話已被註冊" });
         }
+
         const userSaved = await User.insertMany([
             {
-                email,
-                countryAndRegion,
-                firstName,
-                lastName,
-                firstChineseName,
-                lastChineseName,
-                code,
-                phone,
-                password
+                email: data.email,
+                countryAndRegion: data.countryAndRegion,
+                firstName: data.firstName,
+                lastName: data.lastName,
+                firstChineseName: data.firstChineseName,
+                lastChineseName: data.lastChineseName,
+                code: data.code,
+                phone: data.phone,
+                password: data.password
 
             },
         ]);

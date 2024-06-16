@@ -8,19 +8,33 @@ import { model, models, Schema } from 'mongoose';
 const UserSchema = new Schema(
     {
         email: String,
-        countryAndRegion:String,
-        code:String,
+        countryAndRegion: String,
+        code: String,
         phone: String,
-        firstName: String,
-        lastName: String,
-        firsChineseName: String,
-        lastChineseName: String,
+        englishName: String,
+        englishSurname: String,
+        chineseName: String,
+        chineseSurname: String,
         password: String,
         address: String,
+        addressProof: Array,
+        addressProofStatus: String,
+        idCard: Array,
+        idCardStatus: {
+            type: String,
+            default: "0"
+        },
+        financialProof: String,
+        financialProofStatus: {
+            type: String,
+            default: "0"
+        },
         promotion: {
             type: Boolean,
             default: true,
         },
+        status: String,// 未审核 已通过 停用中
+        reasonForBanning: String,
         createdAt: {
             type: Date,
             default: Date.now,

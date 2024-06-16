@@ -4,7 +4,7 @@ export default async function RootLayout({ children }) {
     return (
         <div className='bg-[#fdfcf9] h-full flex flex-col justify-between'>
             {children}
-            {/* <div className='h-12'></div> */}
+            <div className='h-12'></div>
 
             <Footer />
         </div>
