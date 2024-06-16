@@ -72,8 +72,8 @@ const UI = ({ user }) => {
             <ToastContainer autoClose={2000} position="top-center" />
             <div className="flex w-full justify-center">
                 <Step onClick={go0} staticStep={0} currentStep={step} text="1.提交證明"></Step>
-                <Step onClick={go1} staticStep={1} currentStep={step} text="1.等待審核"></Step>
-                <Step staticStep={2} currentStep={step} text="1.開始拍賣"></Step>
+                <Step onClick={go1} staticStep={1} currentStep={step} text="2.等待審核"></Step>
+                <Step staticStep={2} currentStep={step} text="3.開始拍賣"></Step>
             </div>
             <div className="border min-h-[700px]">
                 <div className={`p-6 ${step === 0 ? "block" : "hidden"}`}>
