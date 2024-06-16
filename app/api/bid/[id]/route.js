@@ -70,6 +70,7 @@ export async function POST(request, { params }) {
         userId: session.user._id,
         targetId: targetId,
         bidPrice: bidPrice,
+        targetType: targetType
     });
     await bid.save();
     target.$set({ latestBid: bid._id, currentPrice: bidPrice });

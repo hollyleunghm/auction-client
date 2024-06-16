@@ -27,6 +27,9 @@ export async function GET() {
                 },
                 maxBidPrice: {
                     $max: '$allBids.bidPrice'
+                },
+                targetType: {
+                    $first: '$allBids.targetType'
                 }
             }
         },
@@ -36,7 +39,8 @@ export async function GET() {
                 _id: 0,
                 targetId: '$_id',
                 // bids: 1,
-                maxBidPrice: 1
+                maxBidPrice: 1,
+                targetType: 1
             }
         }
     ]);
@@ -86,7 +90,8 @@ export async function GET() {
 
     // 处理 bids，追加属性
     for (const item of bids) {
-        if (item.targetType === 0) {
+        item.targetType = item.allBids[0].targetType;
+        if (item.allBids[0].targetType == 0) {
             const property = await Property.findById(item.targetId);
             if (!property) {
                 continue;

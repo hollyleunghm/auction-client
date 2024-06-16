@@ -18,20 +18,25 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { ToastContainer, toast } from "react-toastify";
+import {
+    Dialog,
+    DialogContent,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 // import Viewer from "react-viewer";
 function ImageViewer({ src }) {
-
-    const [visible, setVisible] = useState(false);
-    const [images] = useState([{ src: src }]);
     return (
         <div>
-            {/* <Viewer
-                visible={visible}
-                onClose={() => { setVisible(false); }}
-                images={images}
-            >
-            </Viewer> */}
-            <img className="h-12 w-24 object-contain cursor-pointer" src={src} onClick={() => setVisible(true)} alt="" />
+            <Dialog className="max-w-[80vw] md:max-w-[80vw] ">
+                <DialogTrigger asChild>
+                    <img className="h-12 w-24 object-contain cursor-pointer" src={src} alt="" />
+                </DialogTrigger>
+                <DialogContent className="max-w-[80vw] w-[80vw]">
+                    <div className="w-full  max-h-[60vh]  p-8">
+                        <img className="w-full h-full object-contain cursor-pointer" src={src} alt="" />
+                    </div>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 
@@ -70,7 +75,6 @@ export default function Page() {
     }, [mutation.data]);
     return (
         <div className="w-full max-w-[1000px] mx-auto">
-            {/* {mutation.data && JSON.stringify(mutation.data)} */}
             <ToastContainer position="top-center" />
             <Table className="w-full my-4">
                 <TableHeader>
@@ -88,17 +92,17 @@ export default function Page() {
                         <TableRow key={index}>
                             <TableCell className="text-left">
                                 {
-                                    item.targetType === 0 ? item.property?.traditionalChineseTitle : item.carPark?.traditionalChineseTitle
+                                    item.targetType === "0" ? item.property?.traditionalChineseTitle : item.carPark?.traditionalChineseTitle
                                 }
                             </TableCell>
                             <TableCell className="text-left">
                                 {
-                                    item.targetType === 0 ? item.property?.address : item.carPark?.address
+                                    item.targetType === "0" ? item.property?.address : item.carPark?.address
                                 }
                             </TableCell>
                             <TableCell className="text-left">
                                 {
-                                    item.targetType === 0 ? <ImageViewer src={item.property?.coverImage?.url}></ImageViewer> : <ImageViewer src={item.carPark?.coverImage?.url} />
+                                    item.targetType === "0" ? <ImageViewer src={item.property?.coverImage?.url}></ImageViewer> : <ImageViewer src={item.carPark?.coverImage?.url} />
                                 }
                             </TableCell>
                             <TableCell className="text-left">
@@ -136,7 +140,7 @@ export default function Page() {
                             </TableCell>
                             <TableCell className="text-left">
                                 {
-                                    item.targetType === 0 ? item.property?.status : item.carPark?.status
+                                    item.targetType === "0" ? item.property?.status : item.carPark?.status
                                 }
                             </TableCell>
                         </TableRow>
