@@ -18,19 +18,19 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { ToastContainer, toast } from "react-toastify";
-import Viewer from "react-viewer";
-function ImageViewer({ src = "https://infeng.github.io/react-viewer/bbbc41dac417d9fb4b275223a6a6d3e8.jpg" }) {
+// import Viewer from "react-viewer";
+function ImageViewer({ src }) {
 
     const [visible, setVisible] = useState(false);
     const [images] = useState([{ src: src }]);
     return (
         <div>
-            <Viewer
+            {/* <Viewer
                 visible={visible}
                 onClose={() => { setVisible(false); }}
                 images={images}
             >
-            </Viewer>
+            </Viewer> */}
             <img className="h-12 w-24 object-contain cursor-pointer" src={src} onClick={() => setVisible(true)} alt="" />
         </div>
     );
@@ -57,9 +57,7 @@ export default function Page() {
         return max;
     }
     useEffect(() => {
-        if (typeof document !== 'undefined') {
-            mutation.mutate();
-        }
+        mutation.mutate();
     }, []);
     useEffect(() => {
         if (mutation.data) {
