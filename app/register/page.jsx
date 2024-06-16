@@ -6,9 +6,53 @@ import { ToastContainer, toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import codeList from "../../lib/code";
 import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+
 export default function RegisterPage() {
     const router = useRouter();
+    const { register, formState, watch, reset } = useForm();
     const [registerStatus, setRegisterStatus] = useState({ success: false, error: null, loading: false });
+    const [codeId, setCodeId] = useState(null);
+    const [seconds, setSeconds] = useState(31);
+    const [timer, setTimer] = useState(null);
+    const email = watch("email");
+
+    // 获取验证码
+    const codeMutation = useMutation({
+        mutationFn: (email) => {
+            return fetch("/api/validate?email=" + email);
+        },
+    });
+    const getCode = () => {
+        if (!email) {
+            toast.error("請輸入電郵");
+            return;
+        }
+        codeMutation.mutate(email);
+        setSeconds(60);
+        count();
+    }
+    const count = () => {
+        let timer1 = setInterval(() => {
+            setSeconds((prevSeconds) => prevSeconds - 1);
+        }, 1000);
+        setTimer(timer1);
+    };
+    useEffect(() => {
+        if (codeMutation.isSuccess && codeMutation.data.ok) {
+            codeMutation.data.json().then((res) => {
+                if (!res.error) {
+                    setCodeId(res.codeId);
+                } else {
+                    toast.error(res.error);
+                }
+            });
+        }
+        if (codeMutation.isError) {
+            toast.error(codeMutation.data);
+        }
+    }, [codeMutation.isPending, codeMutation.isSuccess, codeMutation.isError, codeMutation.data]);
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -48,6 +92,12 @@ export default function RegisterPage() {
             }, 2000);
         }
     }, [registerStatus]);
+    useEffect(() => {
+        if (seconds < 0) {
+            clearInterval(timer);
+            setSeconds(61);
+        }
+    }, [seconds]);
     return (
         <main className="">
             <ToastContainer autoClose={2000} position="top-center" />
@@ -79,39 +129,27 @@ export default function RegisterPage() {
                                     />
                                 </div>
                             </div>
-                            {/* <div>
-                                <label
-                                    className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-                                    htmlFor="countryAndRegion"
-                                >
-                                    國家或地區
-                                </label>
-                                <div className="flex items-start">
-                                    <select name="countryAndRegion" id="countryAndRegion" className="w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2">
-                                        <option value="Hongkong">
-                                            中國香港
-                                        </option>
-                                        <option value="China">
-                                            中國大陸
-                                        </option>
-                                        <option value="Macao">
-                                            中國澳門
-                                        </option>
-                                        <option value="Taiwan">
-                                            中國台灣
-                                        </option>
-                                        <option value="Singapore">
-                                            新加坡
-                                        </option>
-                                        <option value="Malaysia">
-                                            馬來西亞
-                                        </option>
-                                        <option value="other">
-                                            其他
-                                        </option>
-                                    </select>
+                            <div className="flex gap-4">
+                                <input
+                                    className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
+                                    id="code"
+                                    type="code"
+                                    name="code"
+                                    placeholder="請輸入驗證碼"
+                                    required
+                                    minLength={6}
+                                />
+                                <div>
+                                    {
+                                        seconds <= 30 ? (
+                                            <Button color="primary" disabled>{seconds} S</Button>
+
+                                        ) : (
+                                            <Button color="primary" onClick={getCode}>獲取驗證碼</Button>
+                                        )
+                                    }
                                 </div>
-                            </div> */}
+                            </div>
                             <div>
                                 <label
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"

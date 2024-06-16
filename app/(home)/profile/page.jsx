@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 export default async function Page() {
     const session = await auth();
     await connectMongo();
-    let user = await User.findOne({ _id: session.user._id }).lean();
+    let user = await User.findOne({ _id: session.user._id });
     return (
         <UI user={JSON.parse(JSON.stringify(user))}></UI>
     );
