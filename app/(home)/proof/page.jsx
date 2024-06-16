@@ -13,8 +13,8 @@ const getUser = async () => {
         console.log(error);
     }
 }
-const user = await getUser();
-const Page = () => {
+const Page = async () => {
+    const user = await getUser();
     return <UI user={JSON.parse(JSON.stringify(user))}></UI>
 }
 export default Page;
