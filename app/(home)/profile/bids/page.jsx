@@ -22,7 +22,8 @@ import {
     Dialog,
     DialogContent,
     DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
+import Link from "next/link";
 // import Viewer from "react-viewer";
 function ImageViewer({ src }) {
     return (
@@ -91,8 +92,11 @@ export default function Page() {
                     {list.map((item, index) => (
                         <TableRow key={index}>
                             <TableCell className="text-left">
+
                                 {
-                                    item.targetType === "0" ? item.property?.traditionalChineseTitle : item.carPark?.traditionalChineseTitle
+                                    item.targetType === "0" ?
+                                        <Link className="underline" href={"/property/" + item.property._id}>{item.property?.traditionalChineseTitle}</Link> :
+                                        <Link className="underline" href={"/carpark/" + item.carPark._id}>{item.carPark?.traditionalChineseTitle}</Link>
                                 }
                             </TableCell>
                             <TableCell className="text-left">
@@ -148,6 +152,6 @@ export default function Page() {
                     )}
                 </TableBody>
             </Table>
-        </div>
+        </div >
     );
 }

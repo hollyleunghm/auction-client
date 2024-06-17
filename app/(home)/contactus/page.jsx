@@ -25,7 +25,7 @@ export default function Page() {
 
                             <div className="mb-12 flex gap-8">
                                 <FiPhone className="text-2xl flex-shrink-0"></FiPhone>
-                                <Link href="https://api.whatsapp.com/send/?phone=85262015450 ">
+                                <Link target="_blank" href="https://api.whatsapp.com/send/?phone=85262015450 ">
                                     <span>+852 6201 5450</span>
                                 </Link>
                             </div>

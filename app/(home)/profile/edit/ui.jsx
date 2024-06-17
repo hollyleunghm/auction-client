@@ -81,7 +81,7 @@ export default function Page({ user }) {
                 </div>
                 <div >
                     <Label htmlFor="address">Address</Label>
-                    <Textarea id="address" name="address" placeholder="address" required {...register("address")} />
+                    <Textarea id="address" name="address" placeholder="address"  {...register("address")} />
                 </div>
                 <div >
                     <Label htmlFor="phone">Phone</Label>
