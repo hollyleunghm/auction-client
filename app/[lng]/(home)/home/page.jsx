@@ -6,9 +6,11 @@ import PropertyCarousel from "./propertyCarousel";
 import connectMongo from "@/lib/connect-mongo";
 import Property from "@/models/property";
 import Change from "./change";
-export default async function Home() {
-    // const session = await auth();
+import { useTranslation } from "@/app/i18n";
 
+export default async function Home({ params: { lng } }) {
+    // const session = await auth();
+    const { t } = await useTranslation(lng)
     await connectMongo();
     const properties = await Property.find({ deleted: false });
     return (
@@ -24,21 +26,21 @@ export default async function Home() {
                 </div>
             </div>
             <div className="mb-12">
-                <h1 className="text-3xl text-[#253D59] font-semibold mt-12 mb-8 text-center">樓盤拍賣</h1>
+                <h1 className="text-3xl text-[#253D59] font-semibold mt-12 mb-8 text-center">{t("propertyAuction")}</h1>
                 <div className="mx-4 md:mx-12 md:px-10 md:py-10 py-2 px-12 bg-[#253D59]">
                     <div className="md:px-20">
                         <PropertyCarousel properties={JSON.parse(JSON.stringify(properties))}></PropertyCarousel>
                     </div>
                     <div className="text-center  mt-4">
                         <Link href="/property">
-                            <Button className="rounded-none bg-white text-black transition-all hover:bg-white hover:opacity-80">查看更多</Button>
+                            <Button className="rounded-none bg-white text-black transition-all hover:bg-white hover:opacity-80">{t("getMore")}</Button>
                         </Link>
                     </div>
                 </div>
             </div>
             <div className="mb-12">
-                <h1 className="text-3xl text-[#253D59] font-semibold mt-12 mb-8 text-center">普比德爲你帶來的改變</h1>
-                <Change />
+                <h1 className="text-3xl text-[#253D59] font-semibold mt-12 mb-8 text-center">{t("changeForYou")}</h1>
+                <Change lng={lng} />
             </div>
         </main>
     );
