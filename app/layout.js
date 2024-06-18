@@ -1,5 +1,4 @@
 
-import Header from "@/app/ui/header";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -21,12 +20,7 @@ export default function RootLayout({ children }) {
         <QueryClientProvider>
           <SessionProvider>
             <CustomProvider>
-              <div className="min-h-screen flex flex-col h-screen w-full justify-between" >
-                <Header />
-                <div className="flex-grow">
-                  {children}
-                </div>
-              </div>
+              {children}
             </CustomProvider>
           </SessionProvider>
         </QueryClientProvider>

@@ -19,9 +19,10 @@ import {
 import {
     Avatar,
     AvatarFallback
-} from "@/components/ui/avatar"
-export default function Header() {
-
+} from "@/components/ui/avatar";
+import { useTranslation } from "@/app/i18n/client";
+export default function Header({ lng }) {
+    const { t } = useTranslation(lng);
     const login = () => {
         location.href = "/login?redirect=" + location.href;
     }
@@ -34,19 +35,19 @@ export default function Header() {
     const routes = [
         {
             path: "/home",
-            name: "主頁",
+            name: t("home"),
         },
         {
             path: "/property",
-            name: "樓盤拍賣",
+            name: t("propertyAuction"),
         },
         {
             path: "/carpark",
-            name: "車位拍賣",
+            name: t("carParkAuction"),
         },
         {
             path: "/contactus",
-            name: "聯絡我們",
+            name: t("contactUs"),
         },
         {
             path: "/faq",
@@ -99,35 +100,35 @@ export default function Header() {
                                 <DropdownMenuSub>
                                     <DropdownMenuSubTrigger>
                                         <DropdownMenuLabel>
-                                            個人資訊
+                                        {t("personalInformation")}
                                         </DropdownMenuLabel>
                                     </DropdownMenuSubTrigger>
                                     <DropdownMenuPortal>
                                         <DropdownMenuSubContent>
                                             <Link href="/profile">
-                                                <DropdownMenuLabel>個資顯示</DropdownMenuLabel>
+                                                <DropdownMenuLabel>{t("personalInformationDisplay")}</DropdownMenuLabel>
                                             </Link>
                                             <Link href="/profile/edit">
-                                                <DropdownMenuLabel>編輯個資</DropdownMenuLabel>
+                                                <DropdownMenuLabel>{t("editPersonalInformation")}</DropdownMenuLabel>
                                             </Link>
                                             <Link href="/profile/password">
-                                                <DropdownMenuLabel>更改密碼</DropdownMenuLabel>
+                                                <DropdownMenuLabel>{t("editPassword")}</DropdownMenuLabel>
                                             </Link>
                                             <Link href="/profile/bids">
-                                                <DropdownMenuLabel>我的出價</DropdownMenuLabel>
+                                                <DropdownMenuLabel>{t("myBid")}</DropdownMenuLabel>
                                             </Link>
                                         </DropdownMenuSubContent>
                                     </DropdownMenuPortal>
                                 </DropdownMenuSub>
                                 <DropdownMenuSeparator />
                                 <Link href="/logout">
-                                    <DropdownMenuLabel>登出</DropdownMenuLabel>
+                                    <DropdownMenuLabel>{t("logout")}</DropdownMenuLabel>
                                 </Link>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     ) : status === "unauthenticated" ? (
                         <button className="transition-all duration-300 ease-in-out md:px-4 px-3 py-1 md:text-sm text-[#444444] hover:bg-[#f0d300] hover:opacity-80 bg-[#f0d300]" onClick={login}>
-                            登入/注冊
+                            {t("login")}/{t("register")}
                         </button>
                     ) : null}
                 </div>

@@ -8,7 +8,10 @@ import Link from 'next/link';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import codeList from "@/lib/code";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/app/i18n/client";
 export default function LoginForm() {
+    const { t } = useTranslation();
+    const pleaseInput = t("pleaseInput");
     const router = useRouter();
     const [type, setType] = useState("email");
     const [loginStatus, setLoginStatus] = useState({ success: false, error: null, loading: false });
@@ -43,7 +46,7 @@ export default function LoginForm() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="email"
                                 >
-                                    電郵
+                                    {t("email")}
                                 </label>
                                 <div className="relative">
                                     <input
@@ -51,7 +54,7 @@ export default function LoginForm() {
                                         id="email"
                                         type="email"
                                         name="email"
-                                        placeholder="請輸入電郵"
+                                        placeholder={pleaseInput + t("email")}
                                         required
                                     />
                                     <MdOutlineMailOutline className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -63,7 +66,7 @@ export default function LoginForm() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="phone"
                                 >
-                                    電話
+                                    {t("phone")}
                                 </label>
                                 <div className="flex items-start gap-4">
                                     <select name="code" id="code" className="indent-2 rounded-md border py-[9px] w-36  text-sm" required>
@@ -82,10 +85,10 @@ export default function LoginForm() {
                                             className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                                             id="phone"
                                             name="phone"
-                                            placeholder="請輸入電話"
+                                            placeholder={pleaseInput + t("phone")}
                                             required
                                             pattern="[0-9]*"
-                                            title="衹能輸入數字"
+                                            title={t("onlyNumber")}
                                         />
                                         <MdPhoneIphone className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                                     </div>
@@ -98,7 +101,7 @@ export default function LoginForm() {
                                 className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                 htmlFor="password"
                             >
-                                密碼
+                                {t("password")}
                             </label>
                             <div className="relative">
                                 <input
@@ -106,7 +109,7 @@ export default function LoginForm() {
                                     id="password"
                                     type="password"
                                     name="password"
-                                    placeholder="請輸入密碼"
+                                    placeholder={pleaseInput + t("password")}
                                     required
                                     minLength={6}
                                 />
@@ -115,12 +118,12 @@ export default function LoginForm() {
                         </div>
                     </div>
                     <div className="flex justify-between">
-                        <Link href="/register" className="text-sm text-gray-500 mt-2">前往注冊</Link>
-                        <Link href="/forget" className="text-sm text-gray-500 mt-2">忘記密碼</Link>
+                        <Link href="/register" className="text-sm text-gray-500 mt-2">{t("goRegister")}</Link>
+                        <Link href="/forget" className="text-sm text-gray-500 mt-2">{t("forgetPassword")}</Link>
                     </div>
 
                     <Button className="mt-4 w-full bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" disabled={loginStatus.loading}>
-                        開始拍賣
+                        {t("startAuction")}
                         {/* <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" /> */}
                     </Button>
                     <div
@@ -141,8 +144,8 @@ export default function LoginForm() {
     return (
         <Tabs defaultValue="email" className="w-full md:w-[400px]" onValueChange={value => { setType(value) }}>
             <TabsList>
-                <TabsTrigger value="email">電郵登錄</TabsTrigger>
-                <TabsTrigger value="phone">電話登錄</TabsTrigger>
+                <TabsTrigger value="email">{t("emailLogin")}</TabsTrigger>
+                <TabsTrigger value="phone">{t("phoneLogin")}</TabsTrigger>
             </TabsList>
             <TabsContent value="email">
                 <LoginForm type="email"></LoginForm>

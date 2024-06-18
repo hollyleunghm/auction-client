@@ -7,8 +7,11 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { ToastContainer, toast } from "react-toastify";
+import { useTranslation } from "@/app/i18n/client";
 
-export default function Page() {
+export default function Page({ params }) {
+    const { t } = useTranslation(params.lng);
+
     const onSubmit = (data) => {
         mutation.mutate(data);
         return;
@@ -67,11 +70,11 @@ export default function Page() {
     useEffect(() => {
         if (codeMutation.data) {
             if (codeMutation.data.error) {
-                toast.error("發送失敗");
+                toast.error(t("sendingFailed"));
             } else {
 
                 setCodeId(codeMutation.data.codeId);
-                toast.success("驗證碼已發送");
+                toast.success(t("verificationCodeSent"));
             }
         }
     }, [codeMutation.data]);
@@ -93,36 +96,37 @@ export default function Page() {
         }
     }, [seconds]);
     return (
+
         <div className="w-full max-w-[800px] mx-auto">
             <ToastContainer position="top-center" />
-            <Button className="mb-4" variant="outline" onClick={back}>返回</Button>
+            <Button className="mb-4" variant="outline" onClick={back}>{t("back")}</Button>
             <form action="" onSubmit={handleSubmit(onSubmit)} className="flex flex-col bg-gray-50 px-6 gap-4">
                 <div>
-                    <Label htmlFor="email">電郵</Label>
+                    <Label htmlFor="email">{t("email")}</Label>
                     {/* <Label htmlFor="email">Email</Label> */}
-                    <Input type="email" id="email" name="email" placeholder="Email" required {...register("email")} />
+                    <Input type="email" id="email" name="email" placeholder={t("email")} required {...register("email")} />
                 </div>
                 <div className="flex gap-4  mb-12">
                     <div className="w-full">
-                        <Label>驗證碼</Label>
+                        <Label>{t("verificationCode")}</Label>
                         {/* <Label>Verification Code</Label> */}
-                        <Input className="" {...register("code")} placeholder="Please input verification code" required>
+                        <Input className="" {...register("code")} placeholder={t("verificationCode")} required>
                         </Input>
                     </div>
                     <div className="mt-6">
                         {
                             seconds <= 60 ? (
-                                <Button color="primary" disabled>{seconds} 秒</Button>
+                                <Button color="primary" disabled>{seconds} {t("second")}</Button>
 
                             ) : (
                                 // Get verification code
-                                <Button color="primary" type="button" onClick={getCode}>獲取驗證碼</Button>
+                                <Button color="primary" type="button" onClick={getCode}>{t("getVerificationCode")}</Button>
                             )
                         }
                     </div>
                 </div>
                 <div>
-                    <Button disabled={mutation.isPending} className="w-full bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" type="submit"  >Submit</Button>
+                    <Button disabled={mutation.isPending} className="w-full bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" type="submit"  >{t("submit")}</Button>
                 </div>
             </form>
 

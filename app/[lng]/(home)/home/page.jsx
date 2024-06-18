@@ -7,7 +7,7 @@ import connectMongo from "@/lib/connect-mongo";
 import Property from "@/models/property";
 import Change from "./change";
 import { useTranslation } from "@/app/i18n";
-
+import bg from "@/public/bg.webp";
 export default async function Home({ params: { lng } }) {
     // const session = await auth();
     const { t } = await useTranslation(lng)
@@ -16,7 +16,7 @@ export default async function Home({ params: { lng } }) {
     return (
         <main className="">
             {/* Welcome to the home page!<p>Welcome {JSON.stringify(session)}</p> */}
-            <div className="bg-[url('/bg.webp')] bg-cover h-[50vh] md:h-[688px] md:py-36 flex justify-center items-center">
+            <div style={{ background: `url(${bg.src})` }} className={`bg-cover h-[50vh] md:h-[688px] md:py-36 flex justify-center items-center`}>
                 <div className="flex flex-col bg-[#253d59] py-8 md:py-12 px-12 md:px-36 w-full md:max-w-[900px] text-white text-center">
                     <h1 className="md:text-4xl text-xl font-bold leading-normal" >PropBid普比德物業拍賣平台</h1>
                     <h2 className="md:text-2xl text-md leading-normal mt-4">普比德為香港首創網上樓盤拍賣平台，提供住宅、車位、銀主盤、上車盤、二手樓盤等筍盤拍賣。物業遍佈香港島、九龍及新界。</h2>

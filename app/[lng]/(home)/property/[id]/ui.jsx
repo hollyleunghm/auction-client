@@ -7,7 +7,10 @@ import FileCard from "@/app/ui/fileCard";
 import PriceCard from "@/app/ui/priceCard";
 import AreaCard from "@/app/ui/areaCard";
 import dayjs from "dayjs";
-export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
+import { useTranslation } from "@/app/i18n/client";
+
+export default function Client({ property, defaultMaxPrice, defaultIsOwner, lng }) {
+    const { t } = useTranslation(lng);
     return (
         <div className="w-full max-w-[1000px] mx-auto pb-12 px-4 md:px-0">
             {/* {JSON.stringify(property)} */}
@@ -30,7 +33,7 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
                         <h3 className="text-sm text-[#253D59]">{property.traditionalChineseAddress}</h3>
                     </div>
                     <div>
-                        <h1 className="text-xl font-semibold">樓盤介紹</h1>
+                        <h1 className="text-xl font-semibold">{t("propertyDes")}</h1>
                         <div>
                             <div>
                                 {property.traditionalChineseContent.split("\n").map((item, index) => {
@@ -39,17 +42,17 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner }) {
                             </div>
                         </div>
                         <div className="flex justify-between border-t mt-4 pt-4">
-                            <div>物業編號：CIA762</div>
-                            <div>刊登日期：{dayjs(property.createdAt).format("YYYY-MM-DD")}</div>
+                            <div>{t("codeNumber")}：CIA762</div>
+                            <div>{t("postDate")}：{dayjs(property.postDate).format("YYYY-MM-DD")}</div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <Bid target={property} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice}></Bid>
-                    <PriceCard target={property}></PriceCard>
-                    <AreaCard property={property}></AreaCard>
+                    <Bid lng={lng} target={property} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice}></Bid>
+                    <PriceCard lng={lng} target={property}></PriceCard>
+                    <AreaCard lng={lng} property={property}></AreaCard>
                     <ConcatCard target={property}></ConcatCard>
-                    <FileCard target={property}></FileCard>
+                    <FileCard lng={lng} target={property}></FileCard>
                 </div>
             </div>
         </div>

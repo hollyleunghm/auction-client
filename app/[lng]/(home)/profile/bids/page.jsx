@@ -24,6 +24,8 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import Link from "next/link";
+import { useTranslation } from "@/app/i18n/client";
+
 // import Viewer from "react-viewer";
 function ImageViewer({ src }) {
     return (
@@ -42,7 +44,8 @@ function ImageViewer({ src }) {
     );
 
 }
-export default function Page() {
+export default function Page({ params }) {
+    const { t } = useTranslation(params.lng);
     const { data: session } = useSession();
     const [list, setList] = useState([]);
     const mutation = useMutation({
@@ -80,12 +83,12 @@ export default function Page() {
             <Table className="w-full my-4">
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="whitespace-nowrap">標題</TableHead>
-                        <TableHead className="whitespace-nowrap">地址</TableHead>
-                        <TableHead className="whitespace-nowrap">圖片</TableHead>
-                        <TableHead className="whitespace-nowrap">出價</TableHead>
-                        <TableHead className="whitespace-nowrap">現價</TableHead>
-                        <TableHead className="whitespace-nowrap">狀態</TableHead>
+                        <TableHead className="whitespace-nowrap">{t("title")}</TableHead>
+                        <TableHead className="whitespace-nowrap">{t("address")}</TableHead>
+                        <TableHead className="whitespace-nowrap">{t("img")}</TableHead>
+                        <TableHead className="whitespace-nowrap">{t("bid")}</TableHead>
+                        <TableHead className="whitespace-nowrap">{t("currentPrice")}</TableHead>
+                        <TableHead className="whitespace-nowrap">{t("status")}</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody className="max-h-[100px] overflow-auto" >
@@ -124,7 +127,7 @@ export default function Page() {
                                                             item.userId === session.user?._id ?
                                                                 <div>
                                                                     <span>
-                                                                        我的出價
+                                                                        {t("myBid")}
                                                                     </span>
                                                                     <span className="p-1 ml-2 bg-primary rounded-full"></span>
                                                                 </div> : null

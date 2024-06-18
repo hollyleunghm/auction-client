@@ -6,9 +6,9 @@ import dayjs from "dayjs";
 import ConcatCard from "@/app/ui/concatCard";
 import FileCard from "@/app/ui/fileCard";
 import PriceCard from "@/app/ui/priceCard";
-
-export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
-
+import { useTranslation } from "@/app/i18n/client";
+export default function Client({ carPark, defaultMaxPrice, defaultIsOwner, lng }) {
+    const { t } = useTranslation(lng);
     return (
         <div className="w-full max-w-[1000px] mx-auto pb-12 px-4 md:px-0">
             {/* {JSON.stringify(bid)} */}
@@ -31,7 +31,7 @@ export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
                         <h3 className="text-sm text-[#253D59]">{carPark.address}</h3>
                     </div>
                     <div>
-                        <h1 className="text-xl font-semibold">介绍信息</h1>
+                        <h1 className="text-xl font-semibold">{t("desInfo")}</h1>
                         <div>
                             {/* <div>起拍價：{carPark.startingPrice.toLocaleString()} </div>
                             <div>每口價：{carPark.bidIncrement.toLocaleString()}</div> */}
@@ -42,17 +42,17 @@ export default function Client({ carPark, defaultMaxPrice, defaultIsOwner }) {
                             </div>
                         </div>
                         <div className="flex justify-between border-t mt-4 pt-4">
-                            <div>物業編號：CIA762</div>
-                            <div>刊登日期：{dayjs(carPark.createdAt).format("YYYY-MM-DD")}</div>
+                            <div>{t("codeNumber")}：CIA762</div>
+                            <div>{t("postDate")}：{dayjs(carPark.postDate).format("YYYY-MM-DD")}</div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <Bid target={carPark} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice} targetType={1}></Bid>
+                    <Bid lng={lng} target={carPark} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice} targetType={1}></Bid>
                     {/* monthlyPayment, downPayment, mortgageAmount, interestRate, years */}
-                    <PriceCard target={carPark} monthlyPayment={"1,795"} downPayment={26} mortgageAmount={70} interestRate={3} years={15}></PriceCard>
-                    <ConcatCard target={carPark}></ConcatCard>
-                    <FileCard target={carPark}></FileCard>
+                    <PriceCard lng={lng} target={carPark} monthlyPayment={"1,795"} downPayment={26} mortgageAmount={70} interestRate={3} years={15}></PriceCard>
+                    <ConcatCard lng={lng} target={carPark}></ConcatCard>
+                    <FileCard lng={lng} target={carPark}></FileCard>
                 </div>
             </div>
         </div>

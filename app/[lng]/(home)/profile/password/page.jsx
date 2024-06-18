@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import { useForm, } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { ToastContainer, toast } from "react-toastify";
+import { useTranslation } from "@/app/i18n/client";
 
 import {
     useMutation
 } from "@tanstack/react-query";
-export default function Page() {
-
+export default function Page({ params }) {
+    const { t } = useTranslation(params.lng);
     const mutation = useMutation({
         mutationFn: async (data) => {
             let result = await fetch("/api/password/", {
@@ -23,7 +24,7 @@ export default function Page() {
     });
     const onSubmit = (data) => {
         if (data.newPassword1 !== data.newPassword2) {
-            toast.error("密碼不一致");
+            toast.error(t("PasswordsAreInconsistent"));
         }
         mutation.mutate(data);
     };
@@ -52,10 +53,10 @@ export default function Page() {
 
             <form action="" onSubmit={handleSubmit(onSubmit)} className="flex flex-col rounded-lg bg-gray-50 p-6 gap-4">
                 <div>
-                    <Label>舊密碼</Label>
+                    <Label>{t("oldPassword")}</Label>
                     <Input
                         type="password"
-                        placeholder="舊密碼"
+                        placeholder={t("oldPassword")}
                         required
                         minLength={6}
                         maxLength={20}
@@ -64,10 +65,10 @@ export default function Page() {
                 </div>
 
                 <div>
-                    <Label>新密碼</Label>
+                    <Label>{t("newPassword")}</Label>
                     <Input
                         type="password"
-                        placeholder="新密碼"
+                        placeholder={t("newPassword")}
                         required
                         minLength={6}
                         maxLength={20}
@@ -75,10 +76,10 @@ export default function Page() {
                     />
                 </div>
                 <div>
-                    <Label>確認新密碼</Label>
+                    <Label>{t("confirmNewPassword")}</Label>
                     <Input
                         type="password"
-                        placeholder="確認新密碼"
+                        placeholder={t("confirmNewPassword")}
                         required
                         minLength={6}
                         maxLength={20}
@@ -87,7 +88,7 @@ export default function Page() {
                 </div>
 
                 <div>
-                    <Button disabled={mutation.isPending} className="w-full  bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" type="submit">Submit</Button>
+                    <Button disabled={mutation.isPending} className="w-full  bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" type="submit">{t("submit")}</Button>
                 </div>
             </form>
 

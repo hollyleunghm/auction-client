@@ -18,8 +18,10 @@ import {
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-} from "@/components/ui/tooltip"
-const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
+} from "@/components/ui/tooltip";
+import { useTranslation } from "@/app/i18n/client";
+const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0, lng }) => {
+    const { t } = useTranslation(lng);
     const [isOwner, setIsOwner] = useState(defaultIsOwner);
     const [maxPrice, setMaxPrice] = useState(defaultMaxPrice);
     const deadline = new Date(target.completionDateTime).getTime();
@@ -47,7 +49,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
         if (id.current) {
             return;
         }
-        id.current = toast.info("正在下拍，請稍後");
+        id.current = toast.info(t("bidIng"));
         fetch("/api/bid/" + target._id, {
             method: "POST",
             body: JSON.stringify({
@@ -67,7 +69,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                 } else {
                     setRequest({ ...request, success: false, data: data });
                     toast.update(id.current, {
-                        render: "下拍失敗：" + data.error,
+                        render: t("bidFailed") + "：" + data.error,
                         type: "error",
                         isLoading: false,
                     });
@@ -76,7 +78,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
             })
             .catch((err) => {
                 toast.update(id.current, {
-                    render: "發生了錯誤請稍後重試",
+                    render: t("fetchError"),
                     type: "error",
                     isLoading: false,
                 });
@@ -92,32 +94,32 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
             <h3 className="hidden md:block text-sm text-[#253D59]">{target.traditionalChineseAddress}</h3>
             <div className="mt-8 text-md  text-[#253D59] ">
                 <div>
-                    <p>拍賣截止時間:</p>
+                    <p>{t("completeDateTime")}:</p>
                     <p className="font-semibold"> {dayjs(target.completionDateTime).format("YYYY-MM-DD HH:mm:ss") + "(UTC+8)"} </p>
                 </div>
                 {
                     target.status === "InProgress" ? (
                         <div className="py-2 border-b border-[#253D59]">
-                            <div>倒計時</div>
+                            <div>{t("countDown")}</div>
                             {/* {timeRemaining.days}天 {timeRemaining.hours}時 {timeRemaining.minutes}分 {timeRemaining.seconds}秒 */}
                             <div className="flex text-center gap-2">
                                 <div>
                                     <Button size="sm" className="w-12 cursor-default">
                                         {timeRemaining.days}
                                     </Button>
-                                    <p>天</p>
+                                    <p>{t("day")}</p>
                                 </div>
                                 <div>
                                     <Button size="sm" className="w-12 cursor-default">
                                         {timeRemaining.hours}
                                     </Button>
-                                    <p>時</p>
+                                    <p>{t("hour")}</p>
                                 </div>
                                 <div>
                                     <Button size="sm" className="w-12 cursor-default">
                                         {timeRemaining.minutes}
                                     </Button>
-                                    <p>分</p>
+                                    <p>{t("minute")}</p>
                                 </div>
                                 <div>
                                     <Button
@@ -127,24 +129,24 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                                     >
                                         {timeRemaining.seconds}
                                     </Button>
-                                    <p>秒</p>
+                                    <p>{t("second")}</p>
                                 </div>
                             </div>
                         </div>
-                    ) : target.status === "AboutToStart" ? "拍賣尚未開始（" + dayjs(target.startDateTime).format('YYYY-MM-DD HH:mm:ss') + ")" : target.status === "Completed" ? "拍賣已結束" : null
+                    ) : target.status === "AboutToStart" ? `${t("bidNoStart")}（ ${dayjs(target.startDateTime).format('YYYY-MM-DD HH:mm:ss')}）` : target.status === "Completed" ? t("bidHasEnd") : null
                 }
                 <div className="flex justify-between py-2 border-b border-[#253D59]">
                     <div>
-                        <p>當前出價{isOwner ? "（你的出價現在最高）" : ""}</p>
+                        <p>{t("currentPrice")}{isOwner ? `（${t("youTop")}）` : ""}</p>
                         <p>HKD {maxPrice.toLocaleString()}</p>
                     </div>
                     <Dialog>
                         <DialogTrigger>
-                            <div className=" underline cursor-pointer" >出價歷史</div>
+                            <div className=" underline cursor-pointer">{t("bidHistory")}</div>
                         </DialogTrigger>
                         <DialogContent className="overflow-y-auto md:max-w-[800px]">
                             <DialogHeader>
-                                <DialogTitle>{target.traditionalChineseTitle}出價歷史</DialogTitle>
+                                <DialogTitle>{target.traditionalChineseTitle}{t("bidHistory")}</DialogTitle>
                                 <DialogDescription className="max-h-[70vh] max-w-[80vw] mx-auto md:mx-0 overflow-y-auto" >
                                     <BidList id={target._id}></BidList>
                                 </DialogDescription>
@@ -156,26 +158,26 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0 }) => {
                     <Input type="text" onChange={(e) => setBidPrice(e.target.value)} />
 
                     <Button onClick={notify}>
-                        出價
+                        {t("bid")}
                     </Button>
                 </div>
                 <div className="py-2">
-                    <p>每口價</p>
+                    <p>{t("bidIncrement")}</p>
                     <p>HKD {target.bidIncrement.toLocaleString()}</p>
                 </div>
                 <div className="flex justify-between">
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger>
-                                <span className="text-sm">保證金：{(maxPrice * 0.1).toLocaleString()}</span>
+                                <span className="text-sm">{t("margin")}：{(maxPrice * 0.1).toLocaleString()}</span>
                             </TooltipTrigger>
                             <TooltipContent>
-                                <span className="text-sm">需要在中標後4小時內支付的價格，為拍賣現價的10%</span>
+                                <span className="text-sm">{t("marginDes")}</span>
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
 
-                    <span className="text-sm">評估價：{target.startingPrice.toLocaleString()}</span>
+                    <span className="text-sm">{t("evaluationPrice")}：{target.startingPrice.toLocaleString()}</span>
                 </div>
             </div>
         </div>

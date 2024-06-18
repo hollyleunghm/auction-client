@@ -33,9 +33,9 @@ const Change = async ({ lng }) => {
                                 <DialogHeader>
                                     <DialogTitle className="text-xl p-4">{t("moreInfo")}</DialogTitle>
                                     <DialogDescription className="text-xl md:px-4  max-h-[70vh] overflow-auto">
-                                        <p className="mb-4">普比德為賣家提供先進的數據分析和報告工具，讓他們深入了解市場趨勢、投標者偏好以及價格動態的複雜性。這使賣家能夠依據全面的市場情報做出明智的決策。</p>
-                                        <p className="mb-4">普比德為投標者提供了透明的財產歷史和細節報告，讓參與者能夠精確追蹤拍賣進度，審視過往的競投歷史，並通過實時通知保持信息的更新，確保他們在整個拍賣過程中保持參與和了解。</p>
-                                        <p className="mb-4">此外，普比德通過提供 VR 演示，增強了虛擬體驗，允許潛在買家接近實地遙距參觀物業。</p>
+                                        <p className="mb-4">{t("moreInfoDes1-1")}</p>
+                                        <p className="mb-4">{t("moreInfoDes1-2")}</p>
+                                        <p className="mb-4">{t("moreInfoDes1-3")}</p>
 
                                     </DialogDescription>
                                 </DialogHeader>
@@ -63,19 +63,19 @@ const Change = async ({ lng }) => {
                                 <DialogHeader>
                                     <DialogTitle className="text-xl p-4">{t("moreInfo")}</DialogTitle>
                                     <DialogDescription className="text-xl md:px-4 max-h-[70vh] overflow-auto">
-                                        <p className="mb-4">普比德提供多種競標選項，旨在提升用戶體驗並提供彈性選擇：</p>
+                                        <p className="mb-4">{t("moreInfoDes2-1")}</p>
                                         <ul className="list-disc">
                                             <li className="mb-4">
-                                                <span className="font-semibold">代理競標： </span>
-                                                此功能允許競標者事先為拍賣品設置一個最高出價。系統隨後會自動代表競標者出價，直到達到其指定的限額，確保他們在競拍過程中保持競爭力，而無需不斷監控競標過程。
+                                                <span className="font-semibold">{t("moreInfoDes2-2")}</span>
+                                                {t("moreInfoDes2-3")}
                                             </li>
                                             <li className="mb-4">
-                                                <span className="font-semibold">自動競標： </span>
-                                                類似於代理競標，自動競標提供了一種無憂的拍賣體驗。一旦設定，系統將代表參與者逐步出價，保持他們作為最高出價者的位置，直到達到其最大出價為止，讓參與者可以在不需要全程在場的情況下參與拍賣。
+                                                <span className="font-semibold">{t("moreInfoDes2-4")} </span>
+                                                {t("moreInfoDes2-5")}
                                             </li>
                                             <li>
-                                                <span className="font-semibold">定時在線拍賣： </span>
-                                                這種拍賣形式在預定的時間內進行，提供了一個透明競標環境。參與者可以在拍賣計時器到時之前的任何時候出價，提供了從任何地方、在任何時候參與拍賣的便利。
+                                                <span className="font-semibold">{t("moreInfoDes2-6")} </span>
+                                                {t("moreInfoDes2-7")}
                                             </li>
                                         </ul>
                                     </DialogDescription>

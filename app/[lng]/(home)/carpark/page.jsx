@@ -2,7 +2,7 @@
 import connectMongo from '@/lib/connect-mongo';
 import CarPark from '@/models/carPark';
 import UI from "./ui";
-export default async function Page() {
+export default async function Page({ params: { lng } }) {
     await connectMongo();
     const carParks = await CarPark.find({ deleted: false }).sort({ createdAt: -1, startingPrice: 1 });
     carParks.map(item => {
@@ -15,7 +15,7 @@ export default async function Page() {
         }
     });
     return (
-        <UI carParks={JSON.parse(JSON.stringify(carParks))}></UI>
+        <UI carParks={JSON.parse(JSON.stringify(carParks))} lng={lng}></UI>
     );
 
 }

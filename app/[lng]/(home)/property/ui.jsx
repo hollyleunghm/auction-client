@@ -4,7 +4,17 @@ import { MultiCascader, SelectPicker, InputGroup, InputNumber, DateRangePicker }
 import Link from "next/link";
 import Image from "next/image";
 import json from "./dic";
+import { useTranslation } from "@/app/i18n/client";
 export default function Property({ properties }) {
+    const lng = "zhhk"
+    // const t = () => { }
+    const { t } = useTranslation("zhhk");
+    let labelKey = "label1";
+    // if (lng === "zhcn") {
+    //     labelKey = "label2";
+    // } else if (lng === "en") {
+    //     labelKey = "label3";
+    // }
     const [filteredProperties, setFilteredProperties] = useState(properties);
     const [filter, setFilter] = useState({});
     function getChildrenValues(values, data) {
@@ -47,32 +57,32 @@ export default function Property({ properties }) {
     const sortData = [
         {
             value: "price1",
-            label: "價格由低到高",
+            label: t("price1"),
         },
         {
             value: "price2",
-            label: "價格由高到低",
+            label: t("price2"),
         },
         {
             value: "date",
-            label: "刊登日期",
+            label: t("postDate"),
         },
 
         {
             value: "area1",
-            label: "面積由低到高",
+            label: t("area1"),
         },
         {
             value: "area2",
-            label: "面積由高到低",
+            label: t("area2"),
         },
         {
             value: "unit1",
-            label: "尺價由低到高",
+            label: t("unit1"),
         },
         {
             value: "unit2",
-            label: "尺價由高到低",
+            label: t("unit2"),
         },
     ];
     const [sortValue, setSortValue] = useState();
@@ -133,18 +143,19 @@ export default function Property({ properties }) {
         <div>
             <div className="bg-[#253d59] py-6">
                 <div className="w-full max-w-[1000px] mx-auto px-4 md:px-0">
-                    <h2 className="text-xl text-white mb-2">請選擇</h2>
+                    <h2 className="text-xl text-white mb-2">{t("pleaseSelect")}</h2>
                     <div className="bg-white rounded-sm px-4 py-2 grid grid-cols-1 md:grid-cols-2">
                         {json.map((item) => {
                             return (
                                 <div className="flex items-center mb-4" key={item.value}>
-                                    <div className="w-28">{item.label}</div>
+                                    <div className="w-28">{lng === "zhcn" ? item.label2 : lng === "en" ? item.label3 : item.label1}</div>
                                     <div className="fex-1 flex gap-6">
                                         <MultiCascader
+                                            labelKey={labelKey}
                                             data={item.options}
                                             searchable={false}
                                             style={{ width: 300 }}
-                                            placeholder={"請選擇" + item.label}
+                                            placeholder={t("pleaseSelect") + (lng === "zhcn" ? item.label2 : lng === "en" ? item.label3 : item.label1)}
                                             onChange={(value) => {
                                                 changeHandle(value, item);
                                             }}
@@ -156,7 +167,7 @@ export default function Property({ properties }) {
                     </div>
                     <div className="py-4 md:flex gap-8 items-center">
                         <SelectPicker
-                            label="排序"
+                            label={t("minPrice")}
                             searchable={false}
                             data={sortData}
                             style={{ width: 200 }}
@@ -165,15 +176,15 @@ export default function Property({ properties }) {
                             }}
                             className="mb-4 md:mb-0"
                         />
-                        <DateRangePicker className="mb-4 md:mb-0" placeholder="請選擇刊登日期" onChange={(value) => { setDateRange(value) }}></DateRangePicker>
+                        <DateRangePicker className="mb-4 md:mb-0" placeholder={t("pleaseSelect") + t("postDate")} onChange={(value) => { setDateRange(value) }}></DateRangePicker>
                         <div className="md:flex flex-1 md:px-4 gap-4 text-white">
                             <InputGroup inside
                                 className="mb-4 md:mb-0">
-                                <InputGroup.Addon>最低價</InputGroup.Addon>
+                                <InputGroup.Addon>{t("minPrice")}</InputGroup.Addon>
                                 <InputNumber onChange={(value) => { setMinPrice(value) }}></InputNumber>
                             </InputGroup>
                             <InputGroup inside>
-                                <InputGroup.Addon>最高價</InputGroup.Addon>
+                                <InputGroup.Addon>{t("maxPrice")}</InputGroup.Addon>
                                 <InputNumber onChange={(value) => { setMaxPrice(value) }}></InputNumber>
                             </InputGroup>
                         </div>
@@ -193,8 +204,8 @@ export default function Property({ properties }) {
                                                 <p className="text-lg font-semibold mt-2">{item.traditionalChineseTitle}</p>
                                                 <div className="w-12 my-2 border-b border-black"></div>
                                                 <p>HK${item.startingPrice.toLocaleString()}</p>
-                                                <p>{item.constructionArea.toLocaleString()}呎</p>
-                                                <p>＄{(item.startingPrice / item.constructionArea).toFixed(2)}/呎</p>
+                                                <p>{item.constructionArea.toLocaleString()}{t("feet")}</p>
+                                                <p>＄{(item.startingPrice / item.constructionArea).toFixed(2)}/{t("feet")}</p>
                                             </div>
                                         </div>
                                     </Link>

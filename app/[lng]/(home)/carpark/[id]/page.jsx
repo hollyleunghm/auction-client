@@ -5,8 +5,10 @@ import Bid from '@/models/bid';
 import UI from "./ui";
 import Link from "next/link";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { useTranslation } from "@/app/i18n";
 
 export default async function Page({ params }) {
+    const { t } = await useTranslation(params.lng);
     const session = await auth();
     let isOwner = false;
     await connectMongo();
@@ -37,10 +39,10 @@ export default async function Page({ params }) {
                     {/* {JSON.stringify(prev)}
                     {JSON.stringify(next)} */}
                     {
-                        prev[0] ? <Link className="flex items-center" href={prev[0]._id}><FaArrowLeft></FaArrowLeft>上一個</Link> : null
+                        prev[0] ? <Link className="flex items-center" href={prev[0]._id}><FaArrowLeft></FaArrowLeft>{t("prev")}</Link> : null
                     }
                     {
-                        next[0] ? <Link className="flex items-center" href={next[0]._id}>下一個<FaArrowRight></FaArrowRight></Link> : null
+                        next[0] ? <Link className="flex items-center" href={next[0]._id}>{t("next")}<FaArrowRight></FaArrowRight></Link> : null
                     }
                 </div>
             </div>

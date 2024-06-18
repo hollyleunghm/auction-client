@@ -1,10 +1,12 @@
 
 import Divider from "@/app/ui/divider";
-const concatCard = ({ target, monthlyPayment, downPayment, mortgageAmount, interestRate, years }) => {
+import { useTranslation } from "@/app/i18n/client";
+const PriceCard = ({ target, lng }) => {
+    const { t } = useTranslation(lng);
     return (
         <div className="border border-[#253D59] p-3 mt-4 bg-[#f3f3f3]">
             <Divider >
-                <span className="font-semibold text-lg text-[#253D59]">價目表</span>
+                <span className="font-semibold text-lg text-[#253D59]">{t("priceList")}</span>
             </Divider>
             <div className="flex gap-4 p-4 border bg-white mt-2">
                 <div>
@@ -16,4 +18,4 @@ const concatCard = ({ target, monthlyPayment, downPayment, mortgageAmount, inter
         </div>
     )
 }
-export default concatCard;
+export default PriceCard;
