@@ -21,6 +21,7 @@ import {
     AvatarFallback
 } from "@/components/ui/avatar";
 import { useTranslation } from "@/app/i18n/client";
+import { languages } from "@/app/i18n/settings";
 export default function Header({ lng }) {
     const { t } = useTranslation(lng);
     const login = () => {
@@ -69,10 +70,21 @@ export default function Header({ lng }) {
 
     return (
         <div className="md:flex items-center justify-between w-full max-w-[1600px] mx-auto">
-            <Link href="/home" className="md:flex items-end">
+            <Link href="/home" className="md:flex items-center">
                 <Image src="/PropBid.png" alt="" width={115} height={115} className="mx-auto block" />
-                <p className="text-blue-400 md:-translate-y-9 md:ml-6 text-center md:text-left">demo</p>
+                <p className="text-blue-400 md:ml-6 text-center md:text-left">demo</p>
             </Link>
+            <div className="flex justify-start flex-1 items-center gap-4 ml-6">
+                {languages.filter((l) => lng !== l).map((l) => {
+                    return (
+                        <span key={l} className="text-blue-400">
+                            <Link href={`/${l}`}>
+                                {t(l)}
+                            </Link>
+                        </span>
+                    )
+                })}
+            </div>
             <div className="md:flex items-center md:gap-4 gap-1 justify-between px-2 md:justify-start md:px-0 mb-4 md:mb-0">
                 {routes.map((route) => {
                     return (
@@ -100,7 +112,7 @@ export default function Header({ lng }) {
                                 <DropdownMenuSub>
                                     <DropdownMenuSubTrigger>
                                         <DropdownMenuLabel>
-                                        {t("personalInformation")}
+                                            {t("personalInformation")}
                                         </DropdownMenuLabel>
                                     </DropdownMenuSubTrigger>
                                     <DropdownMenuPortal>

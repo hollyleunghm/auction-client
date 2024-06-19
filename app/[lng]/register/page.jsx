@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
-import codeList from "../../lib/code";
+import codeList from "@/lib/code";
 import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";

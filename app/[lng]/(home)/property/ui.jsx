@@ -5,16 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import json from "./dic";
 import { useTranslation } from "@/app/i18n/client";
-export default function Property({ properties }) {
-    const lng = "zhhk"
-    // const t = () => { }
-    const { t } = useTranslation("zhhk");
+export default function Property({ properties, lng }) {
+    const { t } = useTranslation(lng);
     let labelKey = "label1";
-    // if (lng === "zhcn") {
-    //     labelKey = "label2";
-    // } else if (lng === "en") {
-    //     labelKey = "label3";
-    // }
+    if (lng === "zhcn") {
+        labelKey = "label2";
+    } else if (lng === "en") {
+        labelKey = "label3";
+    }
     const [filteredProperties, setFilteredProperties] = useState(properties);
     const [filter, setFilter] = useState({});
     function getChildrenValues(values, data) {

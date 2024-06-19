@@ -55,7 +55,8 @@ export default function Page({ params }) {
         }, 1000);
         setTimer(timer1);
     };
-    const getCode = () => {
+    const getCode = (e) => {
+        e.preventDefault();
         if (!email) {
             toast.error("請輸入電郵");
             return;

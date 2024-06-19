@@ -45,6 +45,7 @@ export function useTranslation(lng, ns, options) {
         }, [lng, i18n])
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useEffect(() => {
+            console.log('lng', lng);
             if (!lng) {
                 return;
             }

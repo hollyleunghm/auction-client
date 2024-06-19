@@ -23,9 +23,9 @@ const CountDown = ({ max = 60, isStart = false, text = "獲取驗證碼", onClic
     }, [seconds]);
     return (
         seconds <= max ?
-            <Button color="primary" disabled>{seconds} S</Button>
+            <Button color="primary" type="button" disabled>{seconds} S</Button>
             :
-            <Button color="primary" onClick={onClick}>{text}</Button>
+            <Button color="primary" type="button" onClick={onClick}>{text}</Button>
     )
 }
 export default CountDown;

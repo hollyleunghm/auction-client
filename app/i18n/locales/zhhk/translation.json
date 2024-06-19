@@ -123,9 +123,12 @@
   "back": "返回",
   "verificationCode": "驗證碼",
   "getVerificationCode": "獲取驗證碼",
-  "oldPassword":"旧密码",
-  "newPassword":"新密碼",
-  "confirmNewPassword":"確認新密碼",
-  "PasswordsAreInconsistent":"密碼不一致",
-  "img":"圖片"
+  "oldPassword": "旧密码",
+  "newPassword": "新密碼",
+  "confirmNewPassword": "確認新密碼",
+  "PasswordsAreInconsistent": "密碼不一致",
+  "img": "圖片",
+  "zhhk": "繁体",
+  "zhcn": "简体",
+  "en": "English"
 }

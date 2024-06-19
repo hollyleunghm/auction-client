@@ -1,3 +1,5 @@
+
+import Link from 'next/link'
 import { dir } from 'i18next'
 import { languages } from '../i18n/settings'
 
@@ -15,7 +17,7 @@ export default function RootLayout({
     return (
 
         <div lang={lng} dir={dir(lng)} className="min-h-screen flex flex-col h-screen w-full justify-between" >
-            <Header />
+            <Header lng={lng} />
             <div className="flex-grow">
                 {children}
             </div>

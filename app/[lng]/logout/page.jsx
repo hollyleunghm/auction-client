@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/app/i18n/client";
 
-export default function Page() {
-  const {t} = useTranslation();
+export default function Page({params}) {
+  const {t} = useTranslation(params.lng);
   const router = useRouter();
 
   const [logoutStatus, setLogoutStatus] = useState({
