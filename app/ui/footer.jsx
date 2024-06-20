@@ -12,11 +12,11 @@ const Footer = async ({ lng }) => {
                     <div className="leading-8 md:w-2/3 text-sm">
                         <p>{t("footerReminder")} </p>
                         <p>{t("copyRight")} </p>
-                        <div>
-                            <Link href="https://www.propbid.com/privacy-policy" target="_blank">{t("terms")} </Link>
+                        <Link href="/policy" target="_blank">
+                            {t("terms")}
                             <span className="mx-2">|</span>
-                            <Link href="https://www.propbid.com/privacy-policy" target="_blank">{t("privacyPolicy")} </Link>
-                        </div>
+                            {t("privacyPolicy")}
+                        </Link>
                     </div>
                     <div className="flex gap-4">
                         <Link href="https://www.youtube.com/@propbid" target="_blank">
@@ -34,7 +34,7 @@ const Footer = async ({ lng }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 export default Footer;

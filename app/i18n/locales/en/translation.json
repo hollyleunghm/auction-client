@@ -141,5 +141,6 @@
   "goStart": "Your property auction journey starts here",
   "clickLogin": "Click here to log in",
   "resetPassword": "Reset password",
-  "forgetEmail": "Forgot email"
+  "forgetEmail": "Forgot email",
+  "disclaimer":"Disclaimer"
 }

@@ -141,5 +141,6 @@
   "goStart": "你的物業拍賣之旅由此開始",
   "clickLogin": "按此登入",
   "resetPassword": "重置密碼",
-  "forgetEmail": "忘記電郵"
+  "forgetEmail": "忘記電郵",
+  "disclaimer":"免責聲明"
 }

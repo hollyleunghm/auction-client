@@ -141,5 +141,6 @@
   "goStart": "你的物业拍卖之旅由此开始",
   "clickLogin": "按此登入",
   "resetPassword": "重置密码",
-  "forgetEmail": "忘记邮箱"
+  "forgetEmail": "忘记邮箱",
+  "disclaimer":"免责声明"
 }
