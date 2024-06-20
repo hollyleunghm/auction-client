@@ -21,7 +21,7 @@ export default async function Home({ params: { lng } }) {
                     <h1 className="md:text-4xl text-xl font-bold leading-normal" >PropBid普比德物業拍賣平台</h1>
                     <h2 className="md:text-2xl text-md leading-normal mt-4">普比德為香港首創網上樓盤拍賣平台，提供住宅、車位、銀主盤、上車盤、二手樓盤等筍盤拍賣。物業遍佈香港島、九龍及新界。</h2>
                     <Link href="/property">
-                        <Button className="md:text-xl text-sm md:mt-16 mt-8 rounded-none bg-[#f0d300] text-black  px-20 py-4 transition-all hover:bg-[#f0d300] hover:opacity-80">開始拍賣</Button>
+                        <Button className="md:text-xl text-sm md:mt-16 mt-8 rounded-none bg-[#f0d300] text-black  px-20 py-4 transition-all hover:bg-[#f0d300] hover:opacity-80">{t("startAuction")}</Button>
                     </Link>
                 </div>
             </div>

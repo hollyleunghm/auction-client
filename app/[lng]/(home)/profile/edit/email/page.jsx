@@ -58,7 +58,7 @@ export default function Page({ params }) {
     const getCode = (e) => {
         e.preventDefault();
         if (!email) {
-            toast.error("請輸入電郵");
+            toast.error(t("pleaseEnterYourEmail"));
             return;
         }
         codeMutation.mutate(email);

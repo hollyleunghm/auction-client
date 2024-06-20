@@ -6,10 +6,12 @@ import { ToastContainer, toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import Link from 'next/link';
+import Link from "next/link";
+import { useTranslation } from "@/app/i18n/client";
+
 export default function RegisterPage() {
     const router = useRouter();
-
+    const { t } = useTranslation();
     const { register, handleSubmit, formState, watch, reset } = useForm();
     const [codeId, setCodeId] = useState(null);
     const [seconds, setSeconds] = useState(61);
@@ -53,7 +55,7 @@ export default function RegisterPage() {
     };
     const getCode = () => {
         if (!email) {
-            toast.error("請輸入電郵");
+            toast.error(t("pleaseEnterYourEmail"));
             return;
         }
         codeMutation.mutate(email);
@@ -105,7 +107,7 @@ export default function RegisterPage() {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                     <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
                         <h1 className={`mb-3 text-2xl`}>
-                            忘記密碼
+                            {t("forgetPassword")}
                         </h1>
                         <div className="w-full">
                             <div>
@@ -113,7 +115,7 @@ export default function RegisterPage() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="email"
                                 >
-                                    電郵
+                                    {t("email")}
                                 </label>
                                 <div className="">
                                     <input
@@ -121,13 +123,13 @@ export default function RegisterPage() {
                                         id="email"
                                         type="email"
                                         name="email"
-                                        placeholder="請輸入電郵"
+                                        placeholder={t("pleaseEnterYourEmail")}
                                         required
                                         {...register("email")}
                                     />
                                 </div>
                                 <div className="flex justify-between">
-                                    <Link href="/contactus" className="text-sm text-gray-500 mt-2">忘記電郵</Link>
+                                    <Link href="/contactus" className="text-sm text-gray-500 mt-2"> {t("forgetEmail")}</Link>
                                 </div>
                             </div>
                             <div className="mt-4">
@@ -135,7 +137,7 @@ export default function RegisterPage() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="password"
                                 >
-                                    驗證碼
+                                    {t("verificationCode")}
                                 </label>
                                 <div className="flex gap-4">
                                     <input
@@ -143,7 +145,7 @@ export default function RegisterPage() {
                                         id="password"
                                         type="password"
                                         name="password"
-                                        placeholder="請輸入驗證碼"
+                                        placeholder={t("verificationCode")}
                                         required
                                         minLength={6}
                                         {...register("code")}
@@ -154,7 +156,7 @@ export default function RegisterPage() {
                                                 <Button color="primary" disabled>{seconds} S</Button>
 
                                             ) : (
-                                                <Button color="primary" onClick={getCode}>獲取驗證碼</Button>
+                                                <Button color="primary" onClick={getCode}>{t("getVerificationCode")}</Button>
                                             )
                                         }
                                     </div>
@@ -165,7 +167,7 @@ export default function RegisterPage() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="password"
                                 >
-                                    密碼
+                                    {t("password")}
                                 </label>
                                 <div className="">
                                     <input
@@ -173,7 +175,7 @@ export default function RegisterPage() {
                                         id="password"
                                         type="password"
                                         name="password"
-                                        placeholder="請輸入密碼"
+                                        placeholder={t("password")}
                                         required
                                         minLength={6}
                                         {...register("password")}
@@ -186,7 +188,7 @@ export default function RegisterPage() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="password2"
                                 >
-                                    確認密碼
+                                    {t("confirmPassword")}
                                 </label>
                                 <div className="">
                                     <input
@@ -194,7 +196,7 @@ export default function RegisterPage() {
                                         id="password2"
                                         type="password"
                                         name="password2"
-                                        placeholder="請確認密碼"
+                                        placeholder={t("confirmPassword")}
                                         required
                                         minLength={6}
                                         {...register("password2")}
@@ -204,7 +206,7 @@ export default function RegisterPage() {
                             </div>
                         </div>
                         <Button className="mt-4 w-full bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" disabled={mutation.isPending}>
-                            重置密碼
+                            {t("resetPassword")}
                         </Button>
 
                     </div>

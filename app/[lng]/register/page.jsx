@@ -9,7 +9,9 @@ import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import CountDown from "@/components/countDown";
-export default function RegisterPage() {
+import { useTranslation } from "@/app/i18n/client";
+export default function RegisterPage({ params }) {
+    const { t } = useTranslation(params.lng);
     const router = useRouter();
     const { register, formState, watch, reset, handleSubmit } = useForm();
     const [registerStatus, setRegisterStatus] = useState({ success: false, error: null, loading: false });
@@ -34,7 +36,7 @@ export default function RegisterPage() {
     });
     const getCode = () => {
         if (!email) {
-            toast.error("請輸入電郵");
+            toast.error(t("pleaseEnterYourEmail"));
             return;
         }
         codeMutation.mutate(email);
@@ -58,7 +60,7 @@ export default function RegisterPage() {
         const password = data.password;
         const password2 = data.password2;
         if (password !== password2) {
-            toast.warn("密碼不一致");
+            toast.warn(t("PasswordsAreInconsistent"));
             return;
         }
         data.promotion = !data.noPromotion;
@@ -68,7 +70,7 @@ export default function RegisterPage() {
     useEffect(() => {
         if (mutation.data) {
             if (!mutation.data.error) {
-                toast.success("注冊成功，前往登錄");
+                toast.success(t("registerSuccessGoLogins"));
                 setTimeout(() => {
                     router.replace("/login")
                 }, 2000);
@@ -80,13 +82,13 @@ export default function RegisterPage() {
         <main className="">
             <ToastContainer autoClose={2000} position="top-center" />
             <div className="mx-auto flex w-full max-w-[700px] p-4 justify-end mt-4">
-                <span className="cursor-pointer" onClick={() => router.back()}>返回</span>
+                <span className="cursor-pointer" onClick={() => router.back()}>{t("back")}</span>
             </div>
             <div className=" mx-auto flex w-full max-w-[600px] flex-col space-y-2.5 p-4">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                     <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
                         <h1 className={`mb-3 text-2xl`}>
-                            注冊
+                            {t("register")}
                         </h1>
                         <div className="w-full">
                             <div>
@@ -94,12 +96,12 @@ export default function RegisterPage() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="email"
                                 >
-                                    電郵
+                                    {t("email")}
                                 </label>
                                 <div className="">
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        placeholder="請輸入電郵"
+                                        placeholder={t("email")}
                                         required
                                         {...register("email")}
                                     />
@@ -108,7 +110,7 @@ export default function RegisterPage() {
                             <div className="flex gap-4 mt-5">
                                 <input
                                     className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                    placeholder="請輸入驗證碼"
+                                    placeholder={t("verificationCode")}
                                     required
                                     minLength={6}
                                     {...register("validateCode")}
@@ -122,7 +124,7 @@ export default function RegisterPage() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="phone"
                                 >
-                                    電話
+                                    {t("phone")}
                                 </label>
                                 <div className="flex items-start gap-4">
                                     <select name="code" id="code" {...register("code")} className="indent-2 rounded-md border py-[9px] w-36  text-sm" required>
@@ -139,10 +141,10 @@ export default function RegisterPage() {
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
                                         {...register("phone")}
-                                        placeholder="請輸入電話"
+                                        placeholder={t("email")}
                                         required
                                         pattern="[0-9]*"
-                                        title="衹能輸入數字"
+                                        title={t("onlyNumber")}
                                     />
                                 </div>
                             </div>
@@ -151,24 +153,25 @@ export default function RegisterPage() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="firstName"
                                 >
-                                    英文名
+                                    {t("englishName")}
                                 </label>
                                 <div className="flex gap-4">
+
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        {...register("firstName")}
-                                        placeholder="請輸入First Name"
+                                        {...register("englishName")}
+                                        placeholder={t("pleaseInput") + t("englishName")}
                                         required
                                         pattern="^[a-zA-Z\s]*$"
-                                        title="衹能輸入英文和空格"
+                                        title={t("onlyEnglishAndSpace")}
                                     />
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        {...register("lastName")}
-                                        placeholder="請輸入Last Name"
+                                        {...register("englishSurname")}
+                                        placeholder={t("pleaseInput") + t("englishSurname")}
                                         required
                                         pattern="^[a-zA-Z\s]*$"
-                                        title="衹能輸入英文和空格"
+                                        title={t("onlyEnglishAndSpace")}
                                     />
                                 </div>
                             </div>
@@ -177,18 +180,18 @@ export default function RegisterPage() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="firstChineseName"
                                 >
-                                    中文名
+                                    {t("chineseName")}
                                 </label>
                                 <div className="flex gap-4">
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        {...register("firstChineseName")}
-                                        placeholder="請輸入中文姓"
+                                        {...register("chineseSurname")}
+                                        placeholder={t("pleaseInput") + t("chineseSurname")}
                                     />
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
-                                        {...register("lastChineseName")}
-                                        placeholder="請輸入中文名"
+                                        {...register("chineseName")}
+                                        placeholder={t("pleaseInput") + t("chineseName")}
                                     />
                                 </div>
                             </div>
@@ -198,13 +201,13 @@ export default function RegisterPage() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="password"
                                 >
-                                    密碼（需要為6-20位數）
+                                    {t("passwordNeed")}
                                 </label>
                                 <div className="">
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
                                         {...register("password")}
-                                        placeholder="請輸入密碼"
+                                        placeholder={t("pleaseInput") + t("password")}
                                         required
                                         minLength={6}
                                         maxLength={20}
@@ -217,13 +220,13 @@ export default function RegisterPage() {
                                     className="mb-3 mt-5 block text-xs font-medium text-gray-900"
                                     htmlFor="password2"
                                 >
-                                    確認密碼
+                                    {t("confirmPassword")}
                                 </label>
                                 <div className="">
                                     <input
                                         className="peer block w-full rounded-md border border-gray-200 py-[9px] indent-2 text-sm outline-2 placeholder:text-gray-500"
                                         {...register("password2")}
-                                        placeholder="請確認密碼"
+                                        placeholder={t("confirmPassword")}
                                         required
                                         minLength={6}
                                     />
@@ -234,7 +237,7 @@ export default function RegisterPage() {
                                     className="text-sm font-medium text-gray-900"
                                     htmlFor="policy"
                                 >
-                                    註冊即代表你同意我們的條款及細則和私隱政策及已年滿18歲
+                                    {t("agreePolicy")}
                                 </label>
                             </div>
                             <div className="mt-1 flex items-center gap-1">
@@ -247,12 +250,12 @@ export default function RegisterPage() {
                                     className="text-sm font-medium text-gray-900"
                                     htmlFor="noPromotion"
                                 >
-                                    不同意接收推廣資訊
+                                    {t("noPromotion")}
                                 </label>
                             </div>
                         </div>
                         <Button className="mt-4 w-full  bg-[#f0d300] text-black transition-all hover:bg-[#f0d300] hover:opacity-80" disabled={mutation.isPending}>
-                            你的物業拍賣之旅由此開始
+                            {t("goStart")}
                         </Button>
                         <div
                             className="flex h-8 items-end space-x-1 justify-between"
@@ -260,7 +263,7 @@ export default function RegisterPage() {
                             aria-atomic="true"
                         >
                             <p className="text-sm text-red-500">{mutation.data?.error}</p>
-                            <Link href="/login" className="text-sm text-gray-500">按此登入</Link>
+                            <Link href="/login" className="text-sm text-gray-500">{t("clickLogin")}</Link>
                         </div>
                     </div>
                 </form>

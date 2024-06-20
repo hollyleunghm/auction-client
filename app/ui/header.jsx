@@ -78,7 +78,7 @@ export default function Header({ lng }) {
                 {languages.filter((l) => lng !== l).map((l) => {
                     return (
                         <span key={l} className="text-blue-400">
-                            <Link href={`/${l}`}>
+                            <Link href={`/${l}/home`}>
                                 {t(l)}
                             </Link>
                         </span>
