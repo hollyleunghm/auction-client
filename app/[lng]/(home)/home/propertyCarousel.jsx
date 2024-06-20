@@ -17,7 +17,7 @@ export default function PropertyCarousel({ properties }) {
                 {properties.map(item => {
                     return (
                         // <Link href={"/property/" + item._id} key={item._id}>
-                        <CarouselItem key={item.id} className="lg:basis-1/4">
+                        <CarouselItem key={item._id} className="lg:basis-1/4">
                             <Link href={"/property/" + item._id} key={item._id} className="text-white">
                                 <img src={item.coverImage.url} className="w-[300px] h-[300px] object-cover" />
                                 <p className="text-white mt-6 text-lg">{item.traditionalChineseTitle}</p>
