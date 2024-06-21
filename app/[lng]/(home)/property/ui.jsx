@@ -196,7 +196,7 @@ export default function Property({ properties, lng }) {
                                 <div key={item._id}>
                                     <Link href={"/property/" + item._id}>
                                         <div className="w-full text-black">
-                                            <img height={400} width={400} className="object-cover aspect-square" src={item.coverImage.url} alt="" />
+                                            <img height={400} width={400} className="object-cover aspect-square" src={item.coverImage?.url} alt="" />
                                             <div>
                                                 <p className="text-lg font-semibold mt-2">{item.traditionalChineseTitle}</p>
                                                 <div className="w-12 my-2 border-b border-black"></div>

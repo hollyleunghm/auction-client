@@ -1,7 +1,7 @@
 import Policy from '@/models/policy';
 import { useTranslation } from '@/app/i18n';
 import connectMongo from '@/lib/connect-mongo';
-
+import UI from "./ui";
 const Page = async ({ params }) => {
     const { t } = await useTranslation(params.lng);
     await connectMongo();
@@ -17,11 +17,7 @@ const Page = async ({ params }) => {
         content = policy.englishContent;
     }
     return (
-        <div className="px-4 md:px-0 w-full max-w-[1000px] mx-auto">
-            <h2 className="font-semibold text-xl mb-4">{t("disclaimer")}</h2>
-            <div className="px-4 md:px-0 [&>ol>li]:list-[auto]" dangerouslySetInnerHTML={{ __html: content }}>
-            </div>
-        </div>
+        <UI content={content} disclaimer={t("disclaimer")}></UI>
     )
 }
 export default Page;

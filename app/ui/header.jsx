@@ -77,10 +77,8 @@ export default function Header({ lng }) {
             <div className="flex justify-start flex-1 items-center gap-4 ml-6">
                 {languages.filter((l) => lng !== l).map((l) => {
                     return (
-                        <span key={l} className="text-blue-400">
-                            <Link href={`/${l}/home`}>
-                                {t(l)}
-                            </Link>
+                        <span key={l} className="text-blue-400 cursor" onClick={() => location.replace(`/${l}/home`)}>
+                            {t(l)}
                         </span>
                     )
                 })}
