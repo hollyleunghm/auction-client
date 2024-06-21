@@ -34,7 +34,6 @@ const generateVerificationCode = async () => {
 const codeAlreadyExists = async (code) => {
     await connectMongo();
     const codeData = await Code.findOne({ code });
-    console.log(codeData !== null);
     return codeData !== null;
 };
 

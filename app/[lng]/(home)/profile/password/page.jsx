@@ -36,7 +36,6 @@ export default function Page({ params }) {
         handleSubmit
     } = form;
     useEffect(() => {
-        console.log(mutation.data);
         if (mutation.data) {
 
             let res = mutation.data;

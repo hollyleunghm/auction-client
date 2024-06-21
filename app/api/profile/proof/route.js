@@ -11,7 +11,6 @@ export async function POST(request) {
         if (!user) {
             return NextResponse.json({ error: "更新失敗，用戶不存在" });
         }
-        console.log(idCard, financialProof);
         if (idCard) {
             user.idCard = idCard;
             user.idCardStatus = "1";

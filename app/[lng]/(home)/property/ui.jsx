@@ -100,7 +100,6 @@ export default function Property({ properties, lng }) {
         });
         if (dateRange) {
             let startDate = new Date(dateRange[0]).setHours(0, 0, 0, 0);
-            console.log(startDate);
             let endDate = new Date(dateRange[1]).setHours(23, 59, 59, 999);
             result = result.filter((item) => {
                 let dateTime = new Date(item.createdAt).getTime();

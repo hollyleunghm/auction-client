@@ -4,7 +4,6 @@ const { Resend } = require('resend');
 const resend = new Resend('re_UmnFehqi_97QFPuuWc7yofFjvvzYaCzAn');
 
 export const sendEmail = (to, subject, text) => {
-    console.log(to, subject, text);
     resend.emails.send({
         from: 'propbidtech@propbidhk.com',
         to: to,

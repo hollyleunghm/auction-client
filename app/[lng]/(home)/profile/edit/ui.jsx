@@ -40,7 +40,6 @@ export default function Page({ user, lng }) {
         watch
     } = form;
     useEffect(() => {
-        console.log(mutation.data);
         if (mutation.data) {
             if (mutation.data.error) {
                 toast.error(mutation.data.error);

@@ -9,7 +9,6 @@ import { auth } from "@/auth";
 export async function GET() {
     const session = await auth();
     const userId = session.user._id;
-    console.log(userId);
 
     const targetData = await Bid.aggregate([
         // 过滤阶段

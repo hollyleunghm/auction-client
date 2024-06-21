@@ -25,7 +25,6 @@ export const {
                 // abc: String,
             },
             authorize: async (credentials) => {
-                console.log(credentials);
                 let user = null;
                 await connectMongo();
                 if (credentials.type === "phone") {

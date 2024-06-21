@@ -5,7 +5,6 @@ import UI from "./ui";
 export default async function Page({ params: { lng } }) {
     await connectMongo();
     const properties = await Property.find({ deleted: false }).sort({ createdAt: -1, startingPrice: 1 });
-    console.log(properties);
     properties.map(item => {
         if (new Date(item.endDateTime) <= new Date()) {
             item.status = "Completed";
