@@ -142,5 +142,13 @@
   "clickLogin": "按此登入",
   "resetPassword": "重置密码",
   "forgetEmail": "忘记邮箱",
-  "disclaimer":"免责声明"
+  "disclaimer": "免责声明",
+  "sendMessageSuccess": "消息发送成功",
+  "area": "面積",
+  "salableArea": "实用面积",
+  "grossFloorArea": "建筑面积",
+  "squareFeet": "平方尺",
+  "yuan": "元",
+  "perPrice": "尺价",
+  "documentDownload":"文件下载"
 }

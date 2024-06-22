@@ -8,7 +8,9 @@ import {
 } from "@/components/ui/table";
 import dayjs from "dayjs";
 import { useState, useEffect } from "react";
-const BidList = ({ id }) => {
+import { useTranslation } from "@/app/i18n/client";
+const BidList = ({ lng, id }) => {
+    const { t } = useTranslation(lng);
     const [list, setList] = useState([]);
     useEffect(() => {
         fetch("/api/bid/" + id + "/all")
@@ -35,7 +37,7 @@ const BidList = ({ id }) => {
                             <TableCell className="text-left">{item.userId && item.userId.email}</TableCell>
                             <TableCell className="text-left">{index + 1}</TableCell>
                             <TableCell className="text-left">{item.bidPrice.toLocaleString()}</TableCell>
-                            <TableCell  className="text-left whitespace-nowrap">{dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss') }</TableCell>
+                            <TableCell className="text-left whitespace-nowrap">{dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                         </TableRow>
                     )
                     )}

@@ -1,23 +1,23 @@
-import Policy from '@/models/policy';
+import FAQ from '@/models/faq';
 import { useTranslation } from '@/app/i18n';
 import connectMongo from '@/lib/connect-mongo';
 import UI from "./ui";
 const Page = async ({ params }) => {
     const { t } = await useTranslation(params.lng);
     await connectMongo();
-    let policy = await Policy.findOne({});
-    if (!policy) {
-        policy = {}
+    let faq = await FAQ.findOne({});
+    if (!faq) {
+        faq = {}
     }
     const lng = params.lng;
-    let content = policy.traditionalChineseContent;
+    let content = faq.traditionalChineseContent;
     if (lng === "zhcn") {
-        content = policy.simplifiedChineseContent;
+        content = faq.simplifiedChineseContent;
     } else if (lng === "en") {
-        content = policy.englishContent;
+        content = faq.englishContent;
     }
     return (
-        <UI content={content} disclaimer={t("disclaimer")}></UI>
+        <UI content={content}></UI>
     )
 }
 export default Page;

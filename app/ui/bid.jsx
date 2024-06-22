@@ -22,6 +22,8 @@ import {
 import { useTranslation } from "@/app/i18n/client";
 const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0, lng }) => {
     const { t } = useTranslation(lng);
+    const title = lng === "zhcn" ? target.simplifiedChineseTitle : lng === "en" ? target.englishTitle : target.traditionalChineseTitle;
+    const address = lng === "zhcn" ? target.simplifiedChineseAddress : lng === "en" ? target.englishAddress : target.traditionalChineseAddress;
     const [isOwner, setIsOwner] = useState(defaultIsOwner);
     const [maxPrice, setMaxPrice] = useState(defaultMaxPrice);
     const deadline = new Date(target.completionDateTime).getTime();
@@ -90,8 +92,8 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0, lng }) =
     return (
         <div>
             <ToastContainer position="top-center" autoClose={false} />
-            <h1 className="hidden md:block text-2xl font-semibold text-[#253D59]">{target.traditionalChineseTitle}</h1>
-            <h3 className="hidden md:block text-sm text-[#253D59]">{target.traditionalChineseAddress}</h3>
+            <h1 className="hidden md:block text-2xl font-semibold text-[#253D59]">{title}</h1>
+            <h3 className="hidden md:block text-sm text-[#253D59]">{address}</h3>
             <div className="mt-8 text-md  text-[#253D59] ">
                 <div>
                     <p>{t("completeDateTime")}:</p>
@@ -146,9 +148,9 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0, lng }) =
                         </DialogTrigger>
                         <DialogContent className="overflow-y-auto md:max-w-[800px]">
                             <DialogHeader>
-                                <DialogTitle>{target.traditionalChineseTitle}{t("bidHistory")}</DialogTitle>
+                                <DialogTitle>{title}{t("bidHistory")}</DialogTitle>
                                 <DialogDescription className="max-h-[70vh] max-w-[80vw] mx-auto md:mx-0 overflow-y-auto" >
-                                    <BidList id={target._id}></BidList>
+                                    <BidList lng={lng} id={target._id}></BidList>
                                 </DialogDescription>
                             </DialogHeader>
                         </DialogContent>
@@ -168,7 +170,7 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0, lng }) =
                 <div className="flex justify-between">
                     <TooltipProvider>
                         <Tooltip>
-                            <TooltipTrigger>
+                            <TooltipTrigger className="text-left">
                                 <span className="text-sm">{t("margin")}：{(maxPrice * 0.1).toLocaleString()}</span>
                             </TooltipTrigger>
                             <TooltipContent>
@@ -176,8 +178,13 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0, lng }) =
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
-
-                    <span className="text-sm">{t("evaluationPrice")}：{target.startingPrice.toLocaleString()}</span>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger className="text-left">
+                                <span className="text-sm text-left">{t("evaluationPrice")}：{target.startingPrice.toLocaleString()}</span>
+                            </TooltipTrigger>
+                        </Tooltip>
+                    </TooltipProvider>
                 </div>
             </div>
         </div>

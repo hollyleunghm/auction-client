@@ -47,7 +47,7 @@ export default async function Page({ params }) {
                     }
                 </div>
             </div>
-            <UI property={JSON.parse(JSON.stringify(property))} defaultCount={count} defaultMaxPrice={maxPrice} defaultIsOwner={isOwner}></UI >
+            <UI lng={params.lng} property={JSON.parse(JSON.stringify(property))} defaultCount={count} defaultMaxPrice={maxPrice} defaultIsOwner={isOwner}></UI >
         </>
     );
 

@@ -11,11 +11,14 @@ import { useTranslation } from "@/app/i18n/client";
 
 export default function Client({ property, defaultMaxPrice, defaultIsOwner, lng }) {
     const { t } = useTranslation(lng);
+    const title = lng === "zhcn" ? property.simplifiedChineseTitle : lng === "en" ? property.englishTitle : property.traditionalChineseTitle;
+    const address = lng === "zhcn" ? property.simplifiedChineseAddress : lng === "en" ? property.englishAddress : property.traditionalChineseAddress;
+    const content = lng === "zhcn" ? property.simplifiedChineseContent : lng === "en" ? property.englishContent : property.traditionalChineseContent;
     return (
         <div className="w-full max-w-[1000px] mx-auto pb-12 px-4 md:px-0">
             {/* {JSON.stringify(property)} */}
             <div className="md:flex gap-12 justify-between">
-                <div className="w-full md:w-[600px]">
+                <div className="w-full md:w-3/5">
                     <Carousel
                         showThumbs={true}
                         showIndicators={false}
@@ -24,19 +27,19 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner, lng 
                     >
                         {
                             property.otherImages.map((item, index) => {
-                                return <img key={index} src={item.url} alt={item.traditionalChineseTitle} />;
+                                return <img key={index} src={item.url} alt={title} />;
                             })
                         }
                     </Carousel>
                     <div className="md:hidden mb-4">
-                        <h1 className="text-2xl font-semibold text-[#253D59]">{property.traditionalChineseTitle}</h1>
-                        <h3 className="text-sm text-[#253D59]">{property.traditionalChineseAddress}</h3>
+                        <h1 className="text-2xl font-semibold text-[#253D59]">{title}</h1>
+                        <h3 className="text-sm text-[#253D59]">{address}</h3>
                     </div>
                     <div>
                         <h1 className="text-xl font-semibold">{t("propertyDes")}</h1>
                         <div>
                             <div>
-                                {property.traditionalChineseContent.split("\n").map((item, index) => {
+                                {content.split("\n").map((item, index) => {
                                     return <div key={index}>{item}</div>;
                                 })}
                             </div>
@@ -47,7 +50,7 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner, lng 
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className="md:w-2/5">
                     <Bid lng={lng} target={property} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice}></Bid>
                     <PriceCard lng={lng} target={property}></PriceCard>
                     <AreaCard lng={lng} property={property}></AreaCard>
