@@ -54,7 +54,7 @@ export default function Client({ property, defaultMaxPrice, defaultIsOwner, lng 
                     <Bid lng={lng} target={property} defaultIsOwner={defaultIsOwner} defaultMaxPrice={defaultMaxPrice}></Bid>
                     <PriceCard lng={lng} target={property}></PriceCard>
                     <AreaCard lng={lng} property={property}></AreaCard>
-                    <ConcatCard target={property}></ConcatCard>
+                    <ConcatCard lng={lng} target={property}></ConcatCard>
                     <FileCard lng={lng} target={property}></FileCard>
                 </div>
             </div>
