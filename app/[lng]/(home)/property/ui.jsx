@@ -198,7 +198,7 @@ export default function Property({ properties, lng }) {
                                         <div className="w-full text-black">
                                             <img height={400} width={400} className="object-cover aspect-square" src={item.coverImage?.url} alt="" />
                                             <div>
-                                                <p className="text-lg font-semibold mt-2">{item.traditionalChineseTitle}</p>
+                                                <p className="text-lg font-semibold mt-2">{lng === "zhcn" ? item.traditionalChineseTitle : lng === "en" ? item.englishTitle : item.traditionalChineseTitle}</p>
                                                 <div className="w-12 my-2 border-b border-black"></div>
                                                 <p>HK${item.startingPrice.toLocaleString()}</p>
                                                 <p>{item.constructionArea.toLocaleString()}{t("feet")}</p>

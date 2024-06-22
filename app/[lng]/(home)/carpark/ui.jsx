@@ -159,7 +159,7 @@ export default function Property({ carParks, lng }) {
                             className="mb-4 md:mb-0"
                         />
                         {/* <DatePicker placeholder="拍卖時间" /> */}
-                        <DateRangePicker className="mb-4 md:mb-0" placeholder="請選擇刊登日期" onChange={(value) => { setDateRange(value) }}></DateRangePicker>
+                        <DateRangePicker className="mb-4 md:mb-0" placeholder={t("pleaseSelect") + t("postDate")} onChange={(value) => { setDateRange(value) }}></DateRangePicker>
                         <div className="md:flex flex-1 md:px-4 gap-4 text-white">
                             <InputGroup inside className="mb-4 md:mb-0">
                                 <InputGroup.Addon>{t("minPrice")}</InputGroup.Addon>
@@ -183,7 +183,7 @@ export default function Property({ carParks, lng }) {
                                         <div className="w-full text-black mt2">
                                             <img height={400} width={400} className="object-cover aspect-square" src={item.coverImage.url} alt="" />
                                             <div>
-                                                <p className="text-lg font-semibold">{item.traditionalChineseTitle}</p>
+                                                <p className="text-lg font-semibold mt-2">{lng === "zhcn" ? item.traditionalChineseTitle : lng === "en" ? item.englishTitle : item.traditionalChineseTitle}</p>
                                                 <div className="w-12 my-2 border-b border-black"></div>
                                                 <p>HK${item.startingPrice.toLocaleString()}</p>
                                             </div>
