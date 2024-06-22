@@ -25,10 +25,10 @@ const BidList = ({ lng, id }) => {
             <Table className="w-full my-4">
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="whitespace-nowrap">下拍賬戶</TableHead>
-                        <TableHead className="whitespace-nowrap">出價次序</TableHead>
-                        <TableHead className="whitespace-nowrap">出價</TableHead>
-                        <TableHead className="whitespace-nowrap">出價時間</TableHead>
+                        <TableHead className="whitespace-nowrap">{t("bidAccount")}</TableHead>
+                        <TableHead className="whitespace-nowrap">{t("bidIndex")}</TableHead>
+                        <TableHead className="whitespace-nowrap">{t("bid")}</TableHead>
+                        <TableHead className="whitespace-nowrap">{t("bidDateTime")}</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody className="max-h-[100px] overflow-auto" >
@@ -43,7 +43,7 @@ const BidList = ({ lng, id }) => {
                     )}
                 </TableBody>
             </Table>
-            如有相同出價，以先出價的買家爲先
+            {t("bidListMark")}
         </div>
     );
 }
