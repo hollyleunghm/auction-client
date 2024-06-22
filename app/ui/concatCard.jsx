@@ -3,7 +3,7 @@ import Divider from "@/app/ui/divider";
 import { useTranslation } from "@/app/i18n/client";
 const ConcatCard = ({ target, lng }) => {
     const { t } = useTranslation(lng);
-    const name = lng === "zhcn" ? target.brokerSimplifiedChineseName : lng === "en" ? target.brokerTraditionalChineseName : target.brokerEnglishName;
+    const name = lng === "zhcn" ? target.brokerSimplifiedChineseName : lng === "en" ? target.brokerEnglishName : target.brokerTraditionalChineseName;
 
     return (
         <div className="border border-[#253D59] p-3 mt-4 bg-[#f3f3f3]">
