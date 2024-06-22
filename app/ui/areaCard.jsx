@@ -1,14 +1,14 @@
 import Divider from "@/app/ui/divider";
 import { useTranslation } from "@/app/i18n/client";
 
-const concatCard = ({ property, lng }) => {
+const AreaCard = ({ property, lng }) => {
     // "area": "Area",
     // "salableArea": "Salable area",
     // "grossFloorArea": "Gross floor area",
     // "squareFeet": "Square feet",
     // "yuan": "Yuan"
     const { t } = useTranslation(lng);
-    
+
     return (
         <div className="border border-[#253D59] p-3 mt-4 bg-[#f3f3f3]">
             <Divider >
@@ -26,4 +26,4 @@ const concatCard = ({ property, lng }) => {
         </div>
     )
 }
-export default concatCard;
+export default AreaCard;
