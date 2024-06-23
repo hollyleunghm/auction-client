@@ -18,9 +18,9 @@ const AreaCard = ({ property, lng }) => {
                 <div>
                     <p className="mb-1">{t("grossFloorArea")}：{property.constructionArea} {t("squareFeet")}</p>
 
-                    <p className="mb-1">{t("perPrice")}：@{(property.startingPrice / property.constructionArea).toFixed(2).toLocaleString()} {t("yuan")}</p>
+                    <p className="mb-1">{t("perPrice")}：{(property.startingPrice / property.constructionArea).toFixed(2).toLocaleString()} {t("yuan")}/{t("feet")}</p>
                     <p className="mb-1">{t("salableArea")}：{property.practicalArea} {t("squareFeet")}</p>
-                    <p className="mb-1">{t("perPrice")}：@{(property.startingPrice / property.practicalArea).toFixed(2).toLocaleString()} {t("yuan")}</p>
+                    <p className="mb-1">{t("perPrice")}：{(property.startingPrice / property.practicalArea).toFixed(2).toLocaleString()} {t("yuan")}/{t("feet")}</p>
                 </div>
             </div>
         </div>
