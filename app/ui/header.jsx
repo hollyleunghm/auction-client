@@ -1,9 +1,8 @@
-"use client";
+// "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { useSession, getSession } from "next-auth/react";
-import { useEffect } from "react";
+// import { useRouter } from 'next/router';
+import { auth } from "@/auth";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -16,22 +15,21 @@ import {
     DropdownMenuItem,
     DropdownMenuSubTrigger
 } from "@/components/ui/dropdown-menu";
+
 import {
     Avatar,
     AvatarFallback
 } from "@/components/ui/avatar";
-import { useTranslation } from "@/app/i18n/client";
+import { useTranslation } from "@/app/i18n";
 import { languages } from "@/app/i18n/settings";
-export default function Header({ lng }) {
-    const { t } = useTranslation(lng);
-    const login = () => {
-        location.href = "/login?redirect=" + location.href;
-    }
-    const { data: session, status } = useSession();
-    const pathname = usePathname();
-    const activeRoute = (routeName) => {
-        return pathname.includes(routeName);
-    };
+import { headers } from 'next/headers'
+import HeaderNavItem from "./headerNavItem";
+export default async function Header({ lng }) {
+    const { t } = await useTranslation(lng);
+    const session = await auth();
+    const headerList = headers();
+    const pathname = headerList.get("x-current-path");
+    console.log("pathname", pathname);
 
     const routes = [
         {
@@ -54,22 +52,11 @@ export default function Header({ lng }) {
             path: "/faq",
             name: "FAQ",
         },
-        // {
-        //     path: "/register",
-        //     name: "注冊",
-        // },
     ];
-    useEffect(() => {
-    }, [status]);
-    useEffect(() => {
-        async function fetchSession() {
-            await getSession();
-        }
-        fetchSession();
-    }, []);
 
     return (
         <div className="md:flex items-center justify-between w-full max-w-[1600px] mx-auto">
+
             <Link href="/home" className="md:flex items-center">
                 <Image src="/PropBid.png" alt="" width={115} height={115} className="mx-auto block" />
                 <p className="text-blue-400 md:ml-6 text-center md:text-left">demo</p>
@@ -77,9 +64,9 @@ export default function Header({ lng }) {
             <div className="flex justify-start flex-1 items-center gap-4 ml-6">
                 {languages.filter((l) => lng !== l).map((l) => {
                     return (
-                        <span key={l} className="text-blue-400 cursor" onClick={() => location.replace(`/${l}/home`)}>
+                        <a href={`/${l}/home`} key={l} className="text-blue-400 cursor">
                             {t(l)}
-                        </span>
+                        </a>
                     )
                 })}
             </div>
@@ -87,19 +74,12 @@ export default function Header({ lng }) {
                 {routes.map((route) => {
                     return (
                         <Link href={route.path} key={route.path}>
-                            <button
-                                className={
-                                    "w-full md:w-auto text-left md:text-center transition-all duration-300 ease-in-out md:px-4 px-3 py-1 md:text-sm text-[#444444] hover:bg-[#f3f1eb]" +
-                                    (activeRoute(route.path) ? " bg-[#ede9e1]" : "")
-                                }
-                            >
-                                {route.name}
-                            </button>
+                            <HeaderNavItem path={route.path} name={route.name} ></HeaderNavItem>
                         </Link>
                     );
                 })}
                 <div>
-                    {status === "authenticated" ? (
+                    {session ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger>
                                 <Avatar>
@@ -136,13 +116,15 @@ export default function Header({ lng }) {
                                 </Link>
                             </DropdownMenuContent>
                         </DropdownMenu>
-                    ) : status === "unauthenticated" ? (
-                        <button className="transition-all duration-300 ease-in-out md:px-4 px-3 py-1 md:text-sm text-[#444444] hover:bg-[#f0d300] hover:opacity-80 bg-[#f0d300]" onClick={login}>
-                            {t("login")}/{t("register")}
-                        </button>
-                    ) : null}
+                    ) : (
+                        <Link href="/login">
+                            <button className="transition-all duration-300 ease-in-out md:px-4 px-3 py-1 md:text-sm text-[#444444] hover:bg-[#f0d300] hover:opacity-80 bg-[#f0d300]" >
+                                {t("login")}/{t("register")}
+                            </button>
+                        </Link>
+                    )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

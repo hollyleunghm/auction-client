@@ -48,8 +48,17 @@ const Bid = ({ target, defaultIsOwner, defaultMaxPrice, targetType = 0, lng }) =
         });
     }
     const notify = async () => {
+        if (!bidPrice) {
+            toast.error(t("bidPriceRequired"));
+            return;
+        }
         if (id.current) {
             return;
+        }
+        if (bidPrice >= maxPrice * 2) {
+            if (!confirm(t("twice"))) {
+                return;
+            }
         }
         id.current = toast.info(t("bidIng"));
         fetch("/api/bid/" + target._id, {

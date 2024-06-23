@@ -56,7 +56,23 @@ export default function RegisterPage({ params }) {
         }
     }, [codeMutation.isPending, codeMutation.isSuccess, codeMutation.isError, codeMutation.data]);
     const onSubmit = (data) => {
-
+        // 檢查+852 +853 的電話是否為8個位數字，+86 的是否10or 11位， 886 的是否9個位
+        if (data.code === "+852" || data.code === "+853") {
+            if (data.phone.length !== 8) {
+                toast.warn(t("phone8"));
+                return;
+            }
+        } else if (data.code === "+86") {
+            if (data.phone.length !== 10 || data.phone.length !== 11) {
+                toast.warn(t("phone10"));
+                return;
+            }
+        } else if (data.code === "886") {
+            if (data.phone.length !== 9) {
+                toast.warn(t("phone9"));
+                return;
+            }
+        }
         const password = data.password;
         const password2 = data.password2;
         if (password !== password2) {

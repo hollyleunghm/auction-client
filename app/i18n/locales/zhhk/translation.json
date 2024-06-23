@@ -90,6 +90,7 @@
   "minute": "分",
   "second": "秒",
   "weChat": "微信",
+  "bidPriceRequired":"請輸入價格",
   "bidIng": "正在下拍，請稍後",
   "bidFailed": "下拍失敗",
   "fetchError": "發生了錯誤請稍後重試",
@@ -119,7 +120,7 @@
   "changeEmail": "更换电邮",
   "pleaseEnterYourEmail": "請輸入電郵",
   "sendingFailed": "發送失敗",
-  "verificationCodeSent": "驗證碼已發送",
+  "verificationCodeSent": "驗證碼已發出，如果你仍收不到驗證資訊，請檢查您郵箱內的雜件箱/垃圾郵件箱/濫發郵件有沒有相關郵件。",
   "back": "返回",
   "verificationCode": "驗證碼",
   "getVerificationCode": "獲取驗證碼",
@@ -150,5 +151,9 @@
   "squareFeet": "平方呎",
   "yuan": "元",
   "perPrice": "呎價",
-  "documentDownload": "文件下載"
+  "documentDownload": "文件下載",
+  "phone8": "電話需為8位數",
+  "phone9": "電話需為9位數",
+  "phone10": "電話需為10或11位數",
+  "twice": "你的出價高於現價兩倍,是否繼續"
 }

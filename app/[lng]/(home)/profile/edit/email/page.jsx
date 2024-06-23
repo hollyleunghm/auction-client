@@ -73,7 +73,6 @@ export default function Page({ params }) {
             if (codeMutation.data.error) {
                 toast.error(t("sendingFailed"));
             } else {
-
                 setCodeId(codeMutation.data.codeId);
                 toast.success(t("verificationCodeSent"));
             }

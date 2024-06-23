@@ -90,25 +90,29 @@ export async function GET() {
     // 处理 bids，追加属性
     for (const item of bids) {
         item.targetType = item.allBids[0].targetType;
+        item.userId = item.allBids[0].userId;
         if (item.allBids[0].targetType == 0) {
             const property = await Property.findById(item.targetId);
             if (!property) {
                 continue;
             }
-            customStatus(property);
+            customStatus(property, userId);
             item.property = property;
         } else {
             const carPark = await CarPark.findById(item.targetId);
             if (!carPark) {
                 continue;
             }
-            customStatus(carPark);
+            customStatus(carPark, userId);
             item.carPark = carPark;
         }
     }
     return NextResponse.json({ bids });
 }
-function customStatus(item) {
+function customStatus(item, userId) {
+    // if(userId === item.userId){
+        
+    // }
     if (new Date(item.completionDateTime) <= new Date()) {
         item.status = "Completed";
     } else if (new Date(item.completionDateTime) >= new Date() && new Date(item.startDateTime) <= new Date()) {

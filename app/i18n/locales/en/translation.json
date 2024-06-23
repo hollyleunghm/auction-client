@@ -90,6 +90,7 @@
   "minute": "Min",
   "second": "Sec",
   "weChat": "weChat",
+  "bidPriceRequired":"Please enter the bid price",
   "bidIng": "Biding in progress, please wait",
   "bidFailed": "Failed to bid",
   "fetchError": "An error occurred. Please try again later.",
@@ -119,7 +120,7 @@
   "changeEmail": "Change email",
   "pleaseEnterYourEmail": "Please enter your email",
   "sendingFailed": "Sending failed",
-  "verificationCodeSent": "Verification code has been sent",
+  "verificationCodeSent": "The verification code has been sent. If you still do not receive the verification information, please check the miscellaneous mailbox/junk mailbox/spam mailbox in your mailbox for relevant mails.",
   "back": "back",
   "verificationCode": "Verification code",
   "getVerificationCode": "Get verification code",
@@ -150,5 +151,9 @@
   "squareFeet": "Square feet",
   "yuan": "HKD",
   "perPrice": "Price per square foot",
-  "documentDownload":"Document download"
+  "documentDownload": "Document download",
+  "phone8": "The phone number needs to be 8 digits",
+  "phone9": "The phone number needs to be 9 digits",
+  "phone10": "The phone number needs to be 10 or 11 digits",
+  "twice": "Your bid is more than the twice of the current price, do you want to continue?"
 }

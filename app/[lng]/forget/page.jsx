@@ -67,6 +67,7 @@ export default function RegisterPage() {
             codeMutation.data.json().then((res) => {
                 if (!res.error) {
                     setCodeId(res.codeId);
+                    toast.success(t("verificationCodeSent"));
                 } else {
                     toast.error(res.error);
                 }

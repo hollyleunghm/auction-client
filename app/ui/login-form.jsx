@@ -9,18 +9,25 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import codeList from "@/lib/code";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/app/i18n/client";
+import { useForm } from 'react-hook-form';
 export default function LoginForm() {
+
+    const form = useForm({
+    });
+    const {
+        register,
+        handleSubmit
+    } = form;
     const { t } = useTranslation();
     const pleaseInput = t("pleaseInput");
     const router = useRouter();
     const [type, setType] = useState("email");
     const [loginStatus, setLoginStatus] = useState({ success: false, error: null, loading: false });
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        formData.append("type", type);
+    const onSubmit = async (data) => {
+        console.log(data);
+        data.type = type;
         setLoginStatus({ success: false, error: null, loading: true })
-        const result = await authenticate(null, formData);
+        const result = await authenticate(null, data);
         if (!result) {
             setLoginStatus({ success: true, error: null, loading: false });
         } else {
@@ -37,7 +44,7 @@ export default function LoginForm() {
     }, [loginStatus, router]);
     const LoginForm = ({ type = "email" }) => {
         return (
-            <form onSubmit={handleSubmit} className="space-y-3">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                 <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
                     <div className="w-full">
                         {type === "email" ? (
@@ -56,6 +63,7 @@ export default function LoginForm() {
                                         name="email"
                                         placeholder={pleaseInput + t("email")}
                                         required
+                                        {...register("email")}
                                     />
                                     <MdOutlineMailOutline className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                                 </div>
@@ -69,7 +77,7 @@ export default function LoginForm() {
                                     {t("phone")}
                                 </label>
                                 <div className="flex items-start gap-4">
-                                    <select name="code" id="code" className="indent-2 rounded-md border py-[9px] w-36  text-sm" required>
+                                    <select {...register("code")} name="code" id="code" className="indent-2 rounded-md border py-[9px] w-36  text-sm" required>
                                         {
                                             codeList.map((item, index) => {
                                                 return (
@@ -89,6 +97,7 @@ export default function LoginForm() {
                                             required
                                             pattern="[0-9]*"
                                             title={t("onlyNumber")}
+                                            {...register("phone")}
                                         />
                                         <MdPhoneIphone className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                                     </div>
@@ -112,6 +121,7 @@ export default function LoginForm() {
                                     placeholder={pleaseInput + t("password")}
                                     required
                                     minLength={6}
+                                    {...register("password")}
                                 />
                                 <RiLockPasswordLine className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                             </div>
