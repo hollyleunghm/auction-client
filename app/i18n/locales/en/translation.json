@@ -96,7 +96,8 @@
   "fetchError": "An error occurred. Please try again later.",
   "bidNoStart": "The auction has not started yet",
   "bidHasEnd": "The auction has ended",
-  "youTop": "You have succefully placed a bid and are now the highest bidder.",
+  "youTop": "You are now the highest bidder.",
+  "overYou":"Your bid has been outbid",
   "addressDetail": "Room 1608, Shun Tak Center, Sheung Wan, Hong Kong",
   "surname": "Last Name",
   "name": "First Name",
@@ -155,5 +156,6 @@
   "phone8": "The phone number needs to be 8 digits",
   "phone9": "The phone number needs to be 9 digits",
   "phone10": "The phone number needs to be 10 or 11 digits",
-  "twice": "Your bid is more than the twice of the current price, do you want to continue?"
+  "twice": "Your bid is more than the twice of the current price, do you want to continue?",
+  "bidStatus":"bid status"
 }

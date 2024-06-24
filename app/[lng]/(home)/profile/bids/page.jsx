@@ -88,6 +88,7 @@ export default function Page({ params }) {
                         <TableHead className="whitespace-nowrap">{t("img")}</TableHead>
                         <TableHead className="whitespace-nowrap">{t("bid")}</TableHead>
                         <TableHead className="whitespace-nowrap">{t("currentPrice")}</TableHead>
+                        <TableHead className="whitespace-nowrap">{t("bidStatus")}</TableHead>
                         <TableHead className="whitespace-nowrap">{t("status")}</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -139,11 +140,12 @@ export default function Page({ params }) {
                                         </div>
                                     </PopoverContent>
                                 </Popover>
-
                             </TableCell>
                             <TableCell className="text-left">
-
                                 {item.maxBidPrice}
+                            </TableCell>
+                            <TableCell className="text-left">
+                                {(item.userId === session.user?._id) ? t("youTop") : t("overYou")}
                             </TableCell>
                             <TableCell className="text-left">
                                 {
