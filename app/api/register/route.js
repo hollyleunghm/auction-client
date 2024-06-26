@@ -2,6 +2,8 @@ import connectMongo from "@/lib/connect-mongo";
 import User from "@/models/user";
 import Code from "@/models/code";
 import { NextResponse } from "next/server";
+import { sendEmail } from "@/services/email";
+
 export async function POST(request) {
     const data = await request.json();
     try {
@@ -33,6 +35,8 @@ export async function POST(request) {
 
             },
         ]);
+        const email = "xxx.com";
+        sendEmail(email, "用戶注冊通知", `用戶${user.email}注冊成功，請查看`);
         return NextResponse.json({ message: "success", user: userSaved[0] });
     } catch (error) {
         return NextResponse.json({ error });

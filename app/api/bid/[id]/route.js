@@ -4,6 +4,8 @@ import Property from "@/models/property";
 import CarPark from "@/models/carPark";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
+import { sendEmail } from "@/services/email";
+
 export async function GET(request, { params }) {
     const session = await auth();
     const targetId = params.id;
@@ -66,6 +68,11 @@ export async function POST(request, { params }) {
     if ((bidPrice - lastBidPrice) % target.bidIncrement !== 0) {
         return NextResponse.json({ error: "你的出價和當前出價的差距，需要為每口價的倍數" });
     }
+
+
+
+    const oldMax = await getMaxPrice(targetId);
+    console.log("oldMax", oldMax.userId)
     const bid = new Bid({
         userId: session.user._id,
         targetId: targetId,
@@ -73,6 +80,12 @@ export async function POST(request, { params }) {
         targetType: targetType
     });
     await bid.save();
+    if (oldMax) {
+        if (oldMax.userId._id !== session.user._id) {
+            const email = oldMax.userId.email;
+            sendEmail(email, "拍賣出價通知", `拍賣出價通知，你的出價已被超越，請至網站查看最新出價`);
+        }
+    }
     target.$set({ latestBid: bid._id, currentPrice: bidPrice });
     await target.save();
     // await Property.findByIdAndUpdate(bid.targetId, {
@@ -84,7 +97,7 @@ async function getMaxPrice(targetId) {
     // await connectMongo();
     const lastBid = await Bid.find(
         { targetId: targetId },
-    ).sort({ bidPrice: -1 }).limit(1);
+    ).sort({ bidPrice: -1 }).limit(1).populate('userId');
     if (lastBid) {
         return lastBid[0];
     }
